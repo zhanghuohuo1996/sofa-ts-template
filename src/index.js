@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import testImg from './images/test.png';
+
 import "./style.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <h1>Test ddd</h1>
+      <img src={ testImg } />
     </div>
   );
 }

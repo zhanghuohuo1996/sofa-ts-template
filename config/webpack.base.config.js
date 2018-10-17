@@ -1,13 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 module.exports = {
   entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(process.cwd(), 'dist')
+    path: path.resolve(process.cwd(), 'dist'),
+    publicPath: '/',
   },
   resolve: {
     // 别名配置
@@ -34,6 +35,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.resolve(process.cwd(), 'public', 'index.html'),
     }),
   ],
   module: {
@@ -64,7 +69,7 @@ module.exports = {
         use: 'file-loader',
       },
       {
-        test: /\.(jpg|png|gif)$/,
+        test: /\.(jpg|jpeg|png|gif)$/,
         use: [
           {
             loader: 'url-loader',
