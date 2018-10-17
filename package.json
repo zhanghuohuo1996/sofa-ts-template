@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development webpack --mode development --config config/webpack.config.js --color -p --progress",
+    "start": "cross-env NODE_ENV=development webpack --mode development --config config/webpack.base.config.js --color -p --progress",
     "build": "cross-env NODE_ENV=production webpack --mode production --config config/webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout"
   },
   "author": "lichun",
@@ -16,7 +16,9 @@
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
+    "image-webpack-loader": "^4.4.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   },
@@ -24,5 +26,9 @@
     "presets": [
       "sofa-react"
     ]
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }

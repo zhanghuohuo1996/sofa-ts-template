@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 module.exports = {
   entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
@@ -10,7 +12,7 @@ module.exports = {
   resolve: {
     // 别名配置
     alias: {
-      componets: path.resolve(process.cwd(), 'src', componets),
+      components: path.resolve(process.cwd(), 'src', 'components'),
     },
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
@@ -60,6 +62,40 @@ module.exports = {
       {
         test: /\.(eot|otf|ttf|woff|woff2)$/,
         use: 'file-loader',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              // Inline files smaller than 10 kB
+              limit: 10 * 1024,
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                // enabled: false,
+                // NOTE: mozjpeg is disabled as it causes errors in some Linux environments
+                // Try enabling it in your environment by switching the config to:
+                enabled: true,
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4,
+              },
+            },
+          },
+        ],
       },
     ]
   }
