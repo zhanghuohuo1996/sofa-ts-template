@@ -1,0 +1,28 @@
+{
+  "name": "sofa-template",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development webpack --mode development --config config/webpack.config.js --color -p --progress",
+    "build": "cross-env NODE_ENV=production webpack --mode production --config config/webpack.config.js --color -p --progress --hide-modules --display-optimization-bailout"
+  },
+  "author": "lichun",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-loader": "^8.0.4",
+    "babel-preset-sofa-react": "^0.1.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "babel": {
+    "presets": [
+      "sofa-react"
+    ]
+  }
+}
