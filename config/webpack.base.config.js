@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
   entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
@@ -48,7 +47,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-        }
+        },
       },
       {
         // Preprocess our own .css files
@@ -102,6 +101,6 @@ module.exports = {
           },
         ],
       },
-    ]
-  }
+    ],
+  },
 };
