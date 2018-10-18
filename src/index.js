@@ -1,17 +1,16 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import TestComponent from 'components/TestComponent';
-import testImg from './images/test.png';
+import Main from 'containers/Main';
 
-import './style.css';
+import './theme/style.less';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Test ddd</h1>
-      <TestComponent />
-      <img src={testImg} alt="test" />
+    <div>
+      <Main />
     </div>
   );
 }

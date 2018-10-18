@@ -13,6 +13,7 @@ module.exports = {
     // 别名配置
     alias: {
       components: path.resolve(process.cwd(), 'src', 'components'),
+      containers: path.resolve(process.cwd(), 'src', 'containers'),
     },
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
@@ -48,6 +49,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          }],
       },
       {
         // Preprocess our own .css files
