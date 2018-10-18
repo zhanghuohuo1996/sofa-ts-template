@@ -15,6 +15,7 @@
     "babel-preset-sofa-react": "^0.1.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "eventsource-polyfill": "^0.9.6",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.4.0",
@@ -23,6 +24,7 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",
+    "webpack-hot-middleware": "^2.24.3",
     "webpack-merge": "^4.1.4"
   },
   "babel": {
