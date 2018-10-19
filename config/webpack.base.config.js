@@ -14,6 +14,7 @@ module.exports = {
     alias: {
       components: path.resolve(process.cwd(), 'src', 'components'),
       containers: path.resolve(process.cwd(), 'src', 'containers'),
+      moment$: 'moment/moment.js',
     },
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
