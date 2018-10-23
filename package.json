@@ -11,7 +11,9 @@
   "author": "lichun",
   "license": "MIT",
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "babel-loader": "^8.0.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-preset-sofa-react": "^0.1.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -40,6 +42,7 @@
     "react-dom": "^16.5.2",
     "react-loadable": "^5.5.0",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-immutable": "^4.0.0",
@@ -49,6 +52,9 @@
     "webpack-merge": "^4.1.4"
   },
   "babel": {
+    "plugins": [
+      ["@babel/plugin-proposal-decorators", { "legacy": true }]
+    ],
     "presets": [
       "sofa-react"
     ]
