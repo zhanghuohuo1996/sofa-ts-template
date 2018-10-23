@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Layout, Breadcrumb } from 'antd';
@@ -35,7 +34,7 @@ class Main extends React.Component {
   handleChangeLocation = (keyPath) => {
     const path = [...keyPath];
     path.reverse();
-    history.push(path.join('/'));
+    history.push(`/${path.join('/')}`);
   }
 
   render() {
@@ -76,9 +75,5 @@ class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  history: PropTypes.any,
-};
 
 export default Main;
