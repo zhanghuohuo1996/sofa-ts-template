@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Layout, Breadcrumb } from 'antd';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { history } from 'react-router';
+import { Router, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Menu from 'components/Menu';
+import menuData from '../../config/menu.conf';
+
+const history = createHistory();
 
 const {
   Header,
@@ -28,14 +33,16 @@ class Main extends React.Component {
   }
 
   handleChangeLocation = (keyPath) => {
-    history.push(keyPath);
+    const path = [...keyPath];
+    path.reverse();
+    history.push(path.join('/'));
   }
 
   render() {
     const { collapsed } = this.state;
 
     return (
-      <Router>
+      <Router history={history}>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider
             collapsible
@@ -46,25 +53,7 @@ class Main extends React.Component {
             <Menu
               changeLocation={this.handleChangeLocation}
               authList={[]}
-              data={[{
-                key: 'homepage',
-                icon: 'home',
-                text: '首页',
-              }, {
-                key: 'system',
-                text: '系统管理',
-                icon: 'setting',
-                children: [{
-                  key: 'usermanage',
-                  text: '用户管理',
-                }, {
-                  key: 'authmanage',
-                  text: '权限管理',
-                }, {
-                  key: 'authgroupmanage',
-                  text: '权限组管理',
-                }],
-              }]}
+              data={menuData}
             ></Menu>
           </Sider>
           <Layout>
@@ -76,11 +65,10 @@ class Main extends React.Component {
               </Breadcrumb>
               <div>
                 <Route exact path="/" component={HomePage} />
-                <Route path="/haha" component={NotFoundPage} />
+                <Route path="/homepage" component={NotFoundPage} />
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©2018 Created by Ant UED
             </Footer>
           </Layout>
         </Layout>
@@ -88,5 +76,9 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  history: PropTypes.any,
+};
 
 export default Main;

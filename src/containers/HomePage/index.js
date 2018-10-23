@@ -1,8 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-// eslint-disable-next-line
-export default class HomePage extends React.PureComponent {
+@withRouter
+class HomePage extends React.Component {
   render() {
     return (<div>HomePage</div>);
   }
 }
+
+export default HomePage;
