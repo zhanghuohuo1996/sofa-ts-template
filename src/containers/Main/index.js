@@ -39,7 +39,6 @@ class Main extends React.Component {
 
   render() {
     const { collapsed } = this.state;
-
     return (
       <Router history={history}>
         <Layout style={{ minHeight: '100vh' }}>
