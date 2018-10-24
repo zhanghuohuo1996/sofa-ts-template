@@ -4,24 +4,38 @@ import PropTypes from 'prop-types';
 function getCrumbItem(path, mainMap, subMap) {
   const pathArr = path.split('/').filter(item => Boolean(item));
   const crumbArr = [];
-  // pathArr.forEach(pathItem => {
-  //   if (mainMap[pathItem]) {
-  //     crumbArr
-  //   }
-  // });
-  return [];
+  pathArr.forEach((pathItem) => {
+    if (subMap && subMap[pathItem]) {
+      crumbArr.push(subMap[pathItem]);
+    } else if (mainMap[pathItem]) {
+      crumbArr.push(mainMap[pathItem]);
+    } else {
+      crumbArr.push(pathItem);
+    }
+  });
+  return crumbArr;
 }
 
 // eslint-disable-next-line
-export default class Crumb extends React.PureComponent {
+export default class Crumb extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    const { history } = nextProps;
+    if (history.location.pathname !== this.path) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
-    const { path, mainMap, subMap } = this.props;
-    const items = getCrumbItem(path, mainMap, subMap);
+    const { history, mainMap, subMap } = this.props;
+    this.path = history.location.pathname;
+    const items = getCrumbItem(this.path, mainMap, subMap);
+
     return (
       <ul>
         { items.map(item => (
-          <li>
-            { item.name }
+          <li key={item}>
+            { item }
           </li>
         ))}
       </ul>
@@ -30,7 +44,7 @@ export default class Crumb extends React.PureComponent {
 }
 
 Crumb.propTypes = {
-  path: PropTypes.string.isRequired,
+  history: PropTypes.any.isRequired,
   mainMap: PropTypes.object.isRequired,
-  subMap: PropTypes.object.isRequired,
+  subMap: PropTypes.object,
 };

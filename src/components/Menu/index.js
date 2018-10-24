@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'antd';
 import menuNesting from './helper';
 
-export default class SofaMenu extends React.PureComponent {
+export default class SofaMenu extends React.Component {
   handleClick = ({ keyPath }) => {
     const { changeLocation } = this.props;
     changeLocation(keyPath);

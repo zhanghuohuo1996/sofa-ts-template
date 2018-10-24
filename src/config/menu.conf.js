@@ -19,3 +19,20 @@ const menu = [{
 }];
 
 export default menu;
+
+function getMap(menuData) {
+  let obj = {};
+  menuData.forEach((element) => {
+    obj[element.key] = element.text;
+    if (element.children) {
+      const subMap = getMap(element.children);
+      obj = {
+        ...obj,
+        ...subMap,
+      };
+    }
+  });
+  return obj;
+}
+
+export const menuMap = getMap(menu);
