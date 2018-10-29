@@ -16,6 +16,14 @@ const menu = [{
     key: 'authgroupmanage',
     text: '权限组管理',
   }],
+}, {
+  key: 'example',
+  text: '通用示例',
+  icon: 'setting',
+  children: [{
+    key: 'toolbartablemodal',
+    text: '工具箱-表-弹窗',
+  }],
 }];
 
 export default menu;

@@ -8,6 +8,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import ToolbarTableModal from 'containers/ToolbarTableModal/Loadable';
 
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
@@ -66,6 +67,7 @@ class Main extends React.Component {
               ></Crumb>
               <div>
                 <Route exact path="/" component={HomePage} />
+                <Route path="/example/toolbartablemodal" component={ToolbarTableModal} />
                 <Route path="/homepage" component={NotFoundPage} />
               </div>
             </Content>
