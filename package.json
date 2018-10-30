@@ -76,6 +76,9 @@
           "config": "config/webpack.base.config.js"
         }
       }
+    },
+    "rules": {
+      "react/destructuring-assignment": "off"
     }
   }
 }

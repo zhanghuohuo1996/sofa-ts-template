@@ -1,7 +1,10 @@
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
-
+  searchCondition: {
+    name: 'lichun',
+    age: '',
+  },
 });
 
 function reducer(state = initialState, action) {

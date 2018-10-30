@@ -3,10 +3,12 @@ import { withRouter } from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 
+import { NAMESPACE } from './constants';
 import reducer from './reducer';
-import Toolbar from './modules/Toolbar';
+import Toolbar from './modules/FunctionsAndSearchToolbar';
+import Table from './modules/DataTable';
+import Modal from './modules/CreateAndModifyModal';
 
-const NAMESPACE = 'ToolbarTableModal';
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 
 @withReducer
@@ -16,6 +18,8 @@ class ToolbarTableModal extends React.Component {
     return (
       <div>
         <Toolbar />
+        <Table />
+        <Modal />
       </div>);
   }
 }
