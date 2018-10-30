@@ -25,11 +25,6 @@ const withConnect = connectFactory(NAMESPACE);
   },
 )
 class Toolbar extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
-
   state = {
     values: {},
   };
@@ -47,7 +42,6 @@ class Toolbar extends React.Component {
 
   handleSearch = () => {
     const { values } = this.state;
-    console.log(this.props);
     this.props.updateSearchCondition(values);
   }
 
@@ -55,7 +49,6 @@ class Toolbar extends React.Component {
     const { values } = this.state;
     const { searchCondition } = this.props;
 
-    console.log(searchCondition);
     return (
       <Form>
         <Row gutter={24}>
