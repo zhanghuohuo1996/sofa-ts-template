@@ -27,6 +27,7 @@ export default function storeFactory(initialState = {}) {
   );
 
   store.runSaga = sagaMiddleware.run;
+  store.injectedReducers = {}; // Reducer registry
 
   return store;
 }
