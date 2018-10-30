@@ -11,8 +11,8 @@ import Modal from './modules/CreateAndModifyModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 
-@withReducer
 @withRouter
+@withReducer
 class ToolbarTableModal extends React.Component {
   render() {
     return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Form,
   Row,
@@ -25,6 +24,11 @@ const withConnect = connectFactory(NAMESPACE);
   },
 )
 class Toolbar extends React.Component {
+  static propTypes = {
+    searchCondition: PropTypes.object.isRequired,
+    updateSearchCondition: PropTypes.func.isRequired,
+  };
+
   state = {
     values: {},
   };
@@ -73,10 +77,5 @@ class Toolbar extends React.Component {
       </Form>);
   }
 }
-
-Toolbar.propTypes = {
-  searchCondition: PropTypes.object.isRequired,
-  updateSearchCondition: PropTypes.func.isRequired,
-};
 
 export default Toolbar;

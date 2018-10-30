@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { isObject, isFunction, isString } from 'lodash';
 
 function withConnect(mapStateToProps, actions, namespace) {
+  console.log(JSON.stringify(actions));
   const mapMainStateToProps = (state) => {
     if (namespace && isString(namespace)) {
       return mapStateToProps(state.get(namespace));
