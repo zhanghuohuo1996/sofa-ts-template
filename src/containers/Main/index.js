@@ -13,9 +13,13 @@ import ToolbarTableModal from 'containers/ToolbarTableModal/Loadable';
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
 
-import menuData, { menuMap } from '../../config/menu.conf';
+import injectSaga from 'utils/injectSaga';
+import menuData, { menuMap } from 'config/menu.conf';
+
+import saga from './saga';
 
 const history = createHistory();
+const withSaga = injectSaga({ key: 'main', saga });
 
 const {
   Header,
@@ -25,6 +29,7 @@ const {
 } = Layout;
 
 @connect()
+@withSaga
 class Main extends React.Component {
   state = {
     collapsed: false,

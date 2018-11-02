@@ -1,10 +1,12 @@
+import { FATCH_ACTION_PREFIX } from 'utils/constants';
+
 export const NAMESPACE = 'ToolbarTableModal';
 
 export default {
   NAMESPACE,
 };
 
-// export const GET_REGION_LIST = `${FATCH_ACTION_PREFIX}GET_REGION_LIST_${NAMESPACE}`;
+export const GET_DATA_LIST = `${FATCH_ACTION_PREFIX}GET_DATA_LIST_${NAMESPACE}`;
 
 export const UPDATE_SEARCH_CONDITION = `UPDATE_SEARCH_CONDITION_${NAMESPACE}`;
 
