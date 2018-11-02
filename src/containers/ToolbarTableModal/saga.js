@@ -8,25 +8,15 @@ import {
   select,
   takeLatest,
 } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
-import { FATCH_ACTION_SUCCESS_PREFIX, PER_PAGE } from 'utils/constants';
-
+import { FATCH_ACTION_SUCCESS_PREFIX, FATCH_ACTION_ERROR_PREFIX } from 'utils/constants';
 import { loadingDataError } from '../../state/actions';
-import { getDriverList, updateSelectedRows } from './actions';
-import { makeSelectSearchCondition } from './selectors';
-import { POST_DRIVER_ACCOUNT_STATUS } from './constants';
+import { getDataList } from './actions';
+import { POST_FORM_DATA } from './constants';
 
-export function* trainSuccess() {
+export function* postSuccess() {
   try {
-    yield delay(200);
-    const searchCondition = yield select(makeSelectSearchCondition());
-    yield put(getDriverList({
-      ...searchCondition,
-      page: 1,
-      perpage: PER_PAGE,
-    }));
-    yield put(updateSelectedRows([]));
+    yield put(getDataList());
   } catch (err) {
     yield put(loadingDataError(err));
   }
@@ -40,6 +30,7 @@ export function* watcher(type, process) {
  */
 export default function* rootSaga() {
   yield [
-    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_DRIVER_ACCOUNT_STATUS}`, trainSuccess)),
+    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_FORM_DATA}`, postSuccess)),
+    call(() => watcher(`${FATCH_ACTION_ERROR_PREFIX}${POST_FORM_DATA}`, postSuccess)),
   ];
 }

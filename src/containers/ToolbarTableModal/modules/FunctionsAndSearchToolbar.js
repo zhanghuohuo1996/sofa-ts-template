@@ -11,7 +11,7 @@ import {
 import connectFactory from 'utils/connectFactory';
 
 import { NAMESPACE } from '../constants';
-import { getDataList } from '../actions';
+import { postFormData } from '../actions';
 
 const withConnect = connectFactory(NAMESPACE);
 
@@ -20,13 +20,13 @@ const withConnect = connectFactory(NAMESPACE);
     searchCondition: state.get('searchCondition').toJS(),
   }),
   {
-    getDataList,
+    postFormData,
   },
 )
 class Toolbar extends React.Component {
   static propTypes = {
     searchCondition: PropTypes.object.isRequired,
-    getDataList: PropTypes.func.isRequired,
+    postFormData: PropTypes.func.isRequired,
   };
 
   state = {
@@ -46,7 +46,7 @@ class Toolbar extends React.Component {
 
   handleSearch = () => {
     const { values } = this.state;
-    this.props.getDataList(values);
+    this.props.postFormData(values);
   }
 
   render() {

@@ -1,3 +1,7 @@
+/**
+ * 控制全局异步请求的基本流程，所有的get、post请求均在此进行处理；
+ */
+
 import { notification } from 'antd';
 import _ from 'lodash';
 import {
