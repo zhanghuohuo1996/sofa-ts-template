@@ -12,10 +12,11 @@ import { getDataList } from '../actions';
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
-  state => ({
+  (state, globalState) => ({
     mainData: state.get('mainData').toJS(),
     pagination: state.get('pagination').toJS(),
     searchCondition: state.get('searchCondition').toJS(),
+    loading: globalState.getIn(['global', 'loading']),
   }),
   {
     getDataList,
@@ -28,6 +29,7 @@ class DataTable extends React.Component {
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
   };
 
   // 静态方法，类的不使用this的函数，一般声明为静态方法；
@@ -58,12 +60,12 @@ class DataTable extends React.Component {
   }
 
   render() {
-    const { mainData, pagination } = this.props;
+    const { mainData, pagination, loading } = this.props;
 
     return (
       <Table
         bordered
-        // loading={loading}
+        loading={loading}
         columns={this.columns}
         dataSource={mainData}
         rowKey="id"

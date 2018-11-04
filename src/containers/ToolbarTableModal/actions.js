@@ -5,6 +5,7 @@ import {
 } from './constants';
 
 import { getDataListService, postFormDataService } from './services';
+import { showLoading } from '../../state/actions';
 
 export function updateSearchCondition(payload) {
   return {
@@ -17,6 +18,7 @@ export function getDataList(params) {
   return {
     type: GET_DATA_LIST,
     service: getDataListService,
+    loadingAction: showLoading,
     params,
   };
 }

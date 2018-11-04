@@ -109,6 +109,8 @@ function* fetchSaga(action) {
     }
   } catch (error) {
     yield put({ type: `${FATCH_ACTION_ERROR_PREFIX}${action.type}`, payload: error });
+
+    yield action.loadingAction && put(action.loadingAction(false));
   }
 }
 
