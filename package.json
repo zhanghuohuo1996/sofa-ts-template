@@ -26,6 +26,7 @@
     "image-webpack-loader": "^4.4.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "sososo": "^0.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack-cli": "^3.1.2",

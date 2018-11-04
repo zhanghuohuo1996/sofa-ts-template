@@ -5,8 +5,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ToolbarTableModal from 'containers/ToolbarTableModal/Loadable';
-import Test from 'containers/Test/Loadable';
-import Lichun from 'containers/Lichun/Loadable';
 
 import Loadable from 'react-loadable';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -33,8 +31,6 @@ class CoreRoute extends React.PureComponent {
             loading: LoadingIndicator,
           })}
         />
-        <Route path="/example/test" component={Test} />
-        <Route path="/example/lichun" component={Lichun} />
         <Route path="/homepage" component={NotFoundPage} />
       </Switch>
     );
