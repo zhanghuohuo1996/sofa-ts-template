@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 
 import { Layout } from 'antd';
 
-import { Router, Route } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import ToolbarTableModal from 'containers/ToolbarTableModal/Loadable';
 
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
@@ -17,6 +13,7 @@ import injectSaga from 'utils/injectSaga';
 import menuData, { menuMap } from 'config/menu.conf';
 
 import saga from './saga';
+import CoreRoute from './CoreRoute';
 
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
@@ -70,11 +67,7 @@ class Main extends React.Component {
                 path={history.location.pathname}
                 mainMap={menuMap}
               ></Crumb>
-              <div>
-                <Route exact path="/" component={HomePage} />
-                <Route path="/example/toolbartablemodal" component={ToolbarTableModal} />
-                <Route path="/homepage" component={NotFoundPage} />
-              </div>
+              <CoreRoute menuConf={menuData} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>
             </Footer>
