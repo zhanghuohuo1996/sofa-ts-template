@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import commonConf from 'config/main.conf';
 
 const initialState = fromJS({
   searchCondition: {
@@ -22,6 +23,11 @@ const initialState = fromJS({
     name: '肚肚疼',
     age: 10,
   }],
+  pagination: {
+    pageSize: commonConf.table.defaultPageSize,
+    total: 100,
+    current: 1,
+  },
 });
 
 function reducer(state = initialState, action) {

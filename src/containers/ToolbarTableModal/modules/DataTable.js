@@ -7,23 +7,35 @@ import {
 import connectFactory from 'utils/connectFactory';
 
 import { NAMESPACE } from '../constants';
-import { postFormData } from '../actions';
+import { getDataList } from '../actions';
 
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
   state => ({
     mainData: state.get('mainData').toJS(),
+    pagination: state.get('pagination').toJS(),
+    searchCondition: state.get('searchCondition').toJS(),
   }),
   {
-    postFormData,
+    getDataList,
   },
 )
 class DataTable extends React.Component {
+  // 静态变量，propTypes一定是静态变量，是挂载在类上的；
   static propTypes = {
     mainData: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired,
+    getDataList: PropTypes.func.isRequired,
+    searchCondition: PropTypes.object.isRequired,
   };
 
+  // 静态方法，类的不使用this的函数，一般声明为静态方法；
+  static showTotal(total) {
+    return `总共 ${total} 条`;
+  }
+
+  // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
     title: '姓名',
     dataIndex: 'name',
@@ -34,8 +46,19 @@ class DataTable extends React.Component {
     key: 'age',
   }];
 
+  // 实例变量/方法，使用了箭头函数做this的绑定，若无特殊传参，在render函数中优先使用这种方式进行函数声明；
+  handlePageChange = (page) => {
+    const { searchCondition, pagination } = this.props;
+
+    this.props.getDataList({
+      ...searchCondition,
+      perpage: pagination.pageSize,
+      page,
+    });
+  }
+
   render() {
-    const { mainData } = this.props;
+    const { mainData, pagination } = this.props;
 
     return (
       <Table
@@ -45,12 +68,11 @@ class DataTable extends React.Component {
         dataSource={mainData}
         rowKey="id"
         pagination={{
-          // defaultCurrent: 1,
-          // current: pagination.page,
-          // total: pagination.total,
-          // showTotal: this.showTotal,
-          // pageSize: pagination.perpage,
-          // onChange: this.handlePageChange,
+          current: pagination.page,
+          total: pagination.total,
+          pageSize: pagination.pageSize,
+          showTotal: DataTable.showTotal,
+          onChange: this.handlePageChange,
         }}
       />
     );
