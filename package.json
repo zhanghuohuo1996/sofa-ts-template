@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node scripts/start.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js --color -p --progress --hide-modules --display-optimization-bailout"
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "create": "./node_modules/.bin/sososo --create"
   },
   "author": "lichun",
   "license": "MIT",
@@ -26,7 +27,7 @@
     "image-webpack-loader": "^4.4.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "sososo": "^0.1.0",
+    "sososo": "^0.1.1",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack-cli": "^3.1.2",
