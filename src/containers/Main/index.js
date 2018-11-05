@@ -36,14 +36,14 @@ class Main extends React.Component {
     this.setState({ collapsed });
   }
 
-  handleChangeLocation = (keyPath) => {
-    const path = [...keyPath];
-    path.reverse();
-    history.push(`/${path.join('/')}`);
+  handleChangeLocation = (pathname) => {
+    history.push(pathname);
   }
 
   render() {
     const { collapsed } = this.state;
+    const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
+
     return (
       <Router history={history}>
         <Layout style={{ minHeight: '100vh' }}>
@@ -54,6 +54,8 @@ class Main extends React.Component {
           >
             <div className="logo">Logo</div>
             <Menu
+              selectedKeys={selectedKeys}
+              openKeys={openKeys}
               changeLocation={this.handleChangeLocation}
               authList={[]}
               data={menuData}
