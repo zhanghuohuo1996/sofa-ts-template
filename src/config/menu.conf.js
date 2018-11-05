@@ -1,6 +1,6 @@
 const menu = [
   {
-    key: 'homepage',
+    key: 'homePage',
     icon: 'home',
     text: '首页',
   },
@@ -10,15 +10,15 @@ const menu = [
     icon: 'setting',
     children: [
       {
-        key: 'usermanage',
+        key: 'userManage',
         text: '用户管理',
       },
       {
-        key: 'authmanage',
+        key: 'authManage',
         text: '权限管理',
       },
       {
-        key: 'authgroupmanage',
+        key: 'authGroupManage',
         text: '权限组管理',
       },
     ],
