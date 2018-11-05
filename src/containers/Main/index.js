@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 
 import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
@@ -10,11 +10,13 @@ import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
 
 import injectSaga from 'utils/injectSaga';
+import Utils from 'utils/utils';
 import menuData, { menuMap } from 'config/menu.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
 
+const lang = Utils.getCookie('lang');
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
 
@@ -40,6 +42,17 @@ class Main extends React.Component {
     history.push(pathname);
   }
 
+  handleLangClick = (language) => {
+    if (language === 'zh') {
+      Utils.setCookie('lang', 'zh');
+      window.location.reload();
+    }
+    if (language === 'en') {
+      Utils.setCookie('lang', 'en');
+      window.location.reload();
+    }
+  }
+
   render() {
     const { collapsed } = this.state;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
@@ -62,13 +75,21 @@ class Main extends React.Component {
             ></Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', padding: 0 }} />
+            <Header style={{ background: '#fff', padding: 0 }} >
+              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#000' : '#999' }} onClick={() => this.handleLangClick('zh')}>
+                {'中文'}
+              </Button>
+              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#999' : '#000' }} onClick={() => this.handleLangClick('en')}>
+                {'EN'}
+              </Button>
+            </Header>
             <Content style={{ margin: '0 16px' }}>
               <Crumb
                 history={history}
                 path={history.location.pathname}
                 mainMap={menuMap}
-              ></Crumb>
+              >
+              </Crumb>
               <CoreRoute menuConf={menuData} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>
