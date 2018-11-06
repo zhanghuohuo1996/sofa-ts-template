@@ -7,6 +7,9 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { EDIT } from 'utils/constants';
+import { injectIntl, intlShape } from 'react-intl';
+import commonMessages from 'utils/commonMessages';
+import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
@@ -44,19 +47,19 @@ class DataTable extends React.Component {
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
-    title: '姓名',
+    title: this.props.intl.formatMessage(commonMessages.name),
     dataIndex: 'name',
     key: 'name',
   }, {
-    title: '年龄',
+    title: this.props.intl.formatMessage(commonMessages.age),
     dataIndex: 'age',
     key: 'age',
   }, {
-    title: 'E-mail',
+    title: this.props.intl.formatMessage(commonMessages.email),
     dataIndex: 'email',
     key: 'email',
   }, {
-    title: '电话',
+    title: this.props.intl.formatMessage(commonMessages.phone),
     dataIndex: 'phone',
     key: 'phone',
   }, {
@@ -65,7 +68,7 @@ class DataTable extends React.Component {
     key: 'id',
     render: (value, row) => (
       <div>
-        <Button onClick={() => this.handleClickEdit(row)}>编辑</Button>
+        <Button onClick={() => this.handleClickEdit(row)}>{this.props.intl.formatMessage(commonMessages.edit)}</Button>
       </div>
     ),
   }];
@@ -111,4 +114,8 @@ class DataTable extends React.Component {
   }
 }
 
-export default DataTable;
+DataTable.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(DataTable);

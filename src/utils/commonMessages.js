@@ -220,4 +220,24 @@ export default defineMessages({
     id: 'sofa.containers.Common.refresh',
     defaultMessage: '刷新',
   },
+  name: {
+    id: 'sofa.containers.Common.name',
+    defaultMessage: '姓名',
+  },
+  age: {
+    id: 'sofa.containers.Common.age',
+    defaultMessage: '年龄',
+  },
+  email: {
+    id: 'sofa.containers.Common.email',
+    defaultMessage: 'E-mail',
+  },
+  phone: {
+    id: 'sofa.containers.Common.phone',
+    defaultMessage: '电话',
+  },
+  edit: {
+    id: 'sofa.containers.Common.edit',
+    defaultMessage: '编辑',
+  },
 });

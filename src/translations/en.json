@@ -50,6 +50,18 @@
   "sofa.containers.Common.week_map.6": "Saturday",
   "sofa.containers.Common.week_map.7": "Sunday",
   "sofa.containers.Common.refresh": "Refresh",
+  "sofa.containers.Common.name": "Name",
+  "sofa.containers.Common.age": "Age",
+  "sofa.containers.Common.email": "E-mail",
+  "sofa.containers.Common.phone": "Phone",
+  "sofa.containers.Common.edit": "Edit",
+
+  "sofa.containers.ToolbarTableModal.createEntity": "Create Entity",
+  "sofa.containers.ToolbarTableModal.habitualResidence": "Habitual Residence",
+  "sofa.containers.ToolbarTableModal.website": "Website",
+  "sofa.containers.ToolbarTableModal.basicModal": "Basic Modal",
+  "sofa.containers.ToolbarTableModal.nickname": "Nickname",
+  "sofa.containers.ToolbarTableModal.explainNickname": "What do you want others to call you?",
 
   "sofa.containers.main.downloadList": "Download List",
   "sofa.containers.main.logout": "Logout",
