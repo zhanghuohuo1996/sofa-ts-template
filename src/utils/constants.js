@@ -2,7 +2,7 @@
 import Utils from 'utils/utils';
 
 // lang
-export const DEFAULT_LOCALE = Utils.getCookie('lang') ? Utils.getCookie('lang') : 'zh';
+export const DEFAULT_LOCALE = Utils.getCookie('sofa-lang') ? Utils.getCookie('sofa-lang') : 'zh';
 
 export const ACTION_ROOT = 'page';
 // action

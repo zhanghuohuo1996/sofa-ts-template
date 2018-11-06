@@ -16,7 +16,7 @@ import menuData, { menuMap } from 'config/menu.conf';
 import saga from './saga';
 import CoreRoute from './CoreRoute';
 
-const lang = Utils.getCookie('lang');
+const lang = Utils.getCookie('sofa-lang');
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
 
@@ -44,11 +44,11 @@ class Main extends React.Component {
 
   handleLangClick = (language) => {
     if (language === 'zh') {
-      Utils.setCookie('lang', 'zh');
+      Utils.setCookie('sofa-lang', 'zh');
       window.location.reload();
     }
     if (language === 'en') {
-      Utils.setCookie('lang', 'en');
+      Utils.setCookie('sofa-lang', 'en');
       window.location.reload();
     }
   }
