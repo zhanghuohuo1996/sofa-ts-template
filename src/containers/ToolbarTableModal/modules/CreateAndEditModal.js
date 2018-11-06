@@ -1,18 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Modal,
-  Button,
   Form,
   Input,
   Tooltip,
   Icon,
   Cascader,
   Select,
-  Row,
-  Col,
-  Checkbox,
   AutoComplete,
 } from 'antd';
+
+import connectFactory from 'utils/connectFactory';
+import { CREATE, EDIT } from 'utils/constants';
+import { NAMESPACE } from '../constants';
+import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
+
+const withConnect = connectFactory(NAMESPACE);
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -42,23 +47,72 @@ const residences = [{
   }],
 }];
 
-@Form.create()
+@withConnect(
+  state => ({
+    entityModal: state.get('entityModal').toJS(),
+  }),
+  { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
+    // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
+    updateEntityModal,
+    postCreateEntity,
+    postEditEntity,
+  },
+)
+@Form.create({
+  mapPropsToFields: props => ({
+    // 这里埋个坑，没空细看到底发生了什么……
+    // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
+  }),
+})
 // eslint-disable-next-line
-class CreateAndModifyModal extends React.PureComponent {
+class CreateAndEditModal extends React.PureComponent {
+  static propTypes = {
+    entityModal: PropTypes.object.isRequired,
+    updateEntityModal: PropTypes.func.isRequired,
+    postCreateEntity: PropTypes.func.isRequired,
+    postEditEntity: PropTypes.func.isRequired,
+  };
+
   state = {
-    confirmDirty: false,
     autoCompleteResult: [],
   };
 
-  handleOk = () => {
-
+  handleOk = (e) => {
+    e.preventDefault();
+    const { type } = this.props.entityModal;
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        if (type === CREATE) {
+          this.props.postCreateEntity(values);
+        } else if (type === EDIT) {
+          this.props.postEditEntity(values);
+        }
+      }
+    });
   }
 
   handleCancel = () => {
+    this.props.updateEntityModal({
+      type: CREATE,
+      show: false,
+      data: {},
+    });
+  }
 
+  handleWebsiteChange = (value) => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+    }
+    this.setState({ autoCompleteResult });
   }
 
   render() {
+    const { entityModal } = this.props;
+    const { data } = entityModal;
+
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
 
@@ -70,18 +124,6 @@ class CreateAndModifyModal extends React.PureComponent {
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 8,
-        },
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
@@ -100,17 +142,22 @@ class CreateAndModifyModal extends React.PureComponent {
     return (
       <div>
         <Modal
-          title="Basic Modal"
-          visible={true}
+          width={700}
+          title="基础 Modal"
+          visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <Form onSubmit={this.handleSubmit}>
+          <Form
+            className="sofa-modal-form"
+            onSubmit={this.handleSubmit}
+          >
             <FormItem
               {...formItemLayout}
               label="E-mail"
             >
               {getFieldDecorator('email', {
+                initialValue: data.email || '',
                 rules: [{
                   type: 'email', message: 'The input is not valid E-mail!',
                 }, {
@@ -118,34 +165,6 @@ class CreateAndModifyModal extends React.PureComponent {
                 }],
               })(
                 <Input />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="Password"
-            >
-              {getFieldDecorator('password', {
-                rules: [{
-                  required: true, message: 'Please input your password!',
-                }, {
-                  validator: this.validateToNextPassword,
-                }],
-              })(
-                <Input type="password" />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="Confirm Password"
-            >
-              {getFieldDecorator('confirm', {
-                rules: [{
-                  required: true, message: 'Please confirm your password!',
-                }, {
-                  validator: this.compareToFirstPassword,
-                }],
-              })(
-                <Input type="password" onBlur={this.handleConfirmBlur} />,
               )}
             </FormItem>
             <FormItem
@@ -159,7 +178,8 @@ class CreateAndModifyModal extends React.PureComponent {
                 </span>
               )}
             >
-              {getFieldDecorator('nickname', {
+              {getFieldDecorator('name', {
+                initialValue: data.name || '',
                 rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
               })(
                 <Input />,
@@ -181,6 +201,7 @@ class CreateAndModifyModal extends React.PureComponent {
               label="Phone Number"
             >
               {getFieldDecorator('phone', {
+                initialValue: data.phone || '',
                 rules: [{ required: true, message: 'Please input your phone number!' }],
               })(
                 <Input addonBefore={prefixSelector} style={{ width: '100%' }} />,
@@ -202,41 +223,10 @@ class CreateAndModifyModal extends React.PureComponent {
                 </AutoComplete>,
               )}
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="Captcha"
-              extra="We must make sure that your are a human."
-            >
-              <Row gutter={8}>
-                <Col span={12}>
-                  {getFieldDecorator('captcha', {
-                    rules: [{ required: true, message: 'Please input the captcha you got!' }],
-                  })(
-                    <Input />,
-                  )}
-                </Col>
-                <Col span={12}>
-                  <Button>Get captcha</Button>
-                </Col>
-              </Row>
-            </FormItem>
-            <FormItem {...tailFormItemLayout}>
-              {getFieldDecorator('agreement', {
-                valuePropName: 'checked',
-              })(
-                <Checkbox>
-                  I have read the
-                  <a href="http://www.baidu.com">agreement</a>
-                </Checkbox>,
-              )}
-            </FormItem>
-            <FormItem {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">Register</Button>
-            </FormItem>
           </Form>
         </Modal>
       </div>);
   }
 }
 
-export default CreateAndModifyModal;
+export default CreateAndEditModal;
