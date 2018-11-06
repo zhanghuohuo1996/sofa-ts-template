@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
 import Main from 'containers/Main';
+import { DEFAULT_LOCALE } from 'containers/Main/constants';
 import { translationMessages } from './i18n';
 
 import storeFactory from './state/storeFactory';
@@ -16,24 +17,14 @@ import './theme/style.less';
 const rootElement = document.getElementById('root');
 const initialState = {};
 const store = storeFactory(initialState);
-
-function chooseLocale() {
-  switch (navigator.language.split('-')[0]) {
-    case 'en':
-      return translationMessages.en;
-    case 'zh':
-      return translationMessages.zn;
-    default:
-      return translationMessages.en;
-  }
-}
+console.log(navigator.language);
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <IntlProvider
-        locale={navigator.language}
-        messages={chooseLocale()}
+        locale={DEFAULT_LOCALE}
+        messages={translationMessages[DEFAULT_LOCALE]}
       >
         <Main />
       </IntlProvider>
