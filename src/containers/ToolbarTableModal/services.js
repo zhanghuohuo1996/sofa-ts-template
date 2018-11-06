@@ -1,11 +1,9 @@
 import { getRequest, postRequest } from 'utils/request';
 
-export const getDataListService = params => getRequest('/common/getopencitylist', params);
+export const getDataListService = params => getRequest('/test/getlist', params);
 
-export const postFormDataService = params => postRequest('/common/testpost', params);
+export const postCreateEntityService = params => postRequest('/test/create', params);
 
-export const postCreateEntityService = params => postRequest('/common/create', params);
-
-export const postEditEntityService = params => postRequest('/common/edit', params);
+export const postEditEntityService = params => postRequest('/test/edit', params);
 
 export default {};

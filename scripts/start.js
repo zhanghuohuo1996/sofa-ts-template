@@ -7,12 +7,16 @@ const webpack = require('webpack');
 const path = require('path');
 
 // eslint-disable-next-line
+const proxy = require('http-proxy-middleware');
+// eslint-disable-next-line
 const webpackHotMiddleware = require('webpack-hot-middleware');
 // eslint-disable-next-line
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackConfig = require('../config/webpack.dev.config');
 
 const app = express();
+
+app.use('/test', proxy({ target: 'http://gz-loc-development00.gz.sftcwl.com:7300/mock/5be14fcfa9b82994f6c1ec9c/sofa', changeOrigin: true }));
 
 const compiler = webpack(webpackConfig);
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import commonConf from 'config/main.conf';
+
 import {
   Form,
   Row,
@@ -39,7 +41,11 @@ class Toolbar extends React.Component {
   handleSearch = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.getDataList(values);
+        this.props.getDataList({
+          ...values,
+          page: 1,
+          perpage: commonConf.table.defaultPageSize,
+        });
         this.props.updateSearchCondition(values);
       }
     });
