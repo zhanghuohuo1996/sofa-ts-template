@@ -2,16 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
+  Button,
 } from 'antd';
 
 import connectFactory from 'utils/connectFactory';
+import { EDIT } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
-import { getDataList } from '../actions';
+import { getDataList, updateEntityModal } from '../actions';
 
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
+  // 第二个参数为全局的state, loading取自全局；
   (state, globalState) => ({
     mainData: state.get('mainData').toJS(),
     pagination: state.get('pagination').toJS(),
@@ -20,6 +23,7 @@ const withConnect = connectFactory(NAMESPACE);
   }),
   {
     getDataList,
+    updateEntityModal,
   },
 )
 class DataTable extends React.Component {
@@ -28,6 +32,7 @@ class DataTable extends React.Component {
     mainData: PropTypes.array.isRequired,
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
+    updateEntityModal: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
   };
@@ -46,7 +51,32 @@ class DataTable extends React.Component {
     title: '年龄',
     dataIndex: 'age',
     key: 'age',
+  }, {
+    title: 'E-mail',
+    dataIndex: 'email',
+    key: 'email',
+  }, {
+    title: '电话',
+    dataIndex: 'phone',
+    key: 'phone',
+  }, {
+    title: '',
+    dataIndex: 'id',
+    key: 'id',
+    render: (value, row) => (
+      <div>
+        <Button onClick={() => this.handleClickEdit(row)}>编辑</Button>
+      </div>
+    ),
   }];
+
+  handleClickEdit(data) {
+    this.props.updateEntityModal({
+      type: EDIT,
+      show: true,
+      data,
+    });
+  }
 
   // 实例变量/方法，使用了箭头函数做this的绑定，若无特殊传参，在render函数中优先使用这种方式进行函数声明；
   handlePageChange = (page) => {

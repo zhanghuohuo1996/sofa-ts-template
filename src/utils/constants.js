@@ -15,10 +15,9 @@ export const FATCH_ACTION_ERROR_PREFIX = 'ERROR_';
 export const PER_PAGE = 20;
 
 // operate constant
-export const MODIFY = 'modify';
 export const CREATE = 'create';
+export const EDIT = 'edit';
 export const APPROVE = 'approve';
-export const PUBLIC = 'public';
 export const DELETE = 'delete';
 export const CHECK = 'check';
 export const DRAFT = 'draft';

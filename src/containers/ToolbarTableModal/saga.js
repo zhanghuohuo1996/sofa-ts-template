@@ -9,14 +9,23 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 
-import { FATCH_ACTION_SUCCESS_PREFIX, FATCH_ACTION_ERROR_PREFIX } from 'utils/constants';
+import { FATCH_ACTION_SUCCESS_PREFIX, FATCH_ACTION_ERROR_PREFIX, CREATE } from 'utils/constants';
 import { loadingDataError } from '../../state/actions';
-import { getDataList } from './actions';
-import { POST_FORM_DATA } from './constants';
+import { getDataList, updateEntityModal } from './actions';
+import { POST_CREATE_ENTITY } from './constants';
+import { selectSearchCondition } from './selectors';
 
-export function* postSuccess() {
+export function* createSuccess() {
   try {
-    yield put(getDataList());
+    yield put(updateEntityModal({
+      type: CREATE,
+      show: false,
+      data: {},
+    }));
+    const searchCondition = yield select(selectSearchCondition);
+    yield put(getDataList({
+      ...searchCondition,
+    }));
   } catch (err) {
     yield put(loadingDataError(err));
   }
@@ -30,7 +39,7 @@ export function* watcher(type, process) {
  */
 export default function* rootSaga() {
   yield [
-    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_FORM_DATA}`, postSuccess)),
-    call(() => watcher(`${FATCH_ACTION_ERROR_PREFIX}${POST_FORM_DATA}`, postSuccess)),
+    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_CREATE_ENTITY}`, createSuccess)),
+    call(() => watcher(`${FATCH_ACTION_ERROR_PREFIX}${POST_CREATE_ENTITY}`, createSuccess)),
   ];
 }
