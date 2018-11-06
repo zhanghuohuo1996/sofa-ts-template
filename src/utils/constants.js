@@ -1,4 +1,3 @@
-export const ACTION_ROOT = 'page';
 // action
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
@@ -11,14 +10,10 @@ export const DOWNLOAD_ACTION_PREFIX = '@@FETCH_DOWNLOAD_';
 export const FATCH_ACTION_SUCCESS_PREFIX = 'SUCCESS_';
 export const FATCH_ACTION_ERROR_PREFIX = 'ERROR_';
 
-// pagination
-export const PER_PAGE = 20;
-
 // operate constant
-export const MODIFY = 'modify';
 export const CREATE = 'create';
+export const EDIT = 'edit';
 export const APPROVE = 'approve';
-export const PUBLIC = 'public';
 export const DELETE = 'delete';
 export const CHECK = 'check';
 export const DRAFT = 'draft';

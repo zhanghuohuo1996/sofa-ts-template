@@ -10,7 +10,7 @@ import saga from './saga';
 
 import Toolbar from './modules/FunctionsAndSearchToolbar';
 import Table from './modules/DataTable';
-import Modal from './modules/CreateAndModifyModal';
+import Modal from './modules/CreateAndEditModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 const withSaga = injectSaga({ key: NAMESPACE, saga });
