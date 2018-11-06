@@ -38,6 +38,15 @@ class Toolbar extends React.Component {
     form: PropTypes.any.isRequired,
   };
 
+  componentDidMount() {
+    const { searchCondition } = this.props;
+    this.props.getDataList({
+      ...searchCondition,
+      page: 1,
+      perpage: commonConf.table.defaultPageSize,
+    });
+  }
+
   handleSearch = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {

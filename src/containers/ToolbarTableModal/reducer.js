@@ -1,9 +1,10 @@
 import { fromJS } from 'immutable';
 import commonConf from 'config/main.conf';
-import { CREATE } from 'utils/constants';
+import { CREATE, FATCH_ACTION_SUCCESS_PREFIX } from 'utils/constants';
 import {
   UPDATE_ENTITY_MODAL,
   UPDATE_SEARCH_CONDITION,
+  GET_DATA_LIST,
 } from './constants';
 
 const initialState = fromJS({
@@ -17,30 +18,7 @@ const initialState = fromJS({
     show: false,
     data: {},
   },
-  mainData: [{
-    id: 1,
-    name: '李淳',
-    age: 18,
-    phone: '18809009900',
-    email: 'yxlichun@128.com',
-  }, {
-    id: 2,
-    name: '凤凤',
-    age: 88,
-    phone: '18809009900',
-    email: 'fengfeng@sf-express.com',
-  }, {
-    id: 3,
-    name: '天晴',
-    age: 99,
-    phone: '18809009900',
-    email: 'xiaogaogao@sfmail.sfexpress.com',
-  }, {
-    id: 4,
-    name: '肚肚疼',
-    phone: '18809009900',
-    age: 10,
-  }],
+  tableData: [],
   pagination: {
     pageSize: commonConf.table.defaultPageSize,
     total: 100,
@@ -56,6 +34,15 @@ function reducer(state = initialState, action) {
     case UPDATE_SEARCH_CONDITION:
       return state
         .set('searchCondition', fromJS(action.payload));
+
+    case `${FATCH_ACTION_SUCCESS_PREFIX}${GET_DATA_LIST}`:
+      if (action.payload && action.payload.data && action.payload.data.list) {
+        return state
+          .set('tableData', fromJS(action.payload.data.list))
+          .setIn(['pagination', 'total'], action.payload.data.total)
+          .setIn(['pagination', 'page'], action.payload.data.page);
+      }
+      return state;
     default:
       break;
   }

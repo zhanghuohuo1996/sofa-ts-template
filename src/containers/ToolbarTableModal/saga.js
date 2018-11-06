@@ -12,10 +12,10 @@ import {
 import { FATCH_ACTION_SUCCESS_PREFIX, FATCH_ACTION_ERROR_PREFIX, CREATE } from 'utils/constants';
 import { loadingDataError } from '../../state/actions';
 import { getDataList, updateEntityModal } from './actions';
-import { POST_CREATE_ENTITY } from './constants';
-import { selectSearchCondition } from './selectors';
+import { POST_CREATE_ENTITY, POST_EDIT_ENTITY } from './constants';
+import { selectSearchCondition, selectPagination } from './selectors';
 
-export function* createSuccess() {
+export function* createEditSuccess() {
   try {
     yield put(updateEntityModal({
       type: CREATE,
@@ -23,8 +23,11 @@ export function* createSuccess() {
       data: {},
     }));
     const searchCondition = yield select(selectSearchCondition);
+    const pagination = yield select(selectPagination);
     yield put(getDataList({
       ...searchCondition,
+      page: pagination.current,
+      perpage: pagination.pageSize,
     }));
   } catch (err) {
     yield put(loadingDataError(err));
@@ -39,7 +42,7 @@ export function* watcher(type, process) {
  */
 export default function* rootSaga() {
   yield [
-    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_CREATE_ENTITY}`, createSuccess)),
-    call(() => watcher(`${FATCH_ACTION_ERROR_PREFIX}${POST_CREATE_ENTITY}`, createSuccess)),
+    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_CREATE_ENTITY}`, createEditSuccess)),
+    call(() => watcher(`${FATCH_ACTION_SUCCESS_PREFIX}${POST_EDIT_ENTITY}`, createEditSuccess)),
   ];
 }

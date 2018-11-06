@@ -16,7 +16,7 @@ const withConnect = connectFactory(NAMESPACE);
 @withConnect(
   // 第二个参数为全局的state, loading取自全局；
   (state, globalState) => ({
-    mainData: state.get('mainData').toJS(),
+    tableData: state.get('tableData').toJS(),
     pagination: state.get('pagination').toJS(),
     searchCondition: state.get('searchCondition').toJS(),
     loading: globalState.getIn(['global', 'loading']),
@@ -29,7 +29,7 @@ const withConnect = connectFactory(NAMESPACE);
 class DataTable extends React.Component {
   // 静态变量，propTypes一定是静态变量，是挂载在类上的；
   static propTypes = {
-    mainData: PropTypes.array.isRequired,
+    tableData: PropTypes.array.isRequired,
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
@@ -90,14 +90,14 @@ class DataTable extends React.Component {
   }
 
   render() {
-    const { mainData, pagination, loading } = this.props;
+    const { tableData, pagination, loading } = this.props;
 
     return (
       <Table
         bordered
         loading={loading}
         columns={this.columns}
-        dataSource={mainData}
+        dataSource={tableData}
         rowKey="id"
         pagination={{
           current: pagination.page,

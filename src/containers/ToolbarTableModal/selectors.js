@@ -8,4 +8,9 @@ export const selectSearchCondition = createSelector(
   subState => subState.get('searchCondition').toJS(),
 );
 
+export const selectPagination = createSelector(
+  selectNamespace,
+  subState => subState.get('pagination').toJS(),
+);
+
 export default {};
