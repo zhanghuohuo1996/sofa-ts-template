@@ -25,7 +25,7 @@ import {
 
 import commonConf from 'config/main.conf';
 
-import { showDownloadListModal, updatePlatformAuth, updateFix } from './actions';
+import { showDownloadListModal, updatePlatformAuth, updateFix } from '../../state/actions';
 // import { makeSelectPlatformAuth } from './selectors';
 
 export const getSagaFetchActionType = actionType => actionType && actionType.split('_')[1];

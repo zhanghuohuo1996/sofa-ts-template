@@ -5,21 +5,30 @@ import {
   Button,
 } from 'antd';
 
+import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import { EDIT } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
+import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
+import { selectLoading } from '../../../state/selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
-  // 第二个参数为全局的state, loading取自全局；
-  (state, globalState) => ({
-    tableData: state.get('tableData').toJS(),
-    pagination: state.get('pagination').toJS(),
-    searchCondition: state.get('searchCondition').toJS(),
-    loading: globalState.getIn(['global', 'loading']),
+  // 可以使用者两种方式mapstatetoprops 但是推荐使用select的方式，经测会减少渲染次数，性能较好；
+  // (globalState, state) => ({
+  //   tableData: state.get('tableData').toJS(),
+  //   pagination: state.get('pagination').toJS(),
+  //   searchCondition: state.get('searchCondition').toJS(),
+  //   loading: globalState.getIn(['global', 'loading']),
+  // }),
+  createStructuredSelector({
+    tableData: selectTableData,
+    pagination: selectPagination,
+    searchCondition: selectSearchCondition,
+    loading: selectLoading,
   }),
   {
     getDataList,
