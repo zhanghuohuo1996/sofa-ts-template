@@ -12,8 +12,6 @@ import Toolbar from './modules/FunctionsAndSearchToolbar';
 import Table from './modules/DataTable';
 import Modal from './modules/CreateAndEditModal';
 
-import './style.less';
-
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 const withSaga = injectSaga({ key: NAMESPACE, saga });
 
