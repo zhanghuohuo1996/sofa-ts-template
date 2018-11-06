@@ -1,13 +1,18 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import commonMessages from 'utils/commonMessages';
+import { injectIntl, intlShape } from 'react-intl';
+import messages from './messages';
 
 @withRouter
 class HomePage extends React.Component {
+  static propTypes = {
+    intl: intlShape.isRequired,
+  };
+
   render() {
-    return (<div><FormattedMessage {...commonMessages.close} /></div>);
+    const { intl } = this.props;
+    return (<div>{intl.formatMessage(messages.homePage.homePage)}</div>);
   }
 }
 
-export default HomePage;
+export default injectIntl(HomePage);

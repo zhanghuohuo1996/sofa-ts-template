@@ -1,3 +1,9 @@
+
+import Utils from 'utils/utils';
+
+// lang
+export const DEFAULT_LOCALE = Utils.getCookie('lang') ? Utils.getCookie('lang') : 'zh';
+
 export const ACTION_ROOT = 'page';
 // action
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';

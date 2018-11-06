@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
 import Main from 'containers/Main';
-import { DEFAULT_LOCALE } from 'containers/Main/constants';
+import { DEFAULT_LOCALE } from 'utils/constants';
 import { translationMessages } from './i18n';
 
 import storeFactory from './state/storeFactory';
@@ -17,7 +17,6 @@ import './theme/style.less';
 const rootElement = document.getElementById('root');
 const initialState = {};
 const store = storeFactory(initialState);
-console.log(navigator.language);
 
 const render = () => {
   ReactDOM.render(

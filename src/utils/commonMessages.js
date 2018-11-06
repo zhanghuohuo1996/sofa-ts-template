@@ -10,29 +10,65 @@ export default defineMessages({
     id: 'boilerplate.containers.Common.close',
     defaultMessage: '关闭',
   },
+  export: {
+    id: 'boilerplate.containers.Common.export',
+    defaultMessage: '导出',
+  },
+  print: {
+    id: 'boilerplate.containers.Common.print',
+    defaultMessage: '打印',
+  },
+  zh: {
+    id: 'boilerplate.containers.Common.zh',
+    defaultMessage: '中文',
+  },
+  en: {
+    id: 'boilerplate.containers.Common.en',
+    defaultMessage: 'English',
+  },
+  yuan: {
+    id: 'boilerplate.containers.Common.yuan',
+    defaultMessage: '元',
+  },
+  mapLoadErr: {
+    id: 'boilerplate.containers.Common.mapLoadErr',
+    defaultMessage: '地图加载错误',
+  },
+  mapPointTitle: {
+    id: 'boilerplate.containers.Common.mapPointTitle',
+    defaultMessage: '地址名称',
+  },
+  mapPointInfo: {
+    id: 'boilerplate.containers.Common.mapPointInfo',
+    defaultMessage: '详细地址',
+  },
+  import: {
+    id: 'boilerplate.containers.Common.import',
+    defaultMessage: '导入',
+  },
+  upload: {
+    id: 'boilerplate.containers.Common.upload',
+    defaultMessage: '上传模板',
+  },
   modify: {
     id: 'boilerplate.containers.Common.modify',
     defaultMessage: '修改',
   },
-  edit: {
-    id: 'boilerplate.containers.Common.edit',
-    defaultMessage: '编辑',
-  },
-  add: {
-    id: 'boilerplate.containers.Common.add',
-    defaultMessage: '新增',
-  },
-  delete: {
-    id: 'boilerplate.containers.Common.add',
-    defaultMessage: '删除',
-  },
   create: {
-    id: 'boilerplate.containers.Common.modify',
-    defaultMessage: '创建',
+    id: 'boilerplate.containers.Common.create',
+    defaultMessage: '新建',
   },
   search: {
-    id: 'boilerplate.containers.Common.operate',
-    defaultMessage: '检索',
+    id: 'boilerplate.containers.Common.search',
+    defaultMessage: '查询',
+  },
+  effective: {
+    id: 'boilerplate.containers.Common.effective',
+    defaultMessage: '有效',
+  },
+  invalid: {
+    id: 'boilerplate.containers.Common.invalid',
+    defaultMessage: '无效',
   },
   operate: {
     id: 'boilerplate.containers.Common.operate',
@@ -45,6 +81,10 @@ export default defineMessages({
   ok: {
     id: 'boilerplate.containers.Common.ok',
     defaultMessage: '确定',
+  },
+  add: {
+    id: 'boilerplate.containers.Common.add',
+    defaultMessage: '添加',
   },
   cancel: {
     id: 'boilerplate.containers.Common.cancel',
@@ -62,164 +102,122 @@ export default defineMessages({
     id: 'boilerplate.containers.Common.inputPlaceholder',
     defaultMessage: '请输入',
   },
+  selectPlaceholder: {
+    id: 'boilerplate.containers.Common.selectPlaceholder',
+    defaultMessage: '请选择',
+  },
   notification: {
     id: 'boilerplate.containers.Common.notification',
     defaultMessage: '提示',
-  },
-  notificationForRowSelect: {
-    id: 'boilerplate.containers.Common.notificationForRowSelect',
-    defaultMessage: '请至少选择一行数据',
   },
   download: {
     id: 'boilerplate.containers.Common.download',
     defaultMessage: '下载',
   },
-  modifyCheck: {
-    id: 'boilerplate.containers.Common.modifyCheck',
+  view: {
+    id: 'boilerplate.containers.Common.view',
     defaultMessage: '查看',
   },
-  abandon: {
-    id: 'boilerplate.containers.Common.abandon',
-    defaultMessage: '作废',
-  },
-  modifyPass: {
-    id: 'boilerplate.containers.Common.modifyPass',
+  pass: {
+    id: 'boilerplate.containers.Common.pass',
     defaultMessage: '通过',
   },
-  modifyReject: {
-    id: 'boilerplate.containers.Common.modifyReject',
+  reject: {
+    id: 'boilerplate.containers.Common.reject',
     defaultMessage: '驳回',
-  },
-  modifyRejectReason: {
-    id: 'boilerplate.containers.Common.modifyRejectReason',
-    defaultMessage: '驳回理由',
-  },
-  modifyRejectReasonTip: {
-    id: 'boilerplate.containers.Common.modifyRejectReasonTip',
-    defaultMessage: '驳回理由必填',
   },
   dataNotFound: {
     id: 'boilerplate.containers.Common.dataNotFound',
     defaultMessage: '暂无数据',
   },
-  itemsUnit: {
-    id: 'boilerplate.containers.Common.itemsUnit',
-    defaultMessage: '项',
+  status: {
+    id: 'boilerplate.containers.Common.status',
+    defaultMessage: '状态',
   },
   modifyOffline: {
     id: 'boilerplate.containers.Common.modifyOffline',
     defaultMessage: '下线',
   },
-  required: {
-    id: 'boilerplate.containers.Common.required',
-    defaultMessage: '该项为必填项！',
+  active_status_map: {
+    1: {
+      id: 'boilerplate.containers.Common.active_status_map.1',
+      defaultMessage: '有效',
+    },
+    2: {
+      id: 'boilerplate.containers.Common.active_status_map.2',
+      defaultMessage: '失效',
+    },
   },
-  validateInfo: {
-    id: 'boilerplate.containers.Common.validateInfo',
-    defaultMessage: '该项为必填项！',
+  yes_or_no_map: {
+    1: {
+      id: 'boilerplate.containers.Common.yes_or_no_map.1',
+      defaultMessage: '是',
+    },
+    2: {
+      id: 'boilerplate.containers.Common.yes_or_no_map.2',
+      defaultMessage: '否',
+    },
   },
-  phoneTip: {
-    id: 'boilerplate.containers.Common.phoneTip',
-    defaultMessage: '请输入正确的手机号',
+  form: {
+    phone: {
+      id: 'boilerplate.containers.Common.form.phone',
+      defaultMessage: '手机号',
+    },
+    chinesename: {
+      id: 'boilerplate.containers.Common.form.chinesename',
+      defaultMessage: '姓名',
+    },
   },
-  emailTip: {
-    id: 'boilerplate.containers.Common.emailTip',
-    defaultMessage: '请输入正确的邮箱',
+  country_city_map: {
+    1: {
+      id: 'boilerplate.containers.Common.country_city_map.1',
+      defaultMessage: '中国',
+    },
+    156000001: {
+      id: 'boilerplate.containers.Common.country_city_map.2',
+      defaultMessage: '香港',
+    },
+    156000002: {
+      id: 'boilerplate.containers.Common.country_city_map.3',
+      defaultMessage: '澳门',
+    },
+    156000003: {
+      id: 'boilerplate.containers.Common.country_city_map.4',
+      defaultMessage: '大陆',
+    },
   },
-  idcardTip: {
-    id: 'boilerplate.containers.Common.idcardTip',
-    defaultMessage: '请输入正确的身份证号',
+  week_map: {
+    1: {
+      id: 'boilerplate.containers.Common.week_map.1',
+      defaultMessage: '周一',
+    },
+    2: {
+      id: 'boilerplate.containers.Common.week_map.2',
+      defaultMessage: '周二',
+    },
+    3: {
+      id: 'boilerplate.containers.Common.week_map.3',
+      defaultMessage: '周三',
+    },
+    4: {
+      id: 'boilerplate.containers.Common.week_map.4',
+      defaultMessage: '周四',
+    },
+    5: {
+      id: 'boilerplate.containers.Common.week_map.5',
+      defaultMessage: '周五',
+    },
+    6: {
+      id: 'boilerplate.containers.Common.week_map.6',
+      defaultMessage: '周六',
+    },
+    7: {
+      id: 'boilerplate.containers.Common.week_map.7',
+      defaultMessage: '周日',
+    },
   },
-  maxLength: {
-    id: 'boilerplate.containers.Common.maxLength',
-    defaultMessage: '超过最大长度30',
-  },
-  noSpace: {
-    id: 'boilerplate.containers.Common.noSpace',
-    defaultMessage: '不能有空格',
-  },
-  collapse: {
-    id: 'boilerplate.containers.Common.collapse',
-    defaultMessage: '收起',
-  },
-  unfold: {
-    id: 'boilerplate.containers.Common.unfold',
-    defaultMessage: '展开',
-  },
-  exportExcel: {
-    id: 'boilerplate.containers.Common.exportExcel',
-    defaultMessage: '导出Excle',
-  },
-  error: {
-    id: 'boilerplate.containers.Common.error',
-    defaultMessage: '请求错误，请重试',
-  },
-  week: {
-    id: 'boilerplate.containers.Common.week',
-    defaultMessage: '星期',
-  },
-  minute: {
-    id: 'boilerplate.containers.Common.minute',
-    defaultMessage: '分钟',
-  },
-  mondey: {
-    id: 'boilerplate.containers.Common.mondey',
-    defaultMessage: '周一',
-  },
-  tuesday: {
-    id: 'boilerplate.containers.Common.tuesday',
-    defaultMessage: '周二',
-  },
-  wednesday: {
-    id: 'boilerplate.containers.Common.wednesday',
-    defaultMessage: '周三',
-  },
-  thursday: {
-    id: 'boilerplate.containers.Common.thursday',
-    defaultMessage: '周四',
-  },
-  friday: {
-    id: 'boilerplate.containers.Common.friday',
-    defaultMessage: '周五',
-  },
-  saturday: {
-    id: 'boilerplate.containers.Common.saturday',
-    defaultMessage: '周六',
-  },
-  sunday: {
-    id: 'boilerplate.containers.Common.sunday',
-    defaultMessage: '周日',
-  },
-  yes: {
-    id: 'boilerplate.containers.Common.yes',
-    defaultMessage: '是',
-  },
-  no: {
-    id: 'boilerplate.containers.Common.no',
-    defaultMessage: '否',
-  },
-  valid: {
-    id: 'boilerplate.containers.Common.valid',
-    defaultMessage: '生效',
-  },
-  invalid: {
-    id: 'boilerplate.containers.Common.invalid',
-    defaultMessage: '失效',
-  },
-  chooseDateTip: {
-    id: 'boilerplate.containers.Common.chooseDateTip',
-    defaultMessage: '请选择时间',
-  },
-  submitText: {
-    id: 'boilerplate.containers.Common.submitText',
-    defaultMessage: '提交',
-  },
-  gobackText: {
-    id: 'boilerplate.containers.Common.gobackText',
-    defaultMessage: '返回',
-  },
-  export: {
-    id: 'boilerplate.containers.Common.export',
-    defaultMessage: '导出',
+  refresh: {
+    id: 'boilerplate.containers.Common.refresh',
+    defaultMessage: '刷新',
   },
 });
