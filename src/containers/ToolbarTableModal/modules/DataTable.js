@@ -7,6 +7,7 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { EDIT } from 'utils/constants';
+import TableContainer from 'components/TableContainer';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
@@ -93,20 +94,22 @@ class DataTable extends React.Component {
     const { tableData, pagination, loading } = this.props;
 
     return (
-      <Table
-        bordered
-        loading={loading}
-        columns={this.columns}
-        dataSource={tableData}
-        rowKey="id"
-        pagination={{
-          current: pagination.page,
-          total: pagination.total,
-          pageSize: pagination.pageSize,
-          showTotal: DataTable.showTotal,
-          onChange: this.handlePageChange,
-        }}
-      />
+      <TableContainer>
+        <Table
+          bordered
+          loading={loading}
+          columns={this.columns}
+          dataSource={tableData}
+          rowKey="id"
+          pagination={{
+            current: pagination.page,
+            total: pagination.total,
+            pageSize: pagination.pageSize,
+            showTotal: DataTable.showTotal,
+            onChange: this.handlePageChange,
+          }}
+        />
+      </TableContainer>
     );
   }
 }
