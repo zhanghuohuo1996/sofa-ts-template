@@ -9,7 +9,19 @@
   font-weight: bold;
   line-height: 64px;
 }
-
+.ant-menu {
+  background-color: #001529;
+  color: #fff;
+  .ant-menu-submenu>.ant-menu {
+    background-color: #2d383d;
+  }
+  &:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #2d383d !important;
+  }
+}
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+  border: none;
+}
 ///////////////////////// common /////////////////////////
 .sofa-modal-form {
   padding-left: 30px;
