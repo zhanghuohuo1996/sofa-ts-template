@@ -12,7 +12,8 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
-
+import ToolbarContainer from 'components/ToolbarContainer';
+import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 
@@ -73,32 +74,36 @@ class Toolbar extends React.Component {
     const { searchCondition } = this.props;
 
     return (
-      <Form>
-        <Row gutter={24}>
-          <Col span={6}>
-            <Form.Item label="姓名">
-              {getFieldDecorator('name', {
-                initialValue: searchCondition.name || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label="年龄">
-              {getFieldDecorator('age', {
-                initialValue: searchCondition.age || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col><Button onClick={this.handleSearch}>检索</Button></Col>
-          <Col><Button onClick={this.handleClickCreate}>创建实体</Button></Col>
-        </Row>
-      </Form>);
+      <ToolbarContainer>
+        <FunctionButtonsContainer>
+          <Button type="primary" onClick={this.handleClickCreate}>创建实体</Button>
+        </FunctionButtonsContainer>
+        <Form>
+          <Row gutter={24}>
+            <Col span={6}>
+              <Form.Item label="姓名">
+                {getFieldDecorator('name', {
+                  initialValue: searchCondition.name || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="年龄">
+                {getFieldDecorator('age', {
+                  initialValue: searchCondition.age || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>检索</Button></Col>
+          </Row>
+        </Form>
+      </ToolbarContainer>);
   }
 }
 
