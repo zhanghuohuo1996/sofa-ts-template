@@ -13,4 +13,14 @@ export const selectPagination = createSelector(
   subState => subState.get('pagination').toJS(),
 );
 
+export const selectEntityModal = createSelector(
+  selectNamespace,
+  subState => subState.get('entityModal').toJS(),
+);
+
+export const selectTableData = createSelector(
+  selectNamespace,
+  subState => subState.get('tableData').toJS(),
+);
+
 export default {};
