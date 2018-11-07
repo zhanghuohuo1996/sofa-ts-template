@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import React from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
@@ -6,14 +5,6 @@ import PropTypes from 'prop-types';
 let calcHeight = '0px';
 let tableHeight = '0px';
 let tableInnerHeight = '0px';
-const Container = styled.div`
-  margin-top: 10px;
-  background-color: #fff;
-  padding: 10px 10px;
-  border-radius: 3px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
-  overflow: hidden ;
-`;
 class TableContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -83,14 +74,14 @@ class TableContainer extends React.Component {
 
   render() {
     return (
-      <Container style={{ height: this.state.calcHeight }} ref={(ref) => { this.refDom = ref; }} className="table_container_fitable_wrap">
+      <div style={{ height: this.state.calcHeight }} ref={(ref) => { this.refDom = ref; }} className="table-container table_container_fitable_wrap">
         {
           // eslint-disable-next-line
           React.Children.map(this.props.children, function (child) {
             return <div className="table_container_fitable">{child}</div>;
           })
         }
-      </Container>
+      </div>
     );
   }
 }

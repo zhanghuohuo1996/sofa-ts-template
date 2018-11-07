@@ -12,8 +12,6 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
-import ToolbarContainer from 'components/ToolbarContainer';
-import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 
@@ -74,10 +72,10 @@ class Toolbar extends React.Component {
     const { searchCondition } = this.props;
 
     return (
-      <ToolbarContainer>
-        <FunctionButtonsContainer>
+      <div className="toolbar-container">
+        <div className="function-buttons-container">
           <Button type="primary" onClick={this.handleClickCreate}>创建实体</Button>
-        </FunctionButtonsContainer>
+        </div>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
@@ -103,7 +101,7 @@ class Toolbar extends React.Component {
             <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>检索</Button></Col>
           </Row>
         </Form>
-      </ToolbarContainer>);
+      </div>);
   }
 }
 
