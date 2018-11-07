@@ -7,10 +7,9 @@ import {
 
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
-import { EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
+import { EDIT, DEFAULT_LOCALE } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
@@ -51,7 +50,10 @@ class DataTable extends React.Component {
 
   // 静态方法，类的不使用this的函数，一般声明为静态方法；
   static showTotal(total) {
-    return `总共 ${total} 条`;
+    if (DEFAULT_LOCALE === 'zh') {
+      return `总共 ${total} 条`;
+    }
+    return `${total} in total`;
   }
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
