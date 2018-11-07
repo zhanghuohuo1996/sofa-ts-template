@@ -8,19 +8,26 @@
   font-size: 28px;
   font-weight: bold;
   line-height: 64px;
+  background-color: @primary-color;
 }
 .ant-menu {
-  background-color: #001529;
+  background-color: @menu-bg-color;
   color: #fff;
   .ant-menu-submenu>.ant-menu {
-    background-color: #2d383d;
+    background-color: @menu-selected-bg-color;
   }
   &:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: #2d383d !important;
+    background-color: @menu-selected-bg-color !important;
   }
 }
 .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
   border: none;
+}
+.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+  width: calc(100% + 0px)
+}
+.ant-layout-sider-trigger {
+  background: @primary-color;
 }
 ///////////////////////// common /////////////////////////
 .sofa-modal-form {
