@@ -62,7 +62,7 @@ class Main extends React.Component {
             ></Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', padding: 0 }} />
+            <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: 0 }} />
             <Content style={{ margin: '0 16px' }}>
               <Crumb
                 history={history}
