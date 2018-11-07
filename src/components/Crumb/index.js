@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Breadcrumb } from 'antd';
+import { Link } from 'react-router-dom';
 
 function getCrumbItem(path, mainMap, subMap) {
   const pathArr = path.split('/').filter(item => Boolean(item));
@@ -30,15 +32,18 @@ export default class Crumb extends React.Component {
     const { history, mainMap, subMap } = this.props;
     this.path = history.location.pathname;
     const items = getCrumbItem(this.path, mainMap, subMap);
+    debugger
 
     return (
-      <ul>
-        { items.map(item => (
-          <li key={item}>
-            { item }
-          </li>
-        ))}
-      </ul>
+      <Breadcrumb className="breadCrumb">
+        {
+          items.map((item, index) => (
+            <Breadcrumb.Item key={index}>
+              {item}
+            </Breadcrumb.Item>
+          ))
+        }
+      </Breadcrumb>
     );
   }
 }
