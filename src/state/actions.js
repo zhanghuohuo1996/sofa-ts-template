@@ -18,4 +18,16 @@ export function showLoading(payload) {
   };
 }
 
+export function showDownloadListModal() {
+
+}
+
+export function updatePlatformAuth() {
+
+}
+
+export function updateFix() {
+
+}
+
 export default {};

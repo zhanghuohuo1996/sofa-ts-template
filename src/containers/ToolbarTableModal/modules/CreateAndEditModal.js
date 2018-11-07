@@ -12,6 +12,7 @@ import {
   AutoComplete,
 } from 'antd';
 
+import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
@@ -19,6 +20,7 @@ import commonMessages from 'utils/commonMessages';
 import messages from '../messages';
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
+import { selectEntityModal } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
@@ -51,8 +53,8 @@ const residences = [{
 }];
 
 @withConnect(
-  state => ({
-    entityModal: state.get('entityModal').toJS(),
+  createStructuredSelector({ // 实用reselect性能有明显的提升；
+    entityModal: selectEntityModal,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；

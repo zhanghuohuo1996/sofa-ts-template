@@ -4,7 +4,7 @@ import { isObject, isFunction, isString } from 'lodash';
 function withConnect(mapStateToProps, actions, namespace) {
   const mapMainStateToProps = (state) => {
     if (namespace && isString(namespace)) {
-      return mapStateToProps(state.get(namespace), state);
+      return mapStateToProps(state, state.get(namespace));
     }
     return mapStateToProps(state);
   };

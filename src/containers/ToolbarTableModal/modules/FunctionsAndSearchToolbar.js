@@ -18,12 +18,13 @@ import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
+import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
   state => ({
-    searchCondition: state.get('searchCondition').toJS(),
+    searchCondition: selectSearchCondition(state),
   }),
   {
     getDataList,
