@@ -43,6 +43,14 @@ app.get('*', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.listen(8081, '127.0.0.1', () => {
   console.log('Starting server on http://localhost:8081');
+=======
+const customHost = process.env.HOST;
+const host = customHost || null; // Let http.Server use its default IPv6/4 host
+
+app.listen(8080, host, () => {
+  console.log('Starting server on http://localhost:8080');
+>>>>>>> b99d8bfb6c0ca13d3cfe3d2be0e1e94dd8b3f8c0
 });

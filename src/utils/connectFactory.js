@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { isObject, isFunction, isString } from 'lodash';
+
+import isObject from 'lodash/isObject';
+import isFunction from 'lodash/isFunction';
+import isString from 'lodash/isString';
 
 function withConnect(mapStateToProps, actions, namespace) {
   const mapMainStateToProps = (state) => {

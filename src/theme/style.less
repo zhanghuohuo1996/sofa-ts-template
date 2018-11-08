@@ -65,6 +65,7 @@
   }
 }
 
+<<<<<<< HEAD
 .function-buttons-container {
   padding: 5px 10px;
   button {
@@ -86,3 +87,27 @@
     padding: 8px 16px;
   }
 }
+=======
+///////////////////////// containers/ToolbarTableModal /////////////////////////
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	/* 隐藏 chrome 浏览器下的 header, footer */
+	@page { 
+		margin: 0; 
+	}
+
+	#section-to-print, #section-to-print * {
+		visibility: visible;
+	}
+
+	#section-to-print {
+		position: absolute;
+		top: 0;
+		margin: 0.5cm;
+	}
+}
+>>>>>>> b99d8bfb6c0ca13d3cfe3d2be0e1e94dd8b3f8c0

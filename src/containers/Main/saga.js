@@ -3,7 +3,9 @@
  */
 
 import { notification } from 'antd';
-import _ from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isEmpty from 'lodash/isEmpty';
+
 import {
   take,
   fork,
@@ -79,7 +81,7 @@ function* fetchSaga(action) {
               payload: action.success.params,
             });
           }
-          if (_.isFunction(action.success)) {
+          if (isFunction(action.success)) {
             yield put(action.success());
           }
         }
@@ -120,7 +122,7 @@ function* watchFetchRequests() {
   // eslint-disable-next-line
   while(true) {
     const action = yield take(
-      data => !_.isEmpty(data.type.match(FATCH_ACTION_PREFIX)),
+      data => !isEmpty(data.type.match(FATCH_ACTION_PREFIX)),
     );
     const { type } = action;
     if (!type || !action.service) {
