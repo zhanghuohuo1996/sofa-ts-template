@@ -43,14 +43,8 @@ class Main extends React.Component {
   }
 
   handleLangClick = (language) => {
-    if (language === 'zh') {
-      Utils.setCookie('sofa-lang', 'zh');
-      window.location.reload();
-    }
-    if (language === 'en') {
-      Utils.setCookie('sofa-lang', 'en');
-      window.location.reload();
-    }
+    Utils.setCookie('sofa-lang', language);
+    window.location.reload();
   }
 
   render() {

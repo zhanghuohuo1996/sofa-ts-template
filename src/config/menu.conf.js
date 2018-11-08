@@ -1,39 +1,43 @@
 import { DEFAULT_LOCALE } from 'utils/constants';
 import { translationMessages } from '../i18n';
 
+function getText(key) {
+  return translationMessages[DEFAULT_LOCALE][`sofa.config.${key}`];
+}
+
 const menu = [
   {
     key: 'homePage',
     icon: 'home',
-    text: translationMessages[DEFAULT_LOCALE]['sofa.config.homePage'],
+    text: getText('homePage'),
   },
   {
     key: 'system',
-    text: translationMessages[DEFAULT_LOCALE]['sofa.config.system'],
+    text: getText('system'),
     icon: 'setting',
     children: [
       {
         key: 'userManage',
-        text: translationMessages[DEFAULT_LOCALE]['sofa.config.userManage'],
+        text: getText('userManage'),
       },
       {
         key: 'authManage',
-        text: translationMessages[DEFAULT_LOCALE]['sofa.config.authManage'],
+        text: getText('authManage'),
       },
       {
         key: 'authGroupManage',
-        text: translationMessages[DEFAULT_LOCALE]['sofa.config.authGroupManage'],
+        text: getText('authGroupManage'),
       },
     ],
   },
   {
     key: 'example',
-    text: translationMessages[DEFAULT_LOCALE]['sofa.config.example'],
+    text: getText('example'),
     icon: 'setting',
     children: [
       {
         key: 'toolbarTableModal',
-        text: translationMessages[DEFAULT_LOCALE]['sofa.config.toolbarTableModal'],
+        text: getText('toolbarTableModal'),
       },
     ],
   },
@@ -42,7 +46,7 @@ const menu = [
 function getMap(menuData) {
   let obj = {};
   menuData.forEach((element) => {
-    obj[element.key] = element.text;
+    obj[element.key] = getText(element.key);
     if (element.children) {
       const subMap = getMap(element.children);
       obj = Object.assign({}, obj, subMap);
