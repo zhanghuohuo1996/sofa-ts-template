@@ -1,15 +1,14 @@
 import { DEFAULT_LOCALE } from 'utils/constants';
 import { Mystore } from '../index';
+import { translationMessages } from '../i18n';
 
-
+let state = '';
 setTimeout(() => {
-    console.log('store==', Mystore);
     Mystore.subscribe(() => {
-        let state = Mystore.getState();
+        state = Mystore.getState();
         console.log(state);//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
     });
 }, 3000);
-import { translationMessages } from '../i18n';
 
 function getText(key) {
   return translationMessages[DEFAULT_LOCALE][`sofa.config.${key}`];
