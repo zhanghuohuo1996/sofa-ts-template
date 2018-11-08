@@ -4,7 +4,6 @@ import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 
 function getCrumbItem(path, menuMap, subMap) {
-  debugger
   const pathArray = path.split('/').filter(item => Boolean(item));
   const crumbArr = [];
     return pathArray.map((item, index) => {
@@ -15,7 +14,6 @@ function getCrumbItem(path, menuMap, subMap) {
                 text: menuMap[item],
                 path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
             };
-            console.log(index, a);
         }
         return a;
     });
