@@ -56,4 +56,4 @@ if (module.hot) {
   }
 }
 console.log(store);
-export const Mystore = store;
+export default store;

@@ -15,9 +15,9 @@ import menuData, { menuMap } from 'config/menu.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
-import { createStructuredSelector } from "reselect/lib/index";
+import { createStructuredSelector } from 'reselect/lib/index';
 import { selectLang } from '../../state/selectors';
-import { toggleLang } from '../../state/actions'
+import { toggleLang } from '../../state/actions';
 
 
 const history = createHistory();

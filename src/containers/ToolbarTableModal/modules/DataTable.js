@@ -80,7 +80,9 @@ class DataTable extends React.Component {
     key: 'id',
     render: (value, row) => (
       <div>
-        <Button onClick={() => this.handleClickEdit(row)}>{this.props.intl.formatMessage(commonMessages.edit)}</Button>
+        <Button onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(commonMessages.edit)}
+        </Button>
       </div>
     ),
   }];

@@ -1,17 +1,19 @@
 import { DEFAULT_LOCALE } from 'utils/constants';
-import { Mystore } from '../index';
+import store from '../index';
 import { translationMessages } from '../i18n';
 
+let lang = DEFAULT_LOCALE;
 let state = '';
 setTimeout(() => {
-    Mystore.subscribe(() => {
-        state = Mystore.getState();
-        console.log(state);//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
-    });
+  state = store.getState();
+  lang = state.get('global').get('lang');
+  store.subscribe(() => {
+    lang = state.get('global').get('lang');// 由于使用了subscribe，当数据更改时会重新获取
+  });
 }, 3000);
 
 function getText(key) {
-  return translationMessages[DEFAULT_LOCALE][`sofa.config.${key}`];
+  return translationMessages[lang][`sofa.config.${key}`];
 }
 
 const menu = [
