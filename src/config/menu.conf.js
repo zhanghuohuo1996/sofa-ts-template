@@ -4,7 +4,7 @@ import { translationMessages } from '../i18n';
 
 let lang = DEFAULT_LOCALE;
 setTimeout(() => {
-  let state = store.getState();
+  const state = store.getState();
   lang = state.get('global').get('lang');
   store.subscribe(() => {
     lang = state.get('global').get('lang');// 由于使用了subscribe，当数据更改时会重新获取
