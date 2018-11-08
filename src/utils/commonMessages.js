@@ -138,23 +138,23 @@ export default defineMessages({
     id: 'sofa.containers.Common.modifyOffline',
     defaultMessage: '下线',
   },
-  active_status_map: {
+  activeStatusMap: {
     1: {
-      id: 'sofa.containers.Common.active_status_map.1',
+      id: 'sofa.containers.Common.activeStatusMap.1',
       defaultMessage: '有效',
     },
     2: {
-      id: 'sofa.containers.Common.active_status_map.2',
+      id: 'sofa.containers.Common.activeStatusMap.2',
       defaultMessage: '失效',
     },
   },
-  yes_or_no_map: {
+  yesOrNoMap: {
     1: {
-      id: 'sofa.containers.Common.yes_or_no_map.1',
+      id: 'sofa.containers.Common.yesOrNoMap.1',
       defaultMessage: '是',
     },
     2: {
-      id: 'sofa.containers.Common.yes_or_no_map.2',
+      id: 'sofa.containers.Common.yesOrNoMap.2',
       defaultMessage: '否',
     },
   },
@@ -168,51 +168,51 @@ export default defineMessages({
       defaultMessage: '姓名',
     },
   },
-  country_city_map: {
+  countryCityMap: {
     1: {
-      id: 'sofa.containers.Common.country_city_map.1',
+      id: 'sofa.containers.Common.countryCityMap.1',
       defaultMessage: '中国',
     },
     156000001: {
-      id: 'sofa.containers.Common.country_city_map.2',
+      id: 'sofa.containers.Common.countryCityMap.2',
       defaultMessage: '香港',
     },
     156000002: {
-      id: 'sofa.containers.Common.country_city_map.3',
+      id: 'sofa.containers.Common.countryCityMap.3',
       defaultMessage: '澳门',
     },
     156000003: {
-      id: 'sofa.containers.Common.country_city_map.4',
+      id: 'sofa.containers.Common.countryCityMap.4',
       defaultMessage: '大陆',
     },
   },
-  week_map: {
+  weekMap: {
     1: {
-      id: 'sofa.containers.Common.week_map.1',
+      id: 'sofa.containers.Common.weekMap.1',
       defaultMessage: '周一',
     },
     2: {
-      id: 'sofa.containers.Common.week_map.2',
+      id: 'sofa.containers.Common.weekMap.2',
       defaultMessage: '周二',
     },
     3: {
-      id: 'sofa.containers.Common.week_map.3',
+      id: 'sofa.containers.Common.weekMap.3',
       defaultMessage: '周三',
     },
     4: {
-      id: 'sofa.containers.Common.week_map.4',
+      id: 'sofa.containers.Common.weekMap.4',
       defaultMessage: '周四',
     },
     5: {
-      id: 'sofa.containers.Common.week_map.5',
+      id: 'sofa.containers.Common.weekMap.5',
       defaultMessage: '周五',
     },
     6: {
-      id: 'sofa.containers.Common.week_map.6',
+      id: 'sofa.containers.Common.weekMap.6',
       defaultMessage: '周六',
     },
     7: {
-      id: 'sofa.containers.Common.week_map.7',
+      id: 'sofa.containers.Common.weekMap.7',
       defaultMessage: '周日',
     },
   },
@@ -239,5 +239,33 @@ export default defineMessages({
   edit: {
     id: 'sofa.containers.Common.edit',
     defaultMessage: '编辑',
+  },
+  homePage: {
+    id: 'sofa.config.homePage',
+    defaultMessage: '首页',
+  },
+  system: {
+    id: 'sofa.config.system',
+    defaultMessage: '系统管理',
+  },
+  userManage: {
+    id: 'sofa.config.userManage',
+    defaultMessage: '用户管理',
+  },
+  authManage: {
+    id: 'sofa.config.authManage',
+    defaultMessage: '权限管理',
+  },
+  authGroupManage: {
+    id: 'sofa.config.authGroupManage',
+    defaultMessage: '权限组管理',
+  },
+  example: {
+    id: 'sofa.config.example',
+    defaultMessage: '通用示例',
+  },
+  toolbarTableModal: {
+    id: 'sofa.config.toolbarTableModal',
+    defaultMessage: '工具箱-表-弹窗',
   },
 });
