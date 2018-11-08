@@ -55,3 +55,5 @@ if (module.hot) {
     render(translationMessages);
   }
 }
+console.log(store);
+export const Mystore = store;

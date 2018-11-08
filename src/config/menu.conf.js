@@ -1,4 +1,14 @@
 import { DEFAULT_LOCALE } from 'utils/constants';
+import { Mystore } from '../index';
+
+
+setTimeout(() => {
+    console.log('store==', Mystore);
+    Mystore.subscribe(() => {
+        let state = Mystore.getState();
+        console.log(state);//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
+    });
+}, 3000);
 
 const menu = [
   {

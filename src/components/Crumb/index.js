@@ -5,19 +5,15 @@ import { Link } from 'react-router-dom';
 
 function getCrumbItem(path, menuMap, subMap) {
   const pathArray = path.split('/').filter(item => Boolean(item));
-  const crumbArr = [];
-    return pathArray.map((item, index) => {
-      let a = '';
-        if (menuMap[item]) {
-            a = {
-                key: item,
-                text: menuMap[item],
-                path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
-            };
-        }
-        return a;
-    });
-  return crumbArr;
+  return pathArray.map((item, index) => {
+    if (menuMap[item]) {
+        return {
+        key: item,
+        text: menuMap[item],
+        path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
+    };
+    }
+  });
 }
 
 // eslint-disable-next-line
