@@ -1,9 +1,16 @@
+import Utils from 'utils/utils';
+
+// lang
+export const DEFAULT_LOCALE = Utils.getCookie('sofa-lang') ? Utils.getCookie('sofa-lang') : 'zh';
+
+export const ACTION_ROOT = 'page';
 // action
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 export const LOADING_DATA_ERROR = 'LOADING_DATA_ERROR';
 export const SHOW_LOADING = 'SHOW_LOADING';
+export const TOOGLE_LANG = 'TOOGLE_LANG';
 
 export const FATCH_ACTION_PREFIX = '@@FETCH_';
 export const DOWNLOAD_ACTION_PREFIX = '@@FETCH_DOWNLOAD_';

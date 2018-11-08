@@ -17,7 +17,7 @@ function menuNesting(menuConfig, authList) {
               title={(
                 <span>
                   { item.icon ? <Icon type={item.icon} /> : '' }
-                  {item.text}
+                  <span>{item.text}</span>
                 </span>)}
             >
               {childrenNodes}
@@ -31,7 +31,7 @@ function menuNesting(menuConfig, authList) {
       checkAuth(item.auth, authList)(
         <Item key={item.key}>
           { item.icon ? <Icon type={item.icon} /> : '' }
-          {item.text}
+          <span>{item.text}</span>
         </Item>,
       )
     );

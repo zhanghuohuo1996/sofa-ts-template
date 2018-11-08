@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Breadcrumb } from 'antd';
+import { Link } from 'react-router-dom';
 
-function getCrumbItem(path, mainMap, subMap) {
-  const pathArr = path.split('/').filter(item => Boolean(item));
-  const crumbArr = [];
-  pathArr.forEach((pathItem) => {
-    if (subMap && subMap[pathItem]) {
-      crumbArr.push(subMap[pathItem]);
-    } else if (mainMap[pathItem]) {
-      crumbArr.push(mainMap[pathItem]);
-    } else {
-      crumbArr.push(pathItem);
+function getCrumbItem(path, menuMap, subMap) {
+  const pathArray = path.split('/').filter(item => Boolean(item));
+  return pathArray.map((item, index) => {
+    if (menuMap[item]) {
+        return {
+        key: item,
+        text: menuMap[item],
+        path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
+    };
     }
   });
-  return crumbArr;
 }
 
 // eslint-disable-next-line
@@ -32,13 +32,18 @@ export default class Crumb extends React.Component {
     const items = getCrumbItem(this.path, mainMap, subMap);
 
     return (
-      <ul>
-        { items.map(item => (
-          <li key={item}>
-            { item }
-          </li>
-        ))}
-      </ul>
+        <Breadcrumb className="breadCrumb">
+            {
+                items.map((item, index) => (
+                    <Breadcrumb.Item key={item.key}>
+                         {item.path && index !== 0 && index !== items.length -1 ?
+                            <Link to={item.path}>{item.text}</Link> :
+                            item.text
+                        }
+                    </Breadcrumb.Item>
+                ))
+            }
+        </Breadcrumb>
     );
   }
 }

@@ -7,4 +7,9 @@ export const selectLoading = createSelector(
   subState => subState.get('loading'),
 );
 
+export const selectLang = createSelector(
+  selectGlobal,
+  subState => subState.get('lang'),
+);
+
 export default {};
