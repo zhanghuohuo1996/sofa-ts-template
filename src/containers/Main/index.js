@@ -75,8 +75,8 @@ class Main extends React.Component {
             ></Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: 0 }} />
-              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#000' : '#999' }} onClick={() => this.handleLangClick('zh')}>
+            <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: '0 20px', textAlign: 'right' }}>
+              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#000' : '#999', marginRight: '10px' }} onClick={() => this.handleLangClick('zh')}>
                 {'中文'}
               </Button>
               <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#999' : '#000' }} onClick={() => this.handleLangClick('en')}>
