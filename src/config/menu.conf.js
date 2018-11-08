@@ -1,38 +1,39 @@
 import { DEFAULT_LOCALE } from 'utils/constants';
+import { translationMessages } from '../i18n';
 
 const menu = [
   {
     key: 'homePage',
     icon: 'home',
-    text: DEFAULT_LOCALE === 'zh' ? '首页' : 'Home Page',
+    text: translationMessages[DEFAULT_LOCALE]['sofa.config.homePage'],
   },
   {
     key: 'system',
-    text: DEFAULT_LOCALE === 'zh' ? '系统管理' : 'System Management',
+    text: translationMessages[DEFAULT_LOCALE]['sofa.config.system'],
     icon: 'setting',
     children: [
       {
         key: 'userManage',
-        text: DEFAULT_LOCALE === 'zh' ? '用户管理' : 'User Management',
+        text: translationMessages[DEFAULT_LOCALE]['sofa.config.userManage'],
       },
       {
         key: 'authManage',
-        text: DEFAULT_LOCALE === 'zh' ? '权限管理' : 'Auth Management',
+        text: translationMessages[DEFAULT_LOCALE]['sofa.config.authManage'],
       },
       {
         key: 'authGroupManage',
-        text: DEFAULT_LOCALE === 'zh' ? '权限管理' : 'Auth Group Management',
+        text: translationMessages[DEFAULT_LOCALE]['sofa.config.authGroupManage'],
       },
     ],
   },
   {
     key: 'example',
-    text: DEFAULT_LOCALE === 'zh' ? '通用示例' : 'Common Example',
+    text: translationMessages[DEFAULT_LOCALE]['sofa.config.example'],
     icon: 'setting',
     children: [
       {
         key: 'toolbarTableModal',
-        text: DEFAULT_LOCALE === 'zh' ? '工具箱-表-弹窗' : 'Toolbar-Table-Modal',
+        text: translationMessages[DEFAULT_LOCALE]['sofa.config.toolbarTableModal'],
       },
     ],
   },
