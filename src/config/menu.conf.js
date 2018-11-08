@@ -48,10 +48,13 @@ const menu = [
         key: 'toolbarTableModal',
         text: getText('toolbarTableModal'),
       },
+      {
+        key: 'print',
+        text: '打印示例',
+      },
     ],
   },
 ];
-
 function getMap(menuData) {
   let obj = {};
   menuData.forEach((element) => {

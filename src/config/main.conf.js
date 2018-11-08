@@ -1,4 +1,5 @@
 const conf = {
+  themen: 'black',
   loginUri: '/static/pass.html#/login',
   table: {
     defaultPageSize: 3,
