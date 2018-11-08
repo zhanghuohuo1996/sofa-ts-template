@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel-loader": "^8.0.4",
+    "babel-plugin-import": "@1.11.0",
     "babel-preset-sofa-react": "^0.1.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -26,9 +27,11 @@
     "image-webpack-loader": "^4.4.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.4",
     "sososo": "^0.1.4",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.1.9",
@@ -60,6 +63,14 @@
     "whatwg-fetch": "^3.0.0"
   },
   "babel": {
+    "plugins": [
+      [
+        "import", 
+        {
+          "libraryName": "antd"
+        }
+      ]
+    ],
     "presets": [
       "sofa-react"
     ]
