@@ -15,8 +15,11 @@ import menuData, { menuMap } from 'config/menu.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
+import { createStructuredSelector } from "reselect/lib/index";
+import { selectLang } from '../../state/selectors';
+import { toggleLang } from '../../state/actions'
 
-const lang = Utils.getCookie('sofa-lang');
+
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
 
@@ -27,7 +30,11 @@ const {
   Sider,
 } = Layout;
 
-@connect()
+@connect(createStructuredSelector({
+  lang: selectLang,
+}),{
+  toggleLang,
+},)
 @withSaga
 class Main extends React.Component {
   state = {
@@ -43,19 +50,16 @@ class Main extends React.Component {
   }
 
   handleLangClick = (language) => {
-    if (language === 'zh') {
-      Utils.setCookie('sofa-lang', 'zh');
-      window.location.reload();
-    }
-    if (language === 'en') {
-      Utils.setCookie('sofa-lang', 'en');
-      window.location.reload();
-    }
+    Utils.setCookie('sofa-lang', language);
+    this.props.toggleLang(language);
+    window.location.reload();
   }
 
   render() {
     const { collapsed } = this.state;
+    const { lang } = this.props;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
+    console.log('lang=', lang);
 
     return (
       <Router history={history}>
