@@ -77,32 +77,36 @@ class Toolbar extends React.Component {
     const { searchCondition, intl } = this.props;
 
     return (
-      <Form>
-        <Row gutter={24}>
-          <Col span={6}>
-            <Form.Item label={intl.formatMessage(commonMessages.name)}>
-              {getFieldDecorator('name', {
-                initialValue: searchCondition.name || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label={intl.formatMessage(commonMessages.age)}>
-              {getFieldDecorator('age', {
-                initialValue: searchCondition.age || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col><Button onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
-          <Col><Button onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button></Col>
-        </Row>
-      </Form>);
+      <div className="toolbar-container">
+        <div className="function-buttons-container">
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
+        </div>
+        <Form>
+          <Row gutter={24}>
+            <Col span={6}>
+              <Form.Item label={intl.formatMessage(commonMessages.name)}>
+                {getFieldDecorator('name', {
+                  initialValue: searchCondition.name || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label={intl.formatMessage(commonMessages.age)}>
+                {getFieldDecorator('age', {
+                  initialValue: searchCondition.age || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
+          </Row>
+        </Form>
+      </div>);
   }
 }
 

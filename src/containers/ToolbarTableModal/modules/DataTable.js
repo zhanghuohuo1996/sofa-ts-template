@@ -7,6 +7,7 @@ import {
 
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
+import TableContainer from 'components/TableContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT, DEFAULT_LOCALE } from 'utils/constants';
@@ -107,20 +108,22 @@ class DataTable extends React.Component {
     const { tableData, pagination, loading } = this.props;
 
     return (
-      <Table
-        bordered
-        loading={loading}
-        columns={this.columns}
-        dataSource={tableData}
-        rowKey="id"
-        pagination={{
-          current: pagination.page,
-          total: pagination.total,
-          pageSize: pagination.pageSize,
-          showTotal: DataTable.showTotal,
-          onChange: this.handlePageChange,
-        }}
-      />
+      <TableContainer>
+        <Table
+          bordered
+          loading={loading}
+          columns={this.columns}
+          dataSource={tableData}
+          rowKey="id"
+          pagination={{
+            current: pagination.page,
+            total: pagination.total,
+            pageSize: pagination.pageSize,
+            showTotal: DataTable.showTotal,
+            onChange: this.handlePageChange,
+          }}
+        />
+      </TableContainer>
     );
   }
 }
