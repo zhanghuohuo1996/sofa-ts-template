@@ -3,9 +3,8 @@ import store from '../index';
 import { translationMessages } from '../i18n';
 
 let lang = DEFAULT_LOCALE;
-let state = '';
 setTimeout(() => {
-  state = store.getState();
+  let state = store.getState();
   lang = state.get('global').get('lang');
   store.subscribe(() => {
     lang = state.get('global').get('lang');// 由于使用了subscribe，当数据更改时会重新获取
