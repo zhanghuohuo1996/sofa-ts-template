@@ -4,10 +4,12 @@ import { translationMessages } from '../i18n';
 
 let state = '';
 setTimeout(() => {
+  if (Mystore) {
+    state = Mystore.getState();
     Mystore.subscribe(() => {
-        state = Mystore.getState();
-        console.log(state);//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
+      console.log(state.get('global').get('lang'));//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
     });
+  }
 }, 3000);
 
 function getText(key) {

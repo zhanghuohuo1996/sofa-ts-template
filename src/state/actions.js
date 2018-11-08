@@ -1,7 +1,7 @@
 import {
   LOADING_DATA_ERROR,
   SHOW_LOADING,
-  TOOGLE_LANG
+  TOOGLE_LANG,
 } from 'utils/constants';
 
 
