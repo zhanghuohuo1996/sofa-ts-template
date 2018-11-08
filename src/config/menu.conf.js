@@ -32,10 +32,13 @@ const menu = [
         key: 'toolbarTableModal',
         text: '工具箱-表-弹窗',
       },
+      {
+        key: 'print',
+        text: '打印示例',
+      },
     ],
   },
 ];
-
 function getMap(menuData) {
   let obj = {};
   menuData.forEach((element) => {
