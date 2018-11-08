@@ -1,36 +1,52 @@
+import { DEFAULT_LOCALE } from 'utils/constants';
+import { Mystore } from '../index';
+import { translationMessages } from '../i18n';
+
+let state = '';
+setTimeout(() => {
+    Mystore.subscribe(() => {
+        state = Mystore.getState();
+        console.log(state);//这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
+    });
+}, 3000);
+
+function getText(key) {
+  return translationMessages[DEFAULT_LOCALE][`sofa.config.${key}`];
+}
+
 const menu = [
   {
     key: 'homePage',
     icon: 'home',
-    text: '首页',
+    text: getText('homePage'),
   },
   {
     key: 'system',
-    text: '系统管理',
+    text: getText('system'),
     icon: 'setting',
     children: [
       {
         key: 'userManage',
-        text: '用户管理',
+        text: getText('userManage'),
       },
       {
         key: 'authManage',
-        text: '权限管理',
+        text: getText('authManage'),
       },
       {
         key: 'authGroupManage',
-        text: '权限组管理',
+        text: getText('authGroupManage'),
       },
     ],
   },
   {
     key: 'example',
-    text: '通用示例',
+    text: getText('example'),
     icon: 'setting',
     children: [
       {
         key: 'toolbarTableModal',
-        text: '工具箱-表-弹窗',
+        text: getText('toolbarTableModal'),
       },
       {
         key: 'print',
@@ -42,7 +58,7 @@ const menu = [
 function getMap(menuData) {
   let obj = {};
   menuData.forEach((element) => {
-    obj[element.key] = element.text;
+    obj[element.key] = getText(element.key);
     if (element.children) {
       const subMap = getMap(element.children);
       obj = Object.assign({}, obj, subMap);

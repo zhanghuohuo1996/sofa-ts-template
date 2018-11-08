@@ -1,6 +1,7 @@
 import {
   LOADING_DATA_ERROR,
   SHOW_LOADING,
+  TOOGLE_LANG
 } from 'utils/constants';
 
 
@@ -14,6 +15,13 @@ export function loadingDataError(payload) {
 export function showLoading(payload) {
   return {
     type: SHOW_LOADING,
+    payload,
+  };
+}
+
+export function toggleLang(payload) {
+  return {
+    type: TOOGLE_LANG,
     payload,
   };
 }

@@ -12,6 +12,9 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
+import { injectIntl, intlShape } from 'react-intl';
+import commonMessages from 'utils/commonMessages';
+import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
@@ -71,36 +74,44 @@ class Toolbar extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { searchCondition } = this.props;
+    const { searchCondition, intl } = this.props;
 
     return (
-      <Form>
-        <Row gutter={24}>
-          <Col span={6}>
-            <Form.Item label="姓名">
-              {getFieldDecorator('name', {
-                initialValue: searchCondition.name || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label="年龄">
-              {getFieldDecorator('age', {
-                initialValue: searchCondition.age || '',
-              })(
-                <Input />,
-              )}
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col><Button onClick={this.handleSearch}>检索</Button></Col>
-          <Col><Button onClick={this.handleClickCreate}>创建实体</Button></Col>
-        </Row>
-      </Form>);
+      <div className="toolbar-container">
+        <div className="function-buttons-container">
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
+        </div>
+        <Form>
+          <Row gutter={24}>
+            <Col span={6}>
+              <Form.Item label={intl.formatMessage(commonMessages.name)}>
+                {getFieldDecorator('name', {
+                  initialValue: searchCondition.name || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label={intl.formatMessage(commonMessages.age)}>
+                {getFieldDecorator('age', {
+                  initialValue: searchCondition.age || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
+          </Row>
+        </Form>
+      </div>);
   }
 }
 
-export default Toolbar;
+Toolbar.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Toolbar);
