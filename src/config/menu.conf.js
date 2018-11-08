@@ -58,7 +58,7 @@ const menu = [
 function getMap(menuData) {
   let obj = {};
   menuData.forEach((element) => {
-    obj[element.key] = getText(element.key);
+    obj[element.key] = element.key;
     if (element.children) {
       const subMap = getMap(element.children);
       obj = Object.assign({}, obj, subMap);

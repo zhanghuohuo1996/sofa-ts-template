@@ -7,11 +7,11 @@ function getCrumbItem(path, menuMap, subMap) {
   const pathArray = path.split('/').filter(item => Boolean(item));
   return pathArray.map((item, index) => {
     if (menuMap[item]) {
-        return {
+      return {
         key: item,
         text: menuMap[item],
         path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
-    };
+      };
     }
   });
 }
