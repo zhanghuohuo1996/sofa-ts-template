@@ -12,10 +12,15 @@ import {
   AutoComplete,
 } from 'antd';
 
+import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
+import { injectIntl, intlShape } from 'react-intl';
+import commonMessages from 'utils/commonMessages';
+import messages from '../messages';
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
+import { selectEntityModal } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
@@ -48,8 +53,8 @@ const residences = [{
 }];
 
 @withConnect(
-  state => ({
-    entityModal: state.get('entityModal').toJS(),
+  createStructuredSelector({ // 实用reselect性能有明显的提升；
+    entityModal: selectEntityModal,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
@@ -110,7 +115,7 @@ class CreateAndEditModal extends React.PureComponent {
   }
 
   render() {
-    const { entityModal } = this.props;
+    const { entityModal, intl } = this.props;
     const { data } = entityModal;
 
     const { getFieldDecorator } = this.props.form;
@@ -143,10 +148,12 @@ class CreateAndEditModal extends React.PureComponent {
       <div>
         <Modal
           width={700}
-          title="基础 Modal"
+          title={intl.formatMessage(messages.toolbarTableModal.basicModal)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          okText={intl.formatMessage(commonMessages.ok)}
+          cancelText={intl.formatMessage(commonMessages.cancel)}
         >
           <Form
             className="sofa-modal-form"
@@ -154,7 +161,7 @@ class CreateAndEditModal extends React.PureComponent {
           >
             <FormItem
               {...formItemLayout}
-              label="E-mail"
+              label={intl.formatMessage(commonMessages.email)}
             >
               {getFieldDecorator('email', {
                 initialValue: data.email || '',
@@ -171,8 +178,9 @@ class CreateAndEditModal extends React.PureComponent {
               {...formItemLayout}
               label={(
                 <span>
-                  Nickname&nbsp;
-                  <Tooltip title="What do you want others to call you?">
+                  {intl.formatMessage(messages.toolbarTableModal.nickname)}
+                  &nbsp;
+                  <Tooltip title={intl.formatMessage(messages.toolbarTableModal.explainNickname)}>
                     <Icon type="question-circle-o" />
                   </Tooltip>
                 </span>
@@ -187,7 +195,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Habitual Residence"
+              label={intl.formatMessage(messages.toolbarTableModal.habitualResidence)}
             >
               {getFieldDecorator('residence', {
                 initialValue: ['zhejiang', 'hangzhou', 'xihu'],
@@ -198,7 +206,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Phone Number"
+              label={intl.formatMessage(commonMessages.phone)}
             >
               {getFieldDecorator('phone', {
                 initialValue: data.phone || '',
@@ -209,7 +217,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Website"
+              label={intl.formatMessage(messages.toolbarTableModal.website)}
             >
               {getFieldDecorator('website', {
                 rules: [{ required: true, message: 'Please input website!' }],
@@ -217,7 +225,7 @@ class CreateAndEditModal extends React.PureComponent {
                 <AutoComplete
                   dataSource={websiteOptions}
                   onChange={this.handleWebsiteChange}
-                  placeholder="website"
+                  placeholder={intl.formatMessage(messages.toolbarTableModal.website)}
                 >
                   <Input />
                 </AutoComplete>,
@@ -229,4 +237,8 @@ class CreateAndEditModal extends React.PureComponent {
   }
 }
 
-export default CreateAndEditModal;
+CreateAndEditModal.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CreateAndEditModal);

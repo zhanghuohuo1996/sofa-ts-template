@@ -5,22 +5,33 @@ import {
   Button,
 } from 'antd';
 
+import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
-import { EDIT } from 'utils/constants';
 import TableContainer from 'components/TableContainer';
+import { injectIntl, intlShape } from 'react-intl';
+import commonMessages from 'utils/commonMessages';
+import { EDIT, DEFAULT_LOCALE } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
+import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
+import { selectLoading } from '../../../state/selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
 @withConnect(
-  // 第二个参数为全局的state, loading取自全局；
-  (state, globalState) => ({
-    tableData: state.get('tableData').toJS(),
-    pagination: state.get('pagination').toJS(),
-    searchCondition: state.get('searchCondition').toJS(),
-    loading: globalState.getIn(['global', 'loading']),
+  // 可以使用者两种方式mapstatetoprops 但是推荐使用select的方式，经测会减少渲染次数，性能较好；
+  // (globalState, state) => ({
+  //   tableData: state.get('tableData').toJS(),
+  //   pagination: state.get('pagination').toJS(),
+  //   searchCondition: state.get('searchCondition').toJS(),
+  //   loading: globalState.getIn(['global', 'loading']),
+  // }),
+  createStructuredSelector({
+    tableData: selectTableData,
+    pagination: selectPagination,
+    searchCondition: selectSearchCondition,
+    loading: selectLoading,
   }),
   {
     getDataList,
@@ -40,24 +51,27 @@ class DataTable extends React.Component {
 
   // 静态方法，类的不使用this的函数，一般声明为静态方法；
   static showTotal(total) {
-    return `总共 ${total} 条`;
+    if (DEFAULT_LOCALE === 'zh') {
+      return `总共 ${total} 条`;
+    }
+    return `${total} in total`;
   }
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
-    title: '姓名',
+    title: this.props.intl.formatMessage(commonMessages.name),
     dataIndex: 'name',
     key: 'name',
   }, {
-    title: '年龄',
+    title: this.props.intl.formatMessage(commonMessages.age),
     dataIndex: 'age',
     key: 'age',
   }, {
-    title: 'E-mail',
+    title: this.props.intl.formatMessage(commonMessages.email),
     dataIndex: 'email',
     key: 'email',
   }, {
-    title: '电话',
+    title: this.props.intl.formatMessage(commonMessages.phone),
     dataIndex: 'phone',
     key: 'phone',
   }, {
@@ -66,7 +80,7 @@ class DataTable extends React.Component {
     key: 'id',
     render: (value, row) => (
       <div>
-        <Button onClick={() => this.handleClickEdit(row)}>编辑</Button>
+        <Button onClick={() => this.handleClickEdit(row)}>{this.props.intl.formatMessage(commonMessages.edit)}</Button>
       </div>
     ),
   }];
@@ -114,4 +128,8 @@ class DataTable extends React.Component {
   }
 }
 
-export default DataTable;
+DataTable.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(DataTable);
