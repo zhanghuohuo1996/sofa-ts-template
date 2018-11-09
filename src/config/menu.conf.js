@@ -7,14 +7,12 @@ setTimeout(() => {
   const state = store.getState();
   lang = state.get('global').get('lang');
   store.subscribe(() => {
-    lang = state.get('global').get('lang');// 由于使用了subscribe，当数据更改时会重新获取
+    lang = state.get('global').get('lang');
   });
 }, 3000);
-
 function getText(key) {
   return translationMessages[lang][`sofa.config.${key}`];
 }
-
 const menu = [
   {
     key: 'homePage',
@@ -28,15 +26,11 @@ const menu = [
     children: [
       {
         key: 'userManage',
-        text: getText('userManage'),
+        text: '用户管理',
       },
       {
-        key: 'authManage',
-        text: getText('authManage'),
-      },
-      {
-        key: 'authGroupManage',
-        text: getText('authGroupManage'),
+        key: 'print',
+        text: '打印示例',
       },
     ],
   },

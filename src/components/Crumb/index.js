@@ -20,7 +20,6 @@ function getText(key) {
 }
 
 function getCrumbItem(path, menuMap) {
-  debugger
   const pathArray = path.split('/').filter(item => Boolean(item));
   return pathArray.map((item, index) => {
     if (menuMap[item]) {
