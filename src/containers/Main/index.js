@@ -12,6 +12,7 @@ import Crumb from 'components/Crumb';
 
 import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
+import Utils from 'utils/utils';
 
 import { createStructuredSelector } from 'reselect/lib/index';
 
@@ -53,13 +54,14 @@ class Main extends React.Component {
 
   handleLangClick = (language) => {
     this.props.toggleLang(language);
+    Utils.setCookie('sofa-lang', language);
   }
 
   render() {
     const { collapsed } = this.state;
     const { lang } = this.props;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
-    console.log('main', lang);
+
     return (
       <Router history={history}>
         <Layout style={{ minHeight: '100vh' }}>

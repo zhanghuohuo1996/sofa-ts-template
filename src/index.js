@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import Main from 'containers/Main';
 import LanguageProvider from 'containers/LanguageProvider';
 import { translationMessages } from 'utils/i18n';
-
 import storeFactory from './state/storeFactory';
 
 import './global-styles';
