@@ -15,7 +15,7 @@ function reducer(state = initialState, action) {
     case SHOW_LOADING:
       return state.set('loading', action.payload);
     case TOOGLE_LANG:
-        return state.set('lang', action.payload);
+      return state.set('lang', action.payload);
     default:
       break;
   }

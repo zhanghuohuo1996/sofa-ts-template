@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { Layout, Button } from 'antd';
 
@@ -12,12 +13,13 @@ import Crumb from 'components/Crumb';
 import injectSaga from 'utils/injectSaga';
 import Utils from 'utils/utils';
 import menuData, { menuMap } from 'config/menu.conf';
+import { createStructuredSelector } from 'reselect/lib/index';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
-import { createStructuredSelector } from "reselect/lib/index";
+
 import { selectLang } from '../../state/selectors';
-import { toggleLang } from '../../state/actions'
+import { toggleLang } from '../../state/actions';
 
 
 const history = createHistory();
@@ -32,9 +34,9 @@ const {
 
 @connect(createStructuredSelector({
   lang: selectLang,
-}),{
+}), {
   toggleLang,
-},)
+})
 @withSaga
 class Main extends React.Component {
   state = {
@@ -59,7 +61,7 @@ class Main extends React.Component {
     const { collapsed } = this.state;
     const { lang } = this.props;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
-    console.log('lang=', lang);
+    // console.log('lang=', lang);
 
     return (
       <Router history={history}>
@@ -104,5 +106,10 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  lang: PropTypes.string,
+  toggleLang: PropTypes.func,
+};
 
 export default Main;

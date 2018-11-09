@@ -1,3 +1,5 @@
+import {translationMessages} from "../i18n";
+
 /**
  * 常用工具函数（ES6语法）
  * cookie
