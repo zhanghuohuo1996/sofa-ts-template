@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  total: {
+    id: 'sofa.containers.Common.total',
+    defaultMessage: '总共 {total} 条',
+  },
   close: {
     id: 'sofa.containers.Common.close',
     defaultMessage: '关闭',

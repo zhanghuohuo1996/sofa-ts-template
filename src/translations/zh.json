@@ -9,6 +9,7 @@
   "sofa.config.toolbarTableModal": "工具箱-表-弹窗",
 
   "sofa.containers.HomePage.homePage": "首页",
+  "sofa.containers.Common.total": "总共 {total} 条",
   "sofa.containers.Common.close": "关闭",
   "sofa.containers.Common.zh": "中文",
   "sofa.containers.Common.en": "English",
