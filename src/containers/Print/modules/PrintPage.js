@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import commonConf from 'config/main.conf';
 import styled from 'styled-components';
-
+import BarCode from '../../../components/BarCode';
 import {
   Button,
 } from 'antd';
@@ -70,6 +70,7 @@ class PrintPage extends React.Component {
             <tbody></tbody>
           </table>
         </PrintArea>
+        <BarCode barCode="Hello" displayValue />
       </div>);
   }
 }
