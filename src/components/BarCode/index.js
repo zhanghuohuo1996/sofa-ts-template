@@ -9,6 +9,20 @@ export default class BarCode extends React.Component {
     this.drawBarCode = this.drawBarCode.bind(this);
   }
 
+  static propTypes = {
+    barCode: PropTypes.string.isRequired,
+    displayValue: PropTypes.bool,
+    background: PropTypes.string,
+    lineColor: PropTypes.string,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    margin: PropTypes.number,
+    text: PropTypes.string,
+    fontSize: PropTypes.number,
+    textPosition: PropTypes.string,
+    textMargin: PropTypes.number,
+  }
+
   componentDidMount() {
     this.drawBarCode();
   }
@@ -44,23 +58,7 @@ export default class BarCode extends React.Component {
 
   render() {
     return (
-      <div>
-        <svg ref={(ref) => { this.barcodeSVG = ref; }}></svg>
-      </div>
+      <svg ref={(ref) => { this.barcodeSVG = ref; }}></svg>
     );
   }
 }
-
-BarCode.propTypes = {
-  barCode: PropTypes.string.isRequired,
-  displayValue: PropTypes.bool,
-  background: PropTypes.string,
-  lineColor: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  margin: PropTypes.number,
-  text: PropTypes.string,
-  fontSize: PropTypes.number,
-  textPosition: PropTypes.string,
-  textMargin: PropTypes.number,
-};
