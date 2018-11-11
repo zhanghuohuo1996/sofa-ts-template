@@ -6,9 +6,10 @@
   "sofa.config.authGroupManage": "Auth Group Management",
   "sofa.config.example": "Common Example",
   "sofa.config.toolbarTableModal": "Toolbar-Table-Modal",
-  
+
   "sofa.containers.HomePage.homePage": "HomePage",
 
+  "sofa.containers.Common.total": "total is {total}",
   "sofa.containers.Common.close": "Close",
   "sofa.containers.Common.zh": "Chinese",
   "sofa.containers.Common.en": "English",

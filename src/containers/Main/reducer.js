@@ -2,12 +2,13 @@ import { fromJS } from 'immutable';
 import {
   SHOW_LOADING,
   TOOGLE_LANG,
-  DEFAULT_LOCALE,
 } from 'utils/constants';
+
+import { getLanguage } from 'utils/i18n';
 
 const initialState = fromJS({
   loading: false,
-  lang: DEFAULT_LOCALE,
+  lang: getLanguage(),
 });
 
 function reducer(state = initialState, action) {

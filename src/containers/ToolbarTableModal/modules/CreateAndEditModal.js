@@ -52,6 +52,7 @@ const residences = [{
   }],
 }];
 
+@injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
     entityModal: selectEntityModal,
@@ -76,6 +77,7 @@ class CreateAndEditModal extends React.PureComponent {
     updateEntityModal: PropTypes.func.isRequired,
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
+    intl: intlShape.isRequired,
   };
 
   state = {
@@ -237,8 +239,4 @@ class CreateAndEditModal extends React.PureComponent {
   }
 }
 
-CreateAndEditModal.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(CreateAndEditModal);
+export default CreateAndEditModal;

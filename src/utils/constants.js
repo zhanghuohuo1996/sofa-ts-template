@@ -1,9 +1,6 @@
-import Utils from 'utils/utils';
-
 // lang
-export const DEFAULT_LOCALE = Utils.getCookie('sofa-lang') ? Utils.getCookie('sofa-lang') : 'zh';
+export const DEFAULT_LOCALE = 'en';
 
-export const ACTION_ROOT = 'page';
 // action
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
