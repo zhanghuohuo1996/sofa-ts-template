@@ -8,11 +8,15 @@ import { addLocaleData } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
 import zhLocaleData from 'react-intl/locale-data/zh';
 import { DEFAULT_LOCALE } from 'utils/constants';
-import zhTranslationMessages from './translations/zh.json';
-import enTranslationMessages from './translations/en.json';
+import Utils from 'utils/utils';
+
+import zhTranslationMessages from '../translations/zh.json';
+import enTranslationMessages from '../translations/en.json';
 
 addLocaleData(enLocaleData);
 addLocaleData(zhLocaleData);
+
+export const getLanguage = () => (Utils.getCookie('sofa-lang') ? Utils.getCookie('sofa-lang') : 'zh');
 
 export const appLocales = [
   'zh',
@@ -34,4 +38,12 @@ export const formatTranslationMessages = (locale, messages) => {
 export const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   zh: formatTranslationMessages('zh', zhTranslationMessages),
+};
+
+export const getFormattedMessages = (locale = DEFAULT_LOCALE, key) => {
+  const messages = translationMessages[locale];
+  if (messages) {
+    return messages[key] || key;
+  }
+  return key;
 };

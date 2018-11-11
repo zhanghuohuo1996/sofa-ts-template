@@ -149,7 +149,7 @@ class CreateAndEditModal extends React.PureComponent {
       <div>
         <Modal
           width={700}
-          title={intl.formatMessage(messages.toolbarTableModal.basicModal)}
+          title={intl.formatMessage(messages.userManage.basicModal)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -179,9 +179,9 @@ class CreateAndEditModal extends React.PureComponent {
               {...formItemLayout}
               label={(
                 <span>
-                  {intl.formatMessage(messages.toolbarTableModal.nickname)}
+                  {intl.formatMessage(messages.userManage.nickname)}
                   &nbsp;
-                  <Tooltip title={intl.formatMessage(messages.toolbarTableModal.explainNickname)}>
+                  <Tooltip title={intl.formatMessage(messages.userManage.explainNickname)}>
                     <Icon type="question-circle-o" />
                   </Tooltip>
                 </span>
@@ -196,7 +196,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.toolbarTableModal.habitualResidence)}
+              label={intl.formatMessage(messages.userManage.habitualResidence)}
             >
               {getFieldDecorator('residence', {
                 initialValue: ['zhejiang', 'hangzhou', 'xihu'],
@@ -218,7 +218,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.toolbarTableModal.website)}
+              label={intl.formatMessage(messages.userManage.website)}
             >
               {getFieldDecorator('website', {
                 rules: [{ required: true, message: 'Please input website!' }],
@@ -226,7 +226,7 @@ class CreateAndEditModal extends React.PureComponent {
                 <AutoComplete
                   dataSource={websiteOptions}
                   onChange={this.handleWebsiteChange}
-                  placeholder={intl.formatMessage(messages.toolbarTableModal.website)}
+                  placeholder={intl.formatMessage(messages.userManage.website)}
                 >
                   <Input />
                 </AutoComplete>,

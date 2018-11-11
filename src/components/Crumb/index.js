@@ -2,51 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
-import { DEFAULT_LOCALE } from 'utils/constants';
-import { translationMessages } from '../../i18n';
-import store from '../../index';
-
-let lang = DEFAULT_LOCALE;
-setTimeout(() => {
-  const state = store.getState();
-  lang = state.get('global').get('lang');
-  store.subscribe(() => {
-    lang = state.get('global').get('lang');// 由于使用了subscribe，当数据更改时会重新获取
-  });
-}, 3000);
-
-function getText(key) {
-  return translationMessages[lang][`sofa.config.${key}`];
-}
-
-function getCrumbItem(path, menuMap) {
-  const pathArray = path.split('/').filter(item => Boolean(item));
-  return pathArray.map((item, index) => {
-    if (menuMap[item]) {
-      return {
-        key: item,
-        text: getText(item),
-        path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
-      };
-    }
-    return null;
-  });
-}
+import { getFormattedMessages } from 'utils/i18n';
 
 // eslint-disable-next-line
 export default class Crumb extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const { history } = nextProps;
-    if (history.location.pathname !== this.path) {
-      return true;
-    }
-    return false;
+  static propTypes = {
+    history: PropTypes.any.isRequired,
+    mainMap: PropTypes.object.isRequired,
+    lang: PropTypes.string.isRequired,
+    subMap: PropTypes.object,
+  }
+
+  getCrumbItem = (path) => {
+    const { lang, mainMap, subMap } = this.props;
+
+    const pathArray = path.split('/').filter(item => Boolean(item));
+    return pathArray.map((item, index) => {
+      if (mainMap[item]) {
+        return {
+          key: item,
+          text: getFormattedMessages(lang, `sofa.config.${item}`),
+          path: index === 0 ? './' : pathArray.slice(1, index + 1).join('/'),
+        };
+      }
+      return null;
+    });
   }
 
   render() {
-    const { history, mainMap, subMap } = this.props;
+    const { history } = this.props;
     this.path = history.location.pathname;
-    const items = getCrumbItem(this.path, mainMap, subMap);
+    const items = this.getCrumbItem(this.path);
 
     return (
       <Breadcrumb className="breadCrumb">
@@ -64,9 +50,3 @@ export default class Crumb extends React.Component {
     );
   }
 }
-
-Crumb.propTypes = {
-  history: PropTypes.any.isRequired,
-  mainMap: PropTypes.object.isRequired,
-  subMap: PropTypes.object,
-};
