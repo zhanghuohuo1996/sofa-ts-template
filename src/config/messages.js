@@ -35,5 +35,9 @@ export default defineMessages({
       id: 'sofa.config.toolbarTableModal',
       defaultMessage: '工具箱-表-弹窗',
     },
+    print: {
+      id: 'sofa.config.print',
+      defaultMessage: '打印示例',
+    },
   },
 });

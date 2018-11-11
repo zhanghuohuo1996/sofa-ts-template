@@ -7,6 +7,7 @@
   "sofa.config.authGroupManage": "权限组管理",
   "sofa.config.example": "通用示例",
   "sofa.config.toolbarTableModal": "工具箱-表-弹窗",
+  "sofa.config.print": "打印示例",
 
   "sofa.containers.HomePage.homePage": "首页",
   "sofa.containers.Common.total": "总共 {total} 条",

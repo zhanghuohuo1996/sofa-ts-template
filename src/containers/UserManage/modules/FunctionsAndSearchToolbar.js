@@ -22,7 +22,7 @@ import { getDataList, updateEntityModal, updateSearchCondition } from '../action
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
-
+@injectIntl
 @withConnect(
   state => ({
     searchCondition: selectSearchCondition(state),
@@ -41,6 +41,7 @@ class Toolbar extends React.Component {
     updateEntityModal: PropTypes.func.isRequired,
     updateSearchCondition: PropTypes.func.isRequired,
     form: PropTypes.any.isRequired,
+    intl: intlShape.isRequired,
   };
 
   componentDidMount() {
@@ -130,8 +131,4 @@ class Toolbar extends React.Component {
   }
 }
 
-Toolbar.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(Toolbar);
+export default Toolbar;
