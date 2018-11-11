@@ -10,8 +10,9 @@ import {
 const initialState = fromJS({
   searchCondition: {
     // 这里推荐枚举出所有Field的初始值
+    acount: '',
     name: '',
-    age: '',
+    acountStatus: '',
   },
   entityModal: {
     type: CREATE,

@@ -8,6 +8,7 @@ import {
   Col,
   Input,
   Button,
+  Select,
 } from 'antd';
 
 import connectFactory from 'utils/connectFactory';
@@ -79,10 +80,19 @@ class Toolbar extends React.Component {
     return (
       <div className="toolbar-container">
         <div className="function-buttons-container">
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.userManage.createUser)}</Button>
         </div>
         <Form>
           <Row gutter={24}>
+            <Col span={6}>
+              <Form.Item label={intl.formatMessage(messages.userManage.account)}>
+                {getFieldDecorator('account', {
+                  initialValue: searchCondition.account || '',
+                })(
+                  <Input />,
+                )}
+              </Form.Item>
+            </Col>
             <Col span={6}>
               <Form.Item label={intl.formatMessage(commonMessages.name)}>
                 {getFieldDecorator('name', {
@@ -93,12 +103,22 @@ class Toolbar extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.age)}>
-                {getFieldDecorator('age', {
-                  initialValue: searchCondition.age || '',
-                })(
-                  <Input />,
-                )}
+              <Form.Item label={intl.formatMessage(messages.userManage.accountStatus)}>
+                {
+                  getFieldDecorator('status', {
+                    initialValue: searchCondition.status,
+                  })(
+                    <Select>
+                      <Select.Option value="">{intl.formatMessage(commonMessages.all)}</Select.Option>
+                      {
+                        Object.keys(messages.userManage.accountStatusMap).map(key => (
+                          <Select.Option value={key} key={key}>
+                            {intl.formatMessage(messages.userManage.accountStatusMap[key])}
+                          </Select.Option>
+                        ))
+                      }
+                    </Select>,
+                  )}
               </Form.Item>
             </Col>
           </Row>
