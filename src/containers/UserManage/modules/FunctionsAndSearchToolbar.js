@@ -24,6 +24,7 @@ import { getDataList, updateEntityModal, updateSearchCondition } from '../action
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+const { Option } = Select;
 @injectIntl
 @withConnect(
   state => ({
@@ -112,12 +113,12 @@ class Toolbar extends React.Component {
                     initialValue: searchCondition.status,
                   })(
                     <Select>
-                      <Select.Option value="">{intl.formatMessage(commonMessages.all)}</Select.Option>
+                      <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
                       {
                         Object.keys(messages.userManage.accountStatusMap).map(key => (
-                          <Select.Option value={key} key={key}>
+                          <Option value={key} key={key}>
                             {intl.formatMessage(messages.userManage.accountStatusMap[key])}
-                          </Select.Option>
+                          </Option>
                         ))
                       }
                     </Select>,

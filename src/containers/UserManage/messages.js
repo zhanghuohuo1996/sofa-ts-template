@@ -53,5 +53,13 @@ export default defineMessages({
       id: 'sofa.containers.UserManage.createUser',
       defaultMessage: '创建用户',
     },
+    editUser: {
+      id: 'sofa.containers.UserManage.editUser',
+      defaultMessage: '修改用户',
+    },
+    dataPrivileges: {
+      id: 'sofa.containers.UserManage.dataPrivileges',
+      defaultMessage: '数据权限',
+    },
   },
 });

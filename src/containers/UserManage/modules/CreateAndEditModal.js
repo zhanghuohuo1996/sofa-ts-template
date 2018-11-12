@@ -5,11 +5,7 @@ import {
   Modal,
   Form,
   Input,
-  Tooltip,
-  Icon,
-  Cascader,
   Select,
-  AutoComplete,
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
@@ -17,45 +13,27 @@ import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
+import AuthSelectTemplate from './AuthSelectTemplate';
+
 import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
-import { selectEntityModal } from '../selectors';
+import { selectEntityModal, selectEntityModalType } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
 const FormItem = Form.Item;
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
-
+function isModify(type) {
+  return type === 'modify';
+}
+@injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
     entityModal: selectEntityModal,
+    type: selectEntityModalType,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
@@ -77,10 +55,11 @@ class CreateAndEditModal extends React.PureComponent {
     updateEntityModal: PropTypes.func.isRequired,
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
+    intl: intlShape.isRequired,
+    type: PropTypes.string.isRequired,
   };
 
   state = {
-    autoCompleteResult: [],
   };
 
   handleOk = (e) => {
@@ -105,22 +84,11 @@ class CreateAndEditModal extends React.PureComponent {
     });
   }
 
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-  }
-
   render() {
-    const { entityModal, intl } = this.props;
+    const { entityModal, intl, type } = this.props;
     const { data } = entityModal;
 
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -132,24 +100,14 @@ class CreateAndEditModal extends React.PureComponent {
         sm: { span: 16 },
       },
     };
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>,
-    );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <div>
         <Modal
           width={700}
-          title={intl.formatMessage(messages.userManage.basicModal)}
+          title={isModify(type)
+            ? intl.formatMessage(messages.userManage.createUser)
+            : intl.formatMessage(messages.userManage.editUser)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -188,48 +146,26 @@ class CreateAndEditModal extends React.PureComponent {
               {...formItemLayout}
               label={intl.formatMessage(messages.userManage.accountStatus)}
             >
-              {getFieldDecorator('residence', {
-                initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-                rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
+              {getFieldDecorator('accountStatus', {
+                initialValue: data.accountStatus || '',
+                rules: [{ required: true, message: 'Please input your accountStatus!' }],
               })(
-                <Cascader options={residences} />,
+                <Select>
+                  {
+                    Object.keys(messages.userManage.accountStatusMap).map(key => (
+                      <Option value={key} key={key}>
+                        {intl.formatMessage(messages.userManage.accountStatusMap[key])}
+                      </Option>
+                    ))
+                  }
+                </Select>,
               )}
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(commonMessages.phone)}
-            >
-              {getFieldDecorator('phone', {
-                initialValue: data.phone || '',
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.website)}
-            >
-              {getFieldDecorator('website', {
-                rules: [{ required: true, message: 'Please input website!' }],
-              })(
-                <AutoComplete
-                  dataSource={websiteOptions}
-                  onChange={this.handleWebsiteChange}
-                  placeholder={intl.formatMessage(messages.userManage.website)}
-                >
-                  <Input />
-                </AutoComplete>,
-              )}
-            </FormItem>
+            <AuthSelectTemplate />
           </Form>
         </Modal>
       </div>);
   }
 }
 
-CreateAndEditModal.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(CreateAndEditModal);
+export default CreateAndEditModal;
