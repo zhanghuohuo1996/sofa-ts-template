@@ -12,6 +12,10 @@ const menu = [
         key: 'authGroupManage',
         text: '权限组管理',
       },
+      {
+        key: 'authManage',
+        text: '权限管理',
+      },
     ],
   },
   {
