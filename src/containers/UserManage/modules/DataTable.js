@@ -14,7 +14,7 @@ import { EDIT } from 'utils/constants';
 
 import messages from '../messages';
 import { NAMESPACE } from '../constants';
-import { getDataList, updateEntityModal } from '../actions';
+import { getDataList, updateEntityModal, updateResetPasswordModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 import { selectLoading, selectLang } from '../../../state/selectors';
 
@@ -38,6 +38,7 @@ const withConnect = connectFactory(NAMESPACE);
   {
     getDataList,
     updateEntityModal,
+    updateResetPasswordModal,
   },
 )
 class DataTable extends React.PureComponent {
@@ -47,6 +48,7 @@ class DataTable extends React.PureComponent {
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
+    updateResetPasswordModal: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     intl: intlShape.isRequired,
@@ -74,15 +76,15 @@ class DataTable extends React.PureComponent {
       </span>
     ),
   }, {
-    title: '',
-    dataIndex: 'edit',
-    key: 'edit',
+    title: this.props.intl.formatMessage(commonMessages.operate),
+    width: 250,
+    key: 'action',
     render: (value, row) => (
       <div>
         <TableButton onClick={() => this.handleClickEdit(row)}>
           {this.props.intl.formatMessage(messages.userManage.modifyInfo)}
         </TableButton>
-        <TableButton onClick={() => this.handleClickEdit(row)}>
+        <TableButton onClick={() => this.handleResetPassword(row)}>
           {this.props.intl.formatMessage(messages.userManage.resetPassword)}
         </TableButton>
       </div>
@@ -92,6 +94,13 @@ class DataTable extends React.PureComponent {
   handleClickEdit(data) {
     this.props.updateEntityModal({
       type: EDIT,
+      show: true,
+      data,
+    });
+  }
+
+  handleResetPassword(data) {
+    this.props.updateResetPasswordModal({
       show: true,
       data,
     });

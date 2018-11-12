@@ -11,6 +11,7 @@ import saga from './saga';
 import Toolbar from './modules/FunctionsAndSearchToolbar';
 import Table from './modules/DataTable';
 import Modal from './modules/CreateAndEditModal';
+import ResetPasswordModal from './modules/ResetPasswordModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 const withSaga = injectSaga({ key: NAMESPACE, saga });
@@ -25,6 +26,7 @@ class UserManage extends React.Component {
         <Toolbar />
         <Table />
         <Modal />
+        <ResetPasswordModal />
       </div>);
   }
 }

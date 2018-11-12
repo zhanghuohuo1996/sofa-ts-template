@@ -73,5 +73,13 @@ export default defineMessages({
       id: 'sofa.containers.UserManage.resetPassword',
       defaultMessage: '重置密码',
     },
+    newPassword: {
+      id: 'sofa.containers.UserManage.newPassword',
+      defaultMessage: '新密码',
+    },
+    confirmNewPassword: {
+      id: 'sofa.containers.UserManage.confirmNewPassword',
+      defaultMessage: '确认新密码',
+    },
   },
 });

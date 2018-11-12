@@ -1,6 +1,7 @@
 import {
   UPDATE_SEARCH_CONDITION,
   UPDATE_ENTITY_MODAL,
+  UPDATE_RESET_PASSWORD_MODAL,
   GET_DATA_LIST,
   POST_CREATE_ENTITY,
   POST_EDIT_ENTITY,
@@ -24,6 +25,13 @@ export function updateSearchCondition(payload) {
 export function updateEntityModal(payload) {
   return {
     type: UPDATE_ENTITY_MODAL,
+    payload,
+  };
+}
+
+export function updateResetPasswordModal(payload) {
+  return {
+    type: UPDATE_RESET_PASSWORD_MODAL,
     payload,
   };
 }

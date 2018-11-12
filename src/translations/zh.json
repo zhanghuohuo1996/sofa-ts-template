@@ -108,6 +108,8 @@
   "sofa.containers.UserManage.operationAuth": "操作权限",
   "sofa.containers.UserManage.modifyInfo": "修改信息",
   "sofa.containers.UserManage.resetPassword": "重置密码",
+  "sofa.containers.UserManage.newPassword": "新密码",
+  "sofa.containers.UserManage.confirmNewPassword": "确认新密码",
 
   "sofa.containers.UserManage.title": "用户管理",
   "sofa.containers.UserManage.warnRegionChooseTips": "请取消全部分拨区选择",
