@@ -84,45 +84,26 @@ class Toolbar extends React.Component {
     return (
       <ToolbarContainer>
         <FunctionButtonsContainer>
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.userManage.createUser)}</Button>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.authGroupManage.createAuthGroup)}</Button>
         </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(messages.userManage.account)}>
-                {getFieldDecorator('account', {
-                  initialValue: searchCondition.account || '',
+              <Form.Item label={intl.formatMessage(messages.authGroupManage.authGroupCode)}>
+                {getFieldDecorator('authGroupCode', {
+                  initialValue: searchCondition.authGroupCode || '',
                 })(
                   <Input />,
                 )}
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.name)}>
-                {getFieldDecorator('name', {
-                  initialValue: searchCondition.name || '',
+              <Form.Item label={intl.formatMessage(messages.authGroupManage.authGroupName)}>
+                {getFieldDecorator('authGroupName', {
+                  initialValue: searchCondition.authGroupName || '',
                 })(
                   <Input />,
                 )}
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item label={intl.formatMessage(messages.userManage.accountStatus)}>
-                {
-                  getFieldDecorator('status', {
-                    initialValue: searchCondition.status,
-                  })(
-                    <Select>
-                      <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
-                      {
-                        Object.keys(messages.userManage.accountStatusMap).map(key => (
-                          <Option value={key} key={key}>
-                            {intl.formatMessage(messages.userManage.accountStatusMap[key])}
-                          </Option>
-                        ))
-                      }
-                    </Select>,
-                  )}
               </Form.Item>
             </Col>
           </Row>

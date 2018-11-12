@@ -80,10 +80,11 @@
 
   "sofa.containers.AuthGroupManage.title": "权限组管理",
   "sofa.containers.AuthGroupManage.authGroupId": "权限组ID",
-  "sofa.containers.AuthGroupManage.authGroupName": "权限组名称",
   "sofa.containers.AuthGroupManage.authGroupNameVerify": "权限组名称必填",
   "sofa.containers.AuthGroupManage.containsAuth": "包含权限",
-  "sofa.containers.AuthGroupManage.createAuthGroup": "新建",
+  "sofa.containers.AuthGroupManage.createAuthGroup": "新建权限组",
+  "sofa.containers.AuthGroupManage.authGroupName": "权限组名称",
+  "sofa.containers.AuthGroupManage.authGroupCode": "权限组代码",
 
   "sofa.containers.AuthManage.title": "权限管理",
   "sofa.containers.AuthManage.authId": "权限ID",

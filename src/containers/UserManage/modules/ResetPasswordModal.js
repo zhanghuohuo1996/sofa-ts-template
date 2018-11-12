@@ -56,7 +56,6 @@ class ResetPasswordModal extends React.PureComponent {
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
     intl: intlShape.isRequired,
-    type: PropTypes.string.isRequired,
   };
 
   state = {

@@ -47,7 +47,6 @@ class DataTable extends React.PureComponent {
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
-    updateResetPasswordModal: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     intl: intlShape.isRequired,
@@ -58,22 +57,13 @@ class DataTable extends React.PureComponent {
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
-    title: this.props.intl.formatMessage(messages.userManage.account),
-    dataIndex: 'id',
-    key: 'id',
+    title: this.props.intl.formatMessage(messages.authGroupManage.authGroupCode),
+    dataIndex: 'authGroupCode',
+    key: 'authGroupCode',
   }, {
-    title: this.props.intl.formatMessage(commonMessages.name),
-    dataIndex: 'name',
-    key: 'name',
-  }, {
-    title: this.props.intl.formatMessage(messages.userManage.accountStatus),
-    dataIndex: 'accountStatus',
-    key: 'accountStatus',
-    render: value => (
-      <span>
-        {value && this.props.intl.formatMessage(messages.userManage.accountStatusMap[value])}
-      </span>
-    ),
+    title: this.props.intl.formatMessage(messages.authGroupManage.authGroupName),
+    dataIndex: 'authGroupName',
+    key: 'authGroupName',
   }, {
     title: this.props.intl.formatMessage(commonMessages.operate),
     width: 250,
@@ -81,10 +71,7 @@ class DataTable extends React.PureComponent {
     render: (value, row) => (
       <div>
         <TableButton onClick={() => this.handleClickEdit(row)}>
-          {this.props.intl.formatMessage(messages.userManage.modifyInfo)}
-        </TableButton>
-        <TableButton onClick={() => this.handleResetPassword(row)}>
-          {this.props.intl.formatMessage(messages.userManage.resetPassword)}
+          {this.props.intl.formatMessage(messages.authGroupManage.modifyInfo)}
         </TableButton>
       </div>
     ),

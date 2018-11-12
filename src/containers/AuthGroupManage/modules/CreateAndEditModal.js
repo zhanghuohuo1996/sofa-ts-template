@@ -14,6 +14,7 @@ import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 
+import OperationAuthSelect from './OperationAuthSelect';
 import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
@@ -105,8 +106,8 @@ class CreateAndEditModal extends React.PureComponent {
         <Modal
           width={700}
           title={isModify(type)
-            ? intl.formatMessage(messages.userManage.createUser)
-            : intl.formatMessage(messages.userManage.editUser)}
+            ? intl.formatMessage(messages.authGroupManage.createUser)
+            : intl.formatMessage(messages.authGroupManage.editUser)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -119,7 +120,7 @@ class CreateAndEditModal extends React.PureComponent {
           >
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.account)}
+              label={intl.formatMessage(messages.authGroupManage.account)}
             >
               {getFieldDecorator('id', {
                 initialValue: data.id || '',
@@ -143,7 +144,7 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.accountStatus)}
+              label={intl.formatMessage(messages.authGroupManage.accountStatus)}
             >
               {getFieldDecorator('accountStatus', {
                 initialValue: data.accountStatus || '',
@@ -151,15 +152,16 @@ class CreateAndEditModal extends React.PureComponent {
               })(
                 <Select>
                   {
-                    Object.keys(messages.userManage.accountStatusMap).map(key => (
+                    Object.keys(messages.authGroupManage.accountStatusMap).map(key => (
                       <Option value={key} key={key}>
-                        {intl.formatMessage(messages.userManage.accountStatusMap[key])}
+                        {intl.formatMessage(messages.authGroupManage.accountStatusMap[key])}
                       </Option>
                     ))
                   }
                 </Select>,
               )}
             </FormItem>
+            <OperationAuthSelect />
           </Form>
         </Modal>
       </div>);
