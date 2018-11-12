@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
-  Button,
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
+import TableButton from 'components/TableButton';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
@@ -79,9 +79,12 @@ class DataTable extends React.PureComponent {
     key: 'edit',
     render: (value, row) => (
       <div>
-        <Button onClick={() => this.handleClickEdit(row)}>
-          {this.props.intl.formatMessage(commonMessages.edit)}
-        </Button>
+        <TableButton onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(messages.userManage.modifyInfo)}
+        </TableButton>
+        <TableButton onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(messages.userManage.resetPassword)}
+        </TableButton>
       </div>
     ),
   }];

@@ -65,5 +65,13 @@ export default defineMessages({
       id: 'sofa.containers.UserManage.operationAuth',
       defaultMessage: '操作权限',
     },
+    modifyInfo: {
+      id: 'sofa.containers.UserManage.modifyInfo',
+      defaultMessage: '修改信息',
+    },
+    resetPassword: {
+      id: 'sofa.containers.UserManage.resetPassword',
+      defaultMessage: '重置密码',
+    },
   },
 });
