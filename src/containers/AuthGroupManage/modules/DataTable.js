@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
 import TableButton from 'components/TableButton';
-import { injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
@@ -58,12 +58,17 @@ class DataTable extends React.PureComponent {
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
     title: this.props.intl.formatMessage(messages.authGroupManage.authGroupCode),
-    dataIndex: 'authGroupCode',
-    key: 'authGroupCode',
+    dataIndex: 'role_id',
+    key: 'role_id',
   }, {
     title: this.props.intl.formatMessage(messages.authGroupManage.authGroupName),
-    dataIndex: 'authGroupName',
-    key: 'authGroupName',
+    dataIndex: 'name',
+    key: 'name',
+  }, {
+    title: this.props.intl.formatMessage(messages.authGroupManage.status),
+    dataIndex: 'is_delete',
+    key: 'is_delete',
+    render: text => <FormattedMessage {...messages.authGroupManage.statusMap[text]} />,
   }, {
     title: this.props.intl.formatMessage(commonMessages.operate),
     width: 250,

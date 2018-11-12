@@ -33,4 +33,12 @@ export const selectTableData = createSelector(
   subState => subState.get('tableData').toJS(),
 );
 
+export const selectOperationAuth = createSelector(
+  selectNamespace,
+  subState => subState.get('operationAuth').toJS().map(item => ({
+    key: item.privilege_id,
+    title: item.name,
+  })),
+);
+
 export default {};

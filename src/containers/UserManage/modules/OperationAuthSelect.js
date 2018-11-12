@@ -14,39 +14,25 @@ import commonMessages from 'utils/commonMessages';
 
 import messages from '../messages';
 import { NAMESPACE } from '../constants';
-import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
-import { selectEntityModal, selectEntityModalType } from '../selectors';
+import { updateEntityModal, postCreateEntity, postEditEntity, getPrivilegeList } from '../actions';
+import { selectEntityModal, selectEntityModalType, selectOperationAuth } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 const FormItem = Form.Item;
 
-const mockData = [];
-for (let i = 0; i < 20; i++) {
-  mockData.push({
-    key: i.toString(),
-    title: `content${i + 1}`,
-    description: `description of content${i + 1}`,
-  });
-}
-
-const oriTargetKeys = mockData
-  .filter(item => +item.key % 3 > 1)
-  .map(item => item.key);
-
-function isModify(type) {
-  return type === 'modify';
-}
 @injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
     entityModal: selectEntityModal,
     type: selectEntityModalType,
+    operationAuth: selectOperationAuth,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
     updateEntityModal,
     postCreateEntity,
     postEditEntity,
+    getPrivilegeList,
   },
 )
 @Form.create({
@@ -59,6 +45,7 @@ function isModify(type) {
 class OperationAuthSelect extends React.PureComponent {
   static propTypes = {
     entityModal: PropTypes.object.isRequired,
+    operationAuth: PropTypes.array.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
@@ -66,10 +53,29 @@ class OperationAuthSelect extends React.PureComponent {
     type: PropTypes.string.isRequired,
   };
 
+  componentDidMount() {
+    this.props.getPrivilegeList();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const show = this.props.entityModal.show;
+    const newShow = nextProps.entityModal.show;
+    const roleId = this.props.entityModal.data.role_id;
+    const newRoleId = nextProps.entityModal.data.role_id;
+
+    if (show === true && newShow === false) {
+      this.props.form.resetFields();
+    } else if (show === false && newShow === true) {
+      if (roleId !== newRoleId) {
+        this.setState({
+          selectedKeysValue: [],
+        });
+      }
+    }
+  }
+
   state = {
-    targetKeys: oriTargetKeys,
-    selectedKeys: [],
-    disabled: false,
+    selectedKeysValue: [],
   };
 
   handleOk = (e) => {
@@ -93,35 +99,18 @@ class OperationAuthSelect extends React.PureComponent {
       data: {},
     });
   }
-  
-  handleChange = (nextTargetKeys, direction, moveKeys) => {
-    this.setState({ targetKeys: nextTargetKeys });
 
-    console.log('targetKeys: ', nextTargetKeys);
-    console.log('direction: ', direction);
-    console.log('moveKeys: ', moveKeys);
+  onSelectChangeHandle = (sourceSelectedKeys, targetSelectedKeys) => {
+    const arr = [].concat(sourceSelectedKeys).concat(targetSelectedKeys);
+    this.setState({
+      selectedKeysValue: arr,
+    });
   }
-
-  handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-    this.setState({ selectedKeys: [...sourceSelectedKeys, ...targetSelectedKeys] });
-
-    console.log('sourceSelectedKeys: ', sourceSelectedKeys);
-    console.log('targetSelectedKeys: ', targetSelectedKeys);
-  }
-
-  handleScroll = (direction, e) => {
-    console.log('direction:', direction);
-    console.log('target:', e.target);
-  }
-
-  handleDisable = (disabled) => {
-    this.setState({ disabled });
-  };
 
   render() {
-    const { entityModal, intl } = this.props;
+    const { entityModal, intl, operationAuth } = this.props;
+    const { getFieldDecorator } = this.props.form;
     const { data } = entityModal;
-    const { targetKeys, selectedKeys, disabled } = this.state;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -138,15 +127,22 @@ class OperationAuthSelect extends React.PureComponent {
         {...formItemLayout}
         label={intl.formatMessage(messages.userManage.operationAuth)}
       >
-        <Transfer
-          dataSource={mockData} // 登陆用户有的所有权限
-          showSearch
-          targetKeys={targetKeys} // 当前用户已有的权限
-          onChange={this.handleChangeAuthSelect}
-          render={item => item.title}
-          searchPlaceholder={intl.formatMessage(commonMessages.inputPlaceholder)}
-          notFoundContent={intl.formatMessage(commonMessages.dataNotFound)}
-        />
+        {
+          getFieldDecorator('privileges', {
+            initialValue: data.privileges || [],
+            valuePropName: 'targetKeys',
+          })(
+            <Transfer
+              dataSource={operationAuth} // 登陆用户有的所有权限
+              showSearch
+              targetKeys={this.state.selectedKeysValue} // 当前用户已有的权限
+              onChange={this.onSelectChangeHandle}
+              render={item => item.title}
+              searchPlaceholder={intl.formatMessage(commonMessages.inputPlaceholder)}
+              notFoundContent={intl.formatMessage(commonMessages.dataNotFound)}
+            />,
+          )
+        }
       </FormItem>);
   }
 }

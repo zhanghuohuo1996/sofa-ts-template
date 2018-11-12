@@ -118,8 +118,8 @@ class ResetPasswordModal extends React.PureComponent {
               {...formItemLayout}
               label={intl.formatMessage(messages.userManage.newPassword)}
             >
-              {getFieldDecorator('id', {
-                initialValue: data.id || '',
+              {getFieldDecorator('new_password', {
+                initialValue: '',
                 rules: [{
                   required: true, message: 'Please input your id!',
                 }],
@@ -131,8 +131,8 @@ class ResetPasswordModal extends React.PureComponent {
               {...formItemLayout}
               label={intl.formatMessage(messages.userManage.confirmNewPassword)}
             >
-              {getFieldDecorator('name', {
-                initialValue: data.name || '',
+              {getFieldDecorator('confirm_new_password', {
+                initialValue: '',
                 rules: [{ required: true, message: 'Please input your name!' }],
               })(
                 <Input />,

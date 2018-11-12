@@ -118,22 +118,25 @@ class CreateAndEditModal extends React.PureComponent {
             className="sofa-modal-form"
             onSubmit={this.handleSubmit}
           >
+            {
+              isModify(type)
+                ? (
+                  <FormItem
+                    {...formItemLayout}
+                    label={intl.formatMessage(messages.authManage.account)}
+                  >
+                    {
+                      getFieldDecorator('role_id', {
+                        initialValue: data.role_id,
+                      })(
+                        <Input disabled />,
+                      )
+                    }
+                  </FormItem>) : ''
+            }
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.authGroupManage.account)}
-            >
-              {getFieldDecorator('id', {
-                initialValue: data.id || '',
-                rules: [{
-                  required: true, message: 'Please input your id!',
-                }],
-              })(
-                <Input />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(commonMessages.name)}
+              label={intl.formatMessage(messages.authGroupManage.authGroupName)}
             >
               {getFieldDecorator('name', {
                 initialValue: data.name || '',
@@ -144,22 +147,24 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.authGroupManage.accountStatus)}
+              label={intl.formatMessage(messages.authGroupManage.status)}
             >
-              {getFieldDecorator('accountStatus', {
-                initialValue: data.accountStatus || '',
-                rules: [{ required: true, message: 'Please input your accountStatus!' }],
-              })(
-                <Select>
-                  {
-                    Object.keys(messages.authGroupManage.accountStatusMap).map(key => (
-                      <Option value={key} key={key}>
-                        {intl.formatMessage(messages.authGroupManage.accountStatusMap[key])}
-                      </Option>
-                    ))
-                  }
-                </Select>,
-              )}
+              {
+                getFieldDecorator('is_delete', {
+                  initialValue: (data.is_delete || data.is_delete === 0)
+                    ? String(data.is_delete) : data.is_delete,
+                  rules: [{ required: true, message: 'Please input your status!' }],
+                })(
+                  <Select>
+                    {
+                      Object.keys(messages.authGroupManage.statusMap).map(key => (
+                        <Option value={key} key={key}>
+                          {intl.formatMessage(messages.authGroupManage.statusMap[key])}
+                        </Option>
+                      ))
+                    }
+                  </Select>,
+                )}
             </FormItem>
             <OperationAuthSelect />
           </Form>

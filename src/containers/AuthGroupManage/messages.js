@@ -27,6 +27,20 @@ export default defineMessages({
       id: 'sofa.containers.AuthGroupManage.accountStatus',
       defaultMessage: '账号状态',
     },
+    status: {
+      id: 'sofa.containers.AuthGroupManage.status',
+      defaultMessage: '权限状态',
+    },
+    statusMap: {
+      0: {
+        id: 'sofa.containers.AuthGroupManage.statusMap.0',
+        defaultMessage: '有效',
+      },
+      1: {
+        id: 'sofa.containers.AuthGroupManage.statusMap.1',
+        defaultMessage: '无效',
+      },
+    },
     createEntity: {
       id: 'sofa.containers.AuthGroupManage.createEntity',
       defaultMessage: '创建实体',

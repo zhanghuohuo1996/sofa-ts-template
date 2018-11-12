@@ -4,12 +4,14 @@ import {
   GET_DATA_LIST,
   POST_CREATE_ENTITY,
   POST_EDIT_ENTITY,
+  GET_PRIVILEGE_LIST,
 } from './constants';
 
 import {
   getDataListService,
   postCreateEntityService,
   postEditEntityService,
+  getPrivilegeListService,
 } from './services';
 
 import { showLoading } from '../../state/actions';
@@ -32,6 +34,15 @@ export function getDataList(params) {
   return {
     type: GET_DATA_LIST,
     service: getDataListService,
+    loadingAction: showLoading,
+    params,
+  };
+}
+
+export function getPrivilegeList(params) {
+  return {
+    type: GET_PRIVILEGE_LIST,
+    service: getPrivilegeListService,
     loadingAction: showLoading,
     params,
   };
