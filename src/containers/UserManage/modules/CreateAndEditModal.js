@@ -162,14 +162,12 @@ class CreateAndEditModal extends React.PureComponent {
           >
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(commonMessages.email)}
+              label={intl.formatMessage(messages.userManage.account)}
             >
-              {getFieldDecorator('email', {
-                initialValue: data.email || '',
+              {getFieldDecorator('id', {
+                initialValue: data.id || '',
                 rules: [{
-                  type: 'email', message: 'The input is not valid E-mail!',
-                }, {
-                  required: true, message: 'Please input your E-mail!',
+                  required: true, message: 'Please input your id!',
                 }],
               })(
                 <Input />,
@@ -177,26 +175,18 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={(
-                <span>
-                  {intl.formatMessage(messages.userManage.nickname)}
-                  &nbsp;
-                  <Tooltip title={intl.formatMessage(messages.userManage.explainNickname)}>
-                    <Icon type="question-circle-o" />
-                  </Tooltip>
-                </span>
-              )}
+              label={intl.formatMessage(commonMessages.name)}
             >
               {getFieldDecorator('name', {
                 initialValue: data.name || '',
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: 'Please input your name!' }],
               })(
                 <Input />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.habitualResidence)}
+              label={intl.formatMessage(messages.userManage.accountStatus)}
             >
               {getFieldDecorator('residence', {
                 initialValue: ['zhejiang', 'hangzhou', 'xihu'],
