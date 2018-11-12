@@ -61,5 +61,9 @@ export default defineMessages({
       id: 'sofa.containers.UserManage.dataAuth',
       defaultMessage: '数据权限',
     },
+    operationAuth: {
+      id: 'sofa.containers.UserManage.operationAuth',
+      defaultMessage: '操作权限',
+    },
   },
 });

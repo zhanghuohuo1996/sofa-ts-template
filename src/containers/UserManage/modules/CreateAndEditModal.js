@@ -13,7 +13,8 @@ import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import AuthSelectTemplate from './AuthSelectTemplate';
+import DataAuthSelect from './DataAuthSelect';
+import OperationAuthSelect from './OperationAuthSelect';
 
 import messages from '../messages';
 
@@ -93,11 +94,11 @@ class CreateAndEditModal extends React.PureComponent {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 4 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 20 },
       },
     };
 
@@ -161,7 +162,8 @@ class CreateAndEditModal extends React.PureComponent {
                 </Select>,
               )}
             </FormItem>
-            <AuthSelectTemplate />
+            <DataAuthSelect />
+            <OperationAuthSelect />
           </Form>
         </Modal>
       </div>);

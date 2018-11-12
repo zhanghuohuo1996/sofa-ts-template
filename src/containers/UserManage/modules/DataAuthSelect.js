@@ -9,8 +9,8 @@ import {
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import { injectIntl, intlShape } from 'react-intl';
-import messages from '../messages';
 
+import messages from '../messages';
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal } from '../selectors';
@@ -20,31 +20,21 @@ const FormItem = Form.Item;
 const { SHOW_PARENT } = TreeSelect;
 
 const treeData = [{
-  title: 'Node1',
-  value: '0-0',
-  key: '0-0',
-  children: [{
-    title: 'Child Node1',
-    value: '0-0-0',
-    key: '0-0-0',
-  }],
+  title: '仓库1',
+  value: '1',
+  key: '1',
 }, {
-  title: 'Node2',
-  value: '0-1',
-  key: '0-1',
-  children: [{
-    title: 'Child Node3',
-    value: '0-1-0',
-    key: '0-1-0',
-  }, {
-    title: 'Child Node4',
-    value: '0-1-1',
-    key: '0-1-1',
-  }, {
-    title: 'Child Node5',
-    value: '0-1-2',
-    key: '0-1-2',
-  }],
+  title: '仓库2',
+  value: '2',
+  key: '2',
+}, {
+  title: '仓库3',
+  value: '3',
+  key: '3',
+}, {
+  title: '仓库4',
+  value: '4',
+  key: '4',
 }];
 
 @injectIntl
@@ -66,7 +56,7 @@ const treeData = [{
   }),
 })
 // eslint-disable-next-line
-class AuthSelectTemplate extends React.PureComponent {
+class DataAuthSelect extends React.PureComponent {
   static propTypes = {
     entityModal: PropTypes.object.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
@@ -91,11 +81,11 @@ class AuthSelectTemplate extends React.PureComponent {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 4 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 20 },
       },
     };
     const tProps = {
@@ -104,26 +94,24 @@ class AuthSelectTemplate extends React.PureComponent {
       onChange: this.onChange,
       treeCheckable: true,
       showCheckedStrategy: SHOW_PARENT,
-      searchPlaceholder: 'Please select',
+      searchPlaceholder: '请选择',
       style: {
-        width: 300,
+        // width: 300,
       },
     };
     return (
-      <div>
-        <FormItem
-          {...formItemLayout}
-          label={intl.formatMessage(messages.userManage.dataAuth)}
-        >
-          { getFieldDecorator('data_auth', {
-            initialValue: data.auth,
-            rules: [{ required: true }],
-          })(
-            <TreeSelect {...tProps} />,
-          )}
-        </FormItem>
-      </div>);
+      <FormItem
+        {...formItemLayout}
+        label={intl.formatMessage(messages.userManage.dataAuth)}
+      >
+        { getFieldDecorator('data_auth', {
+          initialValue: data.auth,
+        })(
+          <TreeSelect {...tProps} />,
+        )}
+      </FormItem>
+    );
   }
 }
 
-export default AuthSelectTemplate;
+export default DataAuthSelect;
