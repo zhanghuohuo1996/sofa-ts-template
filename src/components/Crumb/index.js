@@ -10,11 +10,10 @@ export default class Crumb extends React.Component {
     history: PropTypes.any.isRequired,
     mainMap: PropTypes.object.isRequired,
     lang: PropTypes.string.isRequired,
-    subMap: PropTypes.object,
   }
 
   getCrumbItem = (path) => {
-    const { lang, mainMap, subMap } = this.props;
+    const { lang, mainMap } = this.props;
 
     const pathArray = path.split('/').filter(item => Boolean(item));
     return pathArray.map((item, index) => {

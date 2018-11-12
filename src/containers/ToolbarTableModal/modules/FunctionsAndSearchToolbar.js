@@ -12,6 +12,8 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
+import ToolbarContainer from 'components/ToolbarContainer';
+import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import messages from '../messages';
@@ -79,10 +81,10 @@ class Toolbar extends React.Component {
     const { searchCondition, intl } = this.props;
 
     return (
-      <div className="toolbar-container">
-        <div className="function-buttons-container">
+      <ToolbarContainer>
+        <FunctionButtonsContainer>
           <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
-        </div>
+        </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
@@ -108,7 +110,7 @@ class Toolbar extends React.Component {
             <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
           </Row>
         </Form>
-      </div>);
+      </ToolbarContainer>);
   }
 }
 
