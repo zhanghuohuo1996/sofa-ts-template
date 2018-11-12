@@ -113,9 +113,9 @@ class AuthSelectTemplate extends React.PureComponent {
       <div>
         <FormItem
           {...formItemLayout}
-          label={intl.formatMessage(messages.userManage.dataPrivileges)}
+          label={intl.formatMessage(messages.userManage.dataAuth)}
         >
-          { getFieldDecorator('data_privileges', {
+          { getFieldDecorator('data_auth', {
             initialValue: data.auth,
             rules: [{ required: true }],
           })(

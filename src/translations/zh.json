@@ -104,7 +104,7 @@
   "sofa.containers.UserManage.account": "账号",
   "sofa.containers.UserManage.createUser": "新建用户",
   "sofa.containers.UserManage.editUser": "编辑用户",
-  "sofa.containers.UserManage.dataPrivileges": "数据权限",
+  "sofa.containers.UserManage.dataAuth": "数据权限",
 
   "sofa.containers.UserManage.title": "用户管理",
   "sofa.containers.UserManage.warnRegionChooseTips": "请取消全部分拨区选择",
