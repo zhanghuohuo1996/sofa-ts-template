@@ -117,7 +117,7 @@ class DataTable extends React.PureComponent {
           loading={loading}
           columns={this.columns}
           dataSource={tableData}
-          rowKey="id"
+          rowKey="role_id"
           pagination={{
             current: pagination.page,
             total: pagination.total,

@@ -1,5 +1,5 @@
 // lang
-export const DEFAULT_LOCALE = 'en';
+export const DEFAULT_LOCALE = 'zh';
 
 // action
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
