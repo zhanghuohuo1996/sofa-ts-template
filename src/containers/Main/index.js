@@ -2,26 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Layout, Button } from 'antd';
+import {
+  Layout, Dropdown, Icon, Menu as AntMenu,
+} from 'antd';
+
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
+import { createStructuredSelector } from 'reselect';
 
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
+import LanguageBar from 'components/LanguageBar';
 
 import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
 import Utils from 'utils/utils';
 
-import { createStructuredSelector } from 'reselect/lib/index';
+import { gotoPass } from 'config/pass.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
 
-import { selectLang } from '../../state/selectors';
-import { toggleLang } from '../../state/actions';
+import { selectLang, selectCurrentUserInfo } from '../../state/selectors';
+import { toggleLang, getLoginUserInfo } from '../../state/actions';
 
+import messages from './messages';
 
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
@@ -33,16 +40,37 @@ const {
   Sider,
 } = Layout;
 
+const reg = new RegExp('(/login|/resetpwd|/editpwd|/bindphone)');
+
+@injectIntl
 @connect(createStructuredSelector({
   lang: selectLang,
+  currentUserInfo: selectCurrentUserInfo,
 }), {
   toggleLang,
+  getLoginUserInfo,
 })
 @withSaga
 class Main extends React.Component {
-  state = {
-    collapsed: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+    };
+  }
+
+  static propTypes = {
+    lang: PropTypes.string,
+    toggleLang: PropTypes.func,
+    getLoginUserInfo: PropTypes.func.isRequired,
+    currentUserInfo: PropTypes.object.isRequired,
+  }
+
+  componentWillMount() {
+    if (!reg.test(history.location.pathname)) {
+      this.props.getLoginUserInfo();
+    }
+  }
 
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
@@ -52,14 +80,22 @@ class Main extends React.Component {
     history.push(pathname);
   }
 
-  handleLangClick = (language) => {
+  handleToggleLanguage = (language) => {
     this.props.toggleLang(language);
     Utils.setCookie('sofa-lang', language);
   }
 
+  menu = (
+    <AntMenu onClick={gotoPass}>
+      <AntMenu.Item key="logout"><FormattedMessage {...messages.logout} /></AntMenu.Item>
+      <AntMenu.Item key="editpwd"><FormattedMessage {...messages.editPwd} /></AntMenu.Item>
+      <AntMenu.Item key="bindphone"><FormattedMessage {...messages.bindPhone} /></AntMenu.Item>
+    </AntMenu>
+  )
+
   render() {
     const { collapsed } = this.state;
-    const { lang } = this.props;
+    const { lang, currentUserInfo } = this.props;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
 
     return (
@@ -81,12 +117,22 @@ class Main extends React.Component {
           </Sider>
           <Layout>
             <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: '0 20px', textAlign: 'right' }}>
-              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#000' : '#999', marginRight: '10px' }} onClick={() => this.handleLangClick('zh')}>
-                {'中文'}
-              </Button>
-              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#999' : '#000' }} onClick={() => this.handleLangClick('en')}>
-                {'EN'}
-              </Button>
+              <Dropdown overlay={this.menu}>
+                <span>
+                  <Icon
+                    className="ant-dropdown-link avatar-style"
+                    type="user"
+                    style={{
+                      fontSize: 24, color: '#fff', marginRight: 5, cursor: 'pointer',
+                    }}
+                  />
+                  {currentUserInfo.chinesename}
+                </span>
+              </Dropdown>
+              <LanguageBar
+                value={lang}
+                onToggle={this.handleToggleLanguage}
+              ></LanguageBar>
             </Header>
             <Content style={{ margin: '0 16px' }}>
               <Crumb
@@ -106,10 +152,5 @@ class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  lang: PropTypes.string,
-  toggleLang: PropTypes.func,
-};
 
 export default Main;

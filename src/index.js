@@ -50,4 +50,3 @@ if (module.hot) {
     render(translationMessages);
   }
 }
-export default store;

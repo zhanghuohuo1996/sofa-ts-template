@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node scripts/start.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "create": "./node_modules/.bin/sososo --create"
+    "create": "./node_modules/.bin/sososo --create",
+    "deploy": "node scripts/deploy.js"
   },
   "author": "lichun",
   "license": "MIT",
@@ -40,6 +41,7 @@
   "dependencies": {
     "antd": "^3.10.1",
     "babel-polyfill": "^6.26.0",
+    "eden-remote-deploy": "^0.0.5",
     "history": "^4.7.2",
     "hoist-non-react-statics": "^3.1.0",
     "html-webpack-plugin": "^3.2.0",
@@ -48,6 +50,7 @@
     "invariant": "^2.2.4",
     "jsbarcode": "^3.11.0",
     "lodash": "^4.17.11",
+    "offline-plugin": "^5.0.5",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -56,10 +59,12 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
+    "sanitize.css": "^8.0.0",
     "styled-components": "^4.0.3",
     "webpack": "^4.20.2",
     "webpack-merge": "^4.1.4",
@@ -72,7 +77,8 @@
         "import",
         {
           "libraryName": "antd"
-        }
+        },
+        "styled-components"
       ]
     ],
     "presets": [
@@ -89,7 +95,8 @@
       }
     },
     "rules": {
-      "react/destructuring-assignment": "off"
+      "react/destructuring-assignment": "off",
+      "import/no-extraneous-dependencies": "off"
     }
   }
 }

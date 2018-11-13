@@ -14,8 +14,18 @@ import { IntlProvider } from 'react-intl';
 
 import { selectLang } from '../../state/selectors';
 
+@connect(createSelector(
+  selectLang,
+  locale => ({ locale }),
+))
 // eslint-disable-line react/prefer-stateless-function
-export class LanguageProvider extends React.PureComponent {
+class LanguageProvider extends React.PureComponent {
+  static propTypes = {
+    locale: PropTypes.string,
+    messages: PropTypes.object,
+    children: PropTypes.element.isRequired,
+  };
+
   render() {
     return (
       <IntlProvider
@@ -29,15 +39,5 @@ export class LanguageProvider extends React.PureComponent {
   }
 }
 
-LanguageProvider.propTypes = {
-  locale: PropTypes.string,
-  messages: PropTypes.object,
-  children: PropTypes.element.isRequired,
-};
 
-const mapStateToProps = createSelector(
-  selectLang,
-  locale => ({ locale }),
-);
-
-export default connect(mapStateToProps)(LanguageProvider);
+export default LanguageProvider;
