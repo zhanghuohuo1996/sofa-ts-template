@@ -18,6 +18,10 @@ import { selectPagination, selectSearchCondition, selectTableData } from '../sel
 import { selectLoading, selectLang } from '../../../state/selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   // 可以使用者两种方式mapstatetoprops 但是推荐使用select的方式，经测会减少渲染次数，性能较好；
@@ -51,7 +55,10 @@ class DataTable extends React.PureComponent {
     intl: intlShape.isRequired,
   };
 
+<<<<<<< HEAD
   // 静态方法，类的不使用this的函数，一般声明为静态方法；
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
   showTotal = total => (this.props.intl.formatMessage(commonMessages.total, { total }));
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
@@ -74,9 +81,15 @@ class DataTable extends React.PureComponent {
     key: 'action',
     render: (value, row) => (
       <div>
+<<<<<<< HEAD
         <TableButton onClick={() => this.handleClickEdit(row)}>
           {this.props.intl.formatMessage(commonMessages.modify)}
         </TableButton>
+=======
+        <Button onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(commonMessages.edit)}
+        </Button>
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
       </div>
     ),
   }];

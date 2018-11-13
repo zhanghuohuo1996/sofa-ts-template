@@ -23,9 +23,12 @@ const withConnect = connectFactory(NAMESPACE);
 const FormItem = Form.Item;
 const { Option } = Select;
 
+<<<<<<< HEAD
 function isModify(type) {
   return type === 'edit';
 }
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
@@ -53,7 +56,10 @@ class CreateAndEditModal extends React.PureComponent {
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
     intl: intlShape.isRequired,
+<<<<<<< HEAD
     type: PropTypes.string.isRequired,
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
   };
 
   state = {

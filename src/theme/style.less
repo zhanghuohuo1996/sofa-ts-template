@@ -15,7 +15,7 @@
 }
 .ant-menu {
   background-color: @menu-bg-color;
-  color: #fff;
+  color: @primary-color;
   .ant-menu-submenu>.ant-menu {
     background-color: @menu-selected-bg-color;
   }
@@ -38,10 +38,20 @@
 .ant-layout-footer {
   padding: 0;
 }
+.ant-menu-item {
+  color: @primary-color;
+}
+.ant-menu-item-selected {
+  color: #fff;
+}
 ///////////////////////// common /////////////////////////
 .sofa-modal-form {
   padding-left: 30px;
   padding-right: 50px;
+}
+.avatar-style {
+  margin: 0px 0 0px 15px;
+  transform: translateY(3px) !important;
 }
 ///////////////////////// containers/ToolbarTableModal /////////////////////////
 
@@ -85,4 +95,26 @@
   .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
     padding: 8px 16px;
   }
+}
+///////////////////////// containers/ToolbarTableModal /////////////////////////
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	/* 隐藏 chrome 浏览器下的 header, footer */
+	@page { 
+		margin: 0; 
+	}
+
+	#section-to-print, #section-to-print * {
+		visibility: visible;
+	}
+
+	#section-to-print {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 }

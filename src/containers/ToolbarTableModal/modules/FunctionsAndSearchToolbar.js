@@ -23,7 +23,11 @@ import { getDataList, updateEntityModal, updateSearchCondition } from '../action
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+<<<<<<< HEAD
 const { Option } = Select;
+=======
+
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   state => ({
