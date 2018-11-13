@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Layout, Button } from 'antd';
+import {
+  Layout, Button, Dropdown, Icon, Menu as AntMenu,
+} from 'antd';
+
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
@@ -20,9 +24,10 @@ import { createStructuredSelector } from 'reselect/lib/index';
 import saga from './saga';
 import CoreRoute from './CoreRoute';
 
-import { selectLang } from '../../state/selectors';
-import { toggleLang } from '../../state/actions';
+import { selectLang, selectCurrentUserInfo } from '../../state/selectors';
+import { toggleLang, getLoginUserInfo } from '../../state/actions';
 
+import messages from './messages';
 
 const history = createHistory();
 const withSaga = injectSaga({ key: 'main', saga });
@@ -34,16 +39,37 @@ const {
   Sider,
 } = Layout;
 
+const reg = new RegExp('(/login|/resetpwd|/editpwd|/bindphone)');
+
+@injectIntl
 @connect(createStructuredSelector({
   lang: selectLang,
+  currentUserInfo: selectCurrentUserInfo,
 }), {
   toggleLang,
+  getLoginUserInfo,
 })
 @withSaga
 class Main extends React.Component {
-  state = {
-    collapsed: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+    };
+  }
+
+  static propTypes = {
+    lang: PropTypes.string,
+    toggleLang: PropTypes.func,
+    getLoginUserInfo: PropTypes.func.isRequired,
+    currentUserInfo: PropTypes.object.isRequired,
+  }
+
+  componentWillMount() {
+    if (!reg.test(history.location.pathname)) {
+      this.props.getLoginUserInfo();
+    }
+  }
 
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
@@ -53,14 +79,35 @@ class Main extends React.Component {
     history.push(pathname);
   }
 
+
+  handleDropdown = ({ key }) => {
+    if (key === 'logout') {
+      window.location.href = '/static/pass.html#/logout';
+    }
+    if (key === 'editpwd') {
+      window.location.href = '/static/pass.html#/editpwd';
+    }
+    if (key === 'bindphone') {
+      window.location.href = '/static/pass.html#/bindphone';
+    }
+  }
+
   handleToggleLanguage = (language) => {
     this.props.toggleLang(language);
     Utils.setCookie('sofa-lang', language);
   }
 
+  menu = (
+    <AntMenu onClick={this.handleDropdown}>
+      <AntMenu.Item key="logout"><FormattedMessage {...messages.logout} /></AntMenu.Item>
+      <AntMenu.Item key="editpwd"><FormattedMessage {...messages.editPwd} /></AntMenu.Item>
+      <AntMenu.Item key="bindphone"><FormattedMessage {...messages.bindPhone} /></AntMenu.Item>
+    </AntMenu>
+  )
+
   render() {
     const { collapsed } = this.state;
-    const { lang } = this.props;
+    const { lang, currentUserInfo } = this.props;
     const { openKeys, selectedKeys } = Menu.pathKeys(history.location.pathname);
 
     return (
@@ -82,6 +129,18 @@ class Main extends React.Component {
           </Sider>
           <Layout>
             <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: '0 20px', textAlign: 'right' }}>
+              <Dropdown overlay={this.menu}>
+                <span>
+                  <Icon
+                    className="ant-dropdown-link avatar-style"
+                    type="user"
+                    style={{
+                      fontSize: 24, color: '#fff', marginRight: 5, cursor: 'pointer',
+                    }}
+                  />
+                  {currentUserInfo.chinesename}
+                </span>
+              </Dropdown>
               <LanguageBar
                 value={lang}
                 onToggle={this.handleToggleLanguage}
@@ -105,10 +164,5 @@ class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  lang: PropTypes.string,
-  toggleLang: PropTypes.func,
-};
 
 export default Main;

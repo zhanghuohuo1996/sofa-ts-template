@@ -1,14 +1,16 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const path = require('path');
 const config = require('./webpack.base.config');
 
 module.exports = merge(config, {
   mode: 'development',
-  entry: [
-    'eventsource-polyfill', // Necessary for hot reloading with IE
-    'webpack-hot-middleware/client',
-    config.entry,
-  ],
+  output: {
+    // path: path.join(process.cwd(), 'build'),
+    // publicPath: '/',
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],

@@ -12,4 +12,7 @@ export const selectLang = createSelector(
   subState => subState.get('lang'),
 );
 
-export default {};
+export const selectCurrentUserInfo = createSelector(
+  selectGlobal,
+  subState => subState.get('currentUser').toJS(),
+);
