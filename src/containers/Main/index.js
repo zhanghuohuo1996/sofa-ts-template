@@ -13,6 +13,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
+import LanguageBar from 'components/LanguageBar';
 
 import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
@@ -78,6 +79,7 @@ class Main extends React.Component {
     history.push(pathname);
   }
 
+
   handleDropdown = ({ key }) => {
     if (key === 'logout') {
       window.location.href = '/static/pass.html#/logout';
@@ -90,7 +92,7 @@ class Main extends React.Component {
     }
   }
 
-  handleLangClick = (language) => {
+  handleToggleLanguage = (language) => {
     this.props.toggleLang(language);
     Utils.setCookie('sofa-lang', language);
   }
@@ -127,12 +129,6 @@ class Main extends React.Component {
           </Sider>
           <Layout>
             <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: '0 20px', textAlign: 'right' }}>
-              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#000' : '#999', marginRight: '10px' }} onClick={() => this.handleLangClick('zh')}>
-                {'中文'}
-              </Button>
-              <Button ghost size="small" style={{ fontSize: 14, color: lang === 'zh' ? '#999' : '#000' }} onClick={() => this.handleLangClick('en')}>
-                {'EN'}
-              </Button>
               <Dropdown overlay={this.menu}>
                 <span>
                   <Icon
@@ -145,6 +141,10 @@ class Main extends React.Component {
                   {currentUserInfo.chinesename}
                 </span>
               </Dropdown>
+              <LanguageBar
+                value={lang}
+                onToggle={this.handleToggleLanguage}
+              ></LanguageBar>
             </Header>
             <Content style={{ margin: '0 16px' }}>
               <Crumb
