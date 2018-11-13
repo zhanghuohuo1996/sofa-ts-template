@@ -1,6 +1,6 @@
 import { FATCH_ACTION_PREFIX } from 'utils/constants';
 
-export const NAMESPACE = 'ToolbarTableModal';
+export const NAMESPACE = 'AuthManage';
 
 export default {
   NAMESPACE,

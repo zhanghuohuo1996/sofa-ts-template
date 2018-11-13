@@ -18,6 +18,11 @@ export const selectEntityModal = createSelector(
   subState => subState.get('entityModal').toJS(),
 );
 
+export const selectEntityModalType = createSelector(
+  selectNamespace,
+  subState => subState.get('entityModal').toJS().type,
+);
+
 export const selectTableData = createSelector(
   selectNamespace,
   subState => subState.get('tableData').toJS(),

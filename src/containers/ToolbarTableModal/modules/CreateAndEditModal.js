@@ -5,11 +5,7 @@ import {
   Modal,
   Form,
   Input,
-  Tooltip,
-  Icon,
-  Cascader,
   Select,
-  AutoComplete,
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
@@ -17,45 +13,27 @@ import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
+
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
-import { selectEntityModal } from '../selectors';
+import { selectEntityModal, selectEntityModalType } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
 const FormItem = Form.Item;
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
-
+<<<<<<< HEAD
+function isModify(type) {
+  return type === 'edit';
+}
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
     entityModal: selectEntityModal,
+    type: selectEntityModalType,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
@@ -78,10 +56,13 @@ class CreateAndEditModal extends React.PureComponent {
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
     intl: intlShape.isRequired,
+<<<<<<< HEAD
+    type: PropTypes.string.isRequired,
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
   };
 
   state = {
-    autoCompleteResult: [],
   };
 
   handleOk = (e) => {
@@ -106,51 +87,30 @@ class CreateAndEditModal extends React.PureComponent {
     });
   }
 
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-  }
-
   render() {
-    const { entityModal, intl } = this.props;
+    const { entityModal, intl, type } = this.props;
     const { data } = entityModal;
 
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 4 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 20 },
       },
     };
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>,
-    );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <div>
         <Modal
           width={700}
-          title={intl.formatMessage(messages.toolbarTableModal.basicModal)}
+          title={isModify(type)
+            ? intl.formatMessage(commonMessages.edit)
+            : intl.formatMessage(commonMessages.create)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -161,77 +121,65 @@ class CreateAndEditModal extends React.PureComponent {
             className="sofa-modal-form"
             onSubmit={this.handleSubmit}
           >
+            {
+              isModify(type)
+                ? (
+                  <FormItem
+                    {...formItemLayout}
+                    label="ID"
+                  >
+                    {
+                      getFieldDecorator('privilege_id', {
+                        initialValue: data.privilege_id,
+                      })(
+                        <Input disabled />,
+                      )
+                    }
+                  </FormItem>) : ''
+            }
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(commonMessages.email)}
-            >
-              {getFieldDecorator('email', {
-                initialValue: data.email || '',
-                rules: [{
-                  type: 'email', message: 'The input is not valid E-mail!',
-                }, {
-                  required: true, message: 'Please input your E-mail!',
-                }],
-              })(
-                <Input />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                  {intl.formatMessage(messages.toolbarTableModal.nickname)}
-                  &nbsp;
-                  <Tooltip title={intl.formatMessage(messages.toolbarTableModal.explainNickname)}>
-                    <Icon type="question-circle-o" />
-                  </Tooltip>
-                </span>
-              )}
+              label={intl.formatMessage(commonMessages.name)}
             >
               {getFieldDecorator('name', {
                 initialValue: data.name || '',
-                rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                rules: [{ required: true, message: 'Please input your name!' }],
               })(
                 <Input />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.toolbarTableModal.habitualResidence)}
+              label={intl.formatMessage(commonMessages.status)}
             >
-              {getFieldDecorator('residence', {
-                initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-                rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
-              })(
-                <Cascader options={residences} />,
-              )}
+              {
+                getFieldDecorator('is_delete', {
+                  initialValue: (data.is_delete || data.is_delete === 0)
+                    ? String(data.is_delete) : data.is_delete,
+                  rules: [{ required: true, message: 'Please input your status!' }],
+                })(
+                  <Select>
+                    {
+                      Object.keys(commonMessages.activeStatusMap).map(key => (
+                        <Option value={key} key={key}>
+                          {intl.formatMessage(commonMessages.activeStatusMap[key])}
+                        </Option>
+                      ))
+                    }
+                  </Select>,
+                )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(commonMessages.phone)}
+              label={intl.formatMessage(commonMessages.remark)}
             >
-              {getFieldDecorator('phone', {
-                initialValue: data.phone || '',
-                rules: [{ required: true, message: 'Please input your phone number!' }],
-              })(
-                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(messages.toolbarTableModal.website)}
-            >
-              {getFieldDecorator('website', {
-                rules: [{ required: true, message: 'Please input website!' }],
-              })(
-                <AutoComplete
-                  dataSource={websiteOptions}
-                  onChange={this.handleWebsiteChange}
-                  placeholder={intl.formatMessage(messages.toolbarTableModal.website)}
-                >
-                  <Input />
-                </AutoComplete>,
-              )}
+              {
+                getFieldDecorator('content', {
+                  initialValue: data.content || '',
+                })(
+                  <Input.TextArea rows={4} />,
+                )
+              }
             </FormItem>
           </Form>
         </Modal>

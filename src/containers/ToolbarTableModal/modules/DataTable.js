@@ -2,23 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
-  Button,
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
-import { injectIntl, intlShape } from 'react-intl';
+import TableButton from 'components/TableButton';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
-import { selectLoading } from '../../../state/selectors';
+import { selectLoading, selectLang } from '../../../state/selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+<<<<<<< HEAD
+=======
 
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   // 可以使用者两种方式mapstatetoprops 但是推荐使用select的方式，经测会减少渲染次数，性能较好；
@@ -33,6 +36,7 @@ const withConnect = connectFactory(NAMESPACE);
     pagination: selectPagination,
     searchCondition: selectSearchCondition,
     loading: selectLoading,
+    lang: selectLang,
   }),
   {
     getDataList,
@@ -51,34 +55,41 @@ class DataTable extends React.PureComponent {
     intl: intlShape.isRequired,
   };
 
+<<<<<<< HEAD
+  // 静态方法，类的不使用this的函数，一般声明为静态方法；
+=======
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
   showTotal = total => (this.props.intl.formatMessage(commonMessages.total, { total }));
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
+    title: 'ID',
+    dataIndex: 'privilege_id',
+    key: 'privilege_id',
+  }, {
     title: this.props.intl.formatMessage(commonMessages.name),
     dataIndex: 'name',
     key: 'name',
   }, {
-    title: this.props.intl.formatMessage(commonMessages.age),
-    dataIndex: 'age',
-    key: 'age',
+    title: this.props.intl.formatMessage(commonMessages.status),
+    dataIndex: 'is_delete',
+    key: 'is_delete',
+    render: text => <FormattedMessage {...commonMessages.activeStatusMap[text]} />,
   }, {
-    title: this.props.intl.formatMessage(commonMessages.email),
-    dataIndex: 'email',
-    key: 'email',
-  }, {
-    title: this.props.intl.formatMessage(commonMessages.phone),
-    dataIndex: 'phone',
-    key: 'phone',
-  }, {
-    title: '',
-    dataIndex: 'id',
-    key: 'id',
+    title: this.props.intl.formatMessage(commonMessages.operate),
+    width: 150,
+    key: 'action',
     render: (value, row) => (
       <div>
+<<<<<<< HEAD
+        <TableButton onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(commonMessages.modify)}
+        </TableButton>
+=======
         <Button onClick={() => this.handleClickEdit(row)}>
           {this.props.intl.formatMessage(commonMessages.edit)}
         </Button>
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
       </div>
     ),
   }];

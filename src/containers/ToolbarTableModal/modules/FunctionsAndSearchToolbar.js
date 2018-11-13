@@ -8,20 +8,26 @@ import {
   Col,
   Input,
   Button,
+  Select,
 } from 'antd';
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
+import ToolbarContainer from 'components/ToolbarContainer';
+import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+<<<<<<< HEAD
+const { Option } = Select;
+=======
 
+>>>>>>> ee958769395e63b804c0d26947db6804b6bbe69b
 @injectIntl
 @withConnect(
   state => ({
@@ -79,10 +85,10 @@ class Toolbar extends React.Component {
     const { searchCondition, intl } = this.props;
 
     return (
-      <div className="toolbar-container">
-        <div className="function-buttons-container">
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
-        </div>
+      <ToolbarContainer>
+        <FunctionButtonsContainer>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(commonMessages.create)}</Button>
+        </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
@@ -95,12 +101,22 @@ class Toolbar extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.age)}>
-                {getFieldDecorator('age', {
-                  initialValue: searchCondition.age || '',
-                })(
-                  <Input />,
-                )}
+              <Form.Item label={intl.formatMessage(commonMessages.status)}>
+                {
+                  getFieldDecorator('is_delete', {
+                    initialValue: searchCondition.is_delete,
+                  })(
+                    <Select>
+                      <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
+                      {
+                        Object.keys(commonMessages.activeStatusMap).map(key => (
+                          <Option value={key} key={key}>
+                            {intl.formatMessage(commonMessages.activeStatusMap[key])}
+                          </Option>
+                        ))
+                      }
+                    </Select>,
+                  )}
               </Form.Item>
             </Col>
           </Row>
@@ -108,7 +124,7 @@ class Toolbar extends React.Component {
             <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
           </Row>
         </Form>
-      </div>);
+      </ToolbarContainer>);
   }
 }
 
