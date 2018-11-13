@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 let calcHeight = '0px';
 let tableHeight = '0px';
 let tableInnerHeight = '0px';
+
 class TableContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,11 @@ class TableContainer extends React.Component {
       calcHeight: '0px',
       tableInnerHeight: '0px',
     };
+  }
+
+  static propTypes = {
+    setScrollY: PropTypes.func,
+    children: PropTypes.object,
   }
 
   componentWillMount() {
@@ -37,6 +43,7 @@ class TableContainer extends React.Component {
     }
   }
 
+  // TODO: 一顿操作猛如虎，我没来得及细看……
   resizeListener() {
     // eslint-disable-next-line
     if (!ReactDom.findDOMNode(this.refDom)) {
@@ -85,10 +92,5 @@ class TableContainer extends React.Component {
     );
   }
 }
-
-TableContainer.propTypes = {
-  setScrollY: PropTypes.func,
-  children: PropTypes.object,
-};
 
 export default TableContainer;

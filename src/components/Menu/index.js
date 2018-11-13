@@ -13,6 +13,14 @@ export default class SofaMenu extends React.Component {
     };
   }
 
+  static propTypes = {
+    selectedKeys: PropTypes.array,
+    openKeys: PropTypes.array,
+    authList: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
+    changeLocation: PropTypes.func.isRequired,
+  }
+
   handleClick = ({ keyPath }) => {
     const { changeLocation } = this.props;
     const path = [...keyPath];
@@ -72,11 +80,3 @@ export default class SofaMenu extends React.Component {
     );
   }
 }
-
-SofaMenu.propTypes = {
-  selectedKeys: PropTypes.array,
-  openKeys: PropTypes.array,
-  authList: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired,
-  changeLocation: PropTypes.func.isRequired,
-};

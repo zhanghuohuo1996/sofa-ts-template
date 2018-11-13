@@ -14,6 +14,7 @@ export default class Crumb extends React.Component {
   }
 
   getCrumbItem = (path) => {
+    // TODO: 这里subMap被卓娜干掉了，然而我懒得看逻辑了，等到用的时候再完善吧
     const { lang, mainMap, subMap } = this.props;
 
     const pathArray = path.split('/').filter(item => Boolean(item));

@@ -1,6 +1,6 @@
 const conf = {
   theme: 'black',
-  i18n: true,
+  i18n: false,
   table: {
     defaultPageSize: 3,
   },

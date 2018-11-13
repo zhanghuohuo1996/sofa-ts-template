@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  // entry: path.resolve(process.cwd(), 'src/index.js'),
   entry: {
     passCheck: path.join(process.cwd(), 'src/passCheck/index.js'),
     // http://gitlab.sftcwl.com/fe/passport
@@ -19,7 +18,6 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    // 别名配置
     alias: {
       components: path.resolve(process.cwd(), 'src', 'components'),
       containers: path.resolve(process.cwd(), 'src', 'containers'),
@@ -37,7 +35,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',
-      // $: 'jquery',
     }),
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
