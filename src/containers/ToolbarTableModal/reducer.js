@@ -11,7 +11,7 @@ const initialState = fromJS({
   searchCondition: {
     // 这里推荐枚举出所有Field的初始值
     name: '',
-    age: '',
+    is_delete: '',
   },
   entityModal: {
     type: CREATE,

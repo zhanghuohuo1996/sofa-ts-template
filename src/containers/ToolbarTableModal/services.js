@@ -1,6 +1,6 @@
 import { getRequest, postRequest } from 'utils/request';
 
-export const getDataListService = params => getRequest('/test/getlist', params);
+export const getDataListService = params => getRequest('/user/basic/getprivilegelist', params);
 
 export const postCreateEntityService = params => postRequest('/test/create', params);
 
