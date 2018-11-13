@@ -19,8 +19,8 @@ import OperationAuthSelect from './OperationAuthSelect';
 import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
-import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
-import { selectEntityModal, selectEntityModalType } from '../selectors';
+import { updateResetPasswordModal, postCreateEntity, postEditEntity } from '../actions';
+import { selectResetPasswordModal } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
@@ -33,12 +33,11 @@ function isModify(type) {
 @injectIntl
 @withConnect(
   createStructuredSelector({ // 实用reselect性能有明显的提升；
-    entityModal: selectEntityModal,
-    type: selectEntityModalType,
+    entityModal: selectResetPasswordModal,
   }),
   { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
     // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
-    updateEntityModal,
+    updateResetPasswordModal,
     postCreateEntity,
     postEditEntity,
   },
@@ -50,14 +49,13 @@ function isModify(type) {
   }),
 })
 // eslint-disable-next-line
-class CreateAndEditModal extends React.PureComponent {
+class ResetPasswordModal extends React.PureComponent {
   static propTypes = {
     entityModal: PropTypes.object.isRequired,
-    updateEntityModal: PropTypes.func.isRequired,
+    updateResetPasswordModal: PropTypes.func.isRequired,
     postCreateEntity: PropTypes.func.isRequired,
     postEditEntity: PropTypes.func.isRequired,
     intl: intlShape.isRequired,
-    type: PropTypes.string.isRequired,
   };
 
   state = {
@@ -78,15 +76,14 @@ class CreateAndEditModal extends React.PureComponent {
   }
 
   handleCancel = () => {
-    this.props.updateEntityModal({
-      type: CREATE,
+    this.props.updateResetPasswordModal({
       show: false,
       data: {},
     });
   }
 
   render() {
-    const { entityModal, intl, type } = this.props;
+    const { entityModal, intl } = this.props;
     const { data } = entityModal;
 
     const { getFieldDecorator } = this.props.form;
@@ -106,9 +103,7 @@ class CreateAndEditModal extends React.PureComponent {
       <div>
         <Modal
           width={700}
-          title={isModify(type)
-            ? intl.formatMessage(messages.userManage.createUser)
-            : intl.formatMessage(messages.userManage.editUser)}
+          title={intl.formatMessage(messages.userManage.resetPassword)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -121,10 +116,10 @@ class CreateAndEditModal extends React.PureComponent {
           >
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.account)}
+              label={intl.formatMessage(messages.userManage.newPassword)}
             >
-              {getFieldDecorator('id', {
-                initialValue: data.id || '',
+              {getFieldDecorator('new_password', {
+                initialValue: '',
                 rules: [{
                   required: true, message: 'Please input your id!',
                 }],
@@ -134,40 +129,19 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(commonMessages.name)}
+              label={intl.formatMessage(messages.userManage.confirmNewPassword)}
             >
-              {getFieldDecorator('name', {
-                initialValue: data.name || '',
+              {getFieldDecorator('confirm_new_password', {
+                initialValue: '',
                 rules: [{ required: true, message: 'Please input your name!' }],
               })(
                 <Input />,
               )}
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.accountStatus)}
-            >
-              {getFieldDecorator('accountStatus', {
-                initialValue: data.accountStatus || '',
-                rules: [{ required: true, message: 'Please input your accountStatus!' }],
-              })(
-                <Select>
-                  {
-                    Object.keys(messages.userManage.accountStatusMap).map(key => (
-                      <Option value={key} key={key}>
-                        {intl.formatMessage(messages.userManage.accountStatusMap[key])}
-                      </Option>
-                    ))
-                  }
-                </Select>,
-              )}
-            </FormItem>
-            <DataAuthSelect />
-            <OperationAuthSelect />
           </Form>
         </Modal>
       </div>);
   }
 }
 
-export default CreateAndEditModal;
+export default ResetPasswordModal;

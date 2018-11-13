@@ -13,8 +13,6 @@ import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import DataAuthSelect from './DataAuthSelect';
-import OperationAuthSelect from './OperationAuthSelect';
 
 import messages from '../messages';
 
@@ -28,7 +26,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 
 function isModify(type) {
-  return type === 'modify';
+  return type === 'edit';
 }
 @injectIntl
 @withConnect(
@@ -107,8 +105,8 @@ class CreateAndEditModal extends React.PureComponent {
         <Modal
           width={700}
           title={isModify(type)
-            ? intl.formatMessage(messages.userManage.createUser)
-            : intl.formatMessage(messages.userManage.editUser)}
+            ? intl.formatMessage(messages.authManage.editAuth)
+            : intl.formatMessage(messages.authManage.createAuth)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -119,22 +117,25 @@ class CreateAndEditModal extends React.PureComponent {
             className="sofa-modal-form"
             onSubmit={this.handleSubmit}
           >
+            {
+              isModify(type)
+                ? (
+                  <FormItem
+                    {...formItemLayout}
+                    label={intl.formatMessage(messages.authManage.authId)}
+                  >
+                    {
+                      getFieldDecorator('privilege_id', {
+                        initialValue: data.privilege_id,
+                      })(
+                        <Input disabled />,
+                      )
+                    }
+                  </FormItem>) : ''
+            }
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.account)}
-            >
-              {getFieldDecorator('id', {
-                initialValue: data.id || '',
-                rules: [{
-                  required: true, message: 'Please input your id!',
-                }],
-              })(
-                <Input />,
-              )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label={intl.formatMessage(commonMessages.name)}
+              label={intl.formatMessage(messages.authManage.authName)}
             >
               {getFieldDecorator('name', {
                 initialValue: data.name || '',
@@ -145,25 +146,37 @@ class CreateAndEditModal extends React.PureComponent {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.userManage.accountStatus)}
+              label={intl.formatMessage(messages.authManage.status)}
             >
-              {getFieldDecorator('accountStatus', {
-                initialValue: data.accountStatus || '',
-                rules: [{ required: true, message: 'Please input your accountStatus!' }],
-              })(
-                <Select>
-                  {
-                    Object.keys(messages.userManage.accountStatusMap).map(key => (
-                      <Option value={key} key={key}>
-                        {intl.formatMessage(messages.userManage.accountStatusMap[key])}
-                      </Option>
-                    ))
-                  }
-                </Select>,
-              )}
+              {
+                getFieldDecorator('is_delete', {
+                  initialValue: (data.is_delete || data.is_delete === 0)
+                    ? String(data.is_delete) : data.is_delete,
+                  rules: [{ required: true, message: 'Please input your status!' }],
+                })(
+                  <Select>
+                    {
+                      Object.keys(messages.authManage.statusMap).map(key => (
+                        <Option value={key} key={key}>
+                          {intl.formatMessage(messages.authManage.statusMap[key])}
+                        </Option>
+                      ))
+                    }
+                  </Select>,
+                )}
             </FormItem>
-            <DataAuthSelect />
-            <OperationAuthSelect />
+            <FormItem
+              {...formItemLayout}
+              label={intl.formatMessage(commonMessages.remark)}
+            >
+              {
+                getFieldDecorator('content', {
+                  initialValue: data.content || '',
+                })(
+                  <Input.TextArea rows={4} />,
+                )
+              }
+            </FormItem>
           </Form>
         </Modal>
       </div>);

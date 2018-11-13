@@ -8,13 +8,13 @@ import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
 import TableButton from 'components/TableButton';
-import { injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
 import messages from '../messages';
 import { NAMESPACE } from '../constants';
-import { getDataList, updateEntityModal, updateResetPasswordModal } from '../actions';
+import { getDataList, updateEntityModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 import { selectLoading, selectLang } from '../../../state/selectors';
 
@@ -38,7 +38,6 @@ const withConnect = connectFactory(NAMESPACE);
   {
     getDataList,
     updateEntityModal,
-    updateResetPasswordModal,
   },
 )
 class DataTable extends React.PureComponent {
@@ -48,7 +47,6 @@ class DataTable extends React.PureComponent {
     pagination: PropTypes.object.isRequired,
     getDataList: PropTypes.func.isRequired,
     updateEntityModal: PropTypes.func.isRequired,
-    updateResetPasswordModal: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     intl: intlShape.isRequired,
@@ -59,33 +57,26 @@ class DataTable extends React.PureComponent {
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
-    title: this.props.intl.formatMessage(messages.userManage.account),
-    dataIndex: 'id',
-    key: 'id',
+    title: this.props.intl.formatMessage(messages.authManage.authId),
+    dataIndex: 'privilege_id',
+    key: 'privilege_id',
   }, {
-    title: this.props.intl.formatMessage(commonMessages.name),
+    title: this.props.intl.formatMessage(messages.authManage.authName),
     dataIndex: 'name',
     key: 'name',
   }, {
-    title: this.props.intl.formatMessage(messages.userManage.accountStatus),
-    dataIndex: 'accountStatus',
-    key: 'accountStatus',
-    render: value => (
-      <span>
-        {value && this.props.intl.formatMessage(messages.userManage.accountStatusMap[value])}
-      </span>
-    ),
+    title: this.props.intl.formatMessage(messages.authManage.status),
+    dataIndex: 'is_delete',
+    key: 'is_delete',
+    render: text => <FormattedMessage {...messages.authManage.statusMap[text]} />,
   }, {
     title: this.props.intl.formatMessage(commonMessages.operate),
-    width: 250,
+    width: 150,
     key: 'action',
     render: (value, row) => (
       <div>
         <TableButton onClick={() => this.handleClickEdit(row)}>
-          {this.props.intl.formatMessage(messages.userManage.modifyInfo)}
-        </TableButton>
-        <TableButton onClick={() => this.handleResetPassword(row)}>
-          {this.props.intl.formatMessage(messages.userManage.resetPassword)}
+          {this.props.intl.formatMessage(messages.authManage.modifyInfo)}
         </TableButton>
       </div>
     ),
@@ -94,13 +85,6 @@ class DataTable extends React.PureComponent {
   handleClickEdit(data) {
     this.props.updateEntityModal({
       type: EDIT,
-      show: true,
-      data,
-    });
-  }
-
-  handleResetPassword(data) {
-    this.props.updateResetPasswordModal({
       show: true,
       data,
     });

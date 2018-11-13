@@ -18,13 +18,13 @@ import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 
+import messages from '../messages';
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 const { Option } = Select;
-
 @injectIntl
 @withConnect(
   state => ({
@@ -84,12 +84,12 @@ class Toolbar extends React.Component {
     return (
       <ToolbarContainer>
         <FunctionButtonsContainer>
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(commonMessages.create)}</Button>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.authManage.createAuth)}</Button>
         </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.name)}>
+              <Form.Item label={intl.formatMessage(messages.authManage.authName)}>
                 {getFieldDecorator('name', {
                   initialValue: searchCondition.name || '',
                 })(
@@ -98,7 +98,7 @@ class Toolbar extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.status)}>
+              <Form.Item label={intl.formatMessage(messages.authManage.status)}>
                 {
                   getFieldDecorator('is_delete', {
                     initialValue: searchCondition.is_delete,
@@ -106,9 +106,9 @@ class Toolbar extends React.Component {
                     <Select>
                       <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
                       {
-                        Object.keys(commonMessages.activeStatusMap).map(key => (
+                        Object.keys(messages.authManage.statusMap).map(key => (
                           <Option value={key} key={key}>
-                            {intl.formatMessage(commonMessages.activeStatusMap[key])}
+                            {intl.formatMessage(messages.authManage.statusMap[key])}
                           </Option>
                         ))
                       }

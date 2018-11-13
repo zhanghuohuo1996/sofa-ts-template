@@ -49,6 +49,7 @@
     "immutable": "^3.8.2",
     "intl": "^1.2.5",
     "invariant": "^2.2.4",
+    "jsbarcode": "^3.11.0",
     "lodash": "^4.17.11",
     "offline-plugin": "^5.0.5",
     "prop-types": "^15.6.2",

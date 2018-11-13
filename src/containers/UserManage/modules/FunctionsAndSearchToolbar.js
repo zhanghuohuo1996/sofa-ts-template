@@ -13,6 +13,8 @@ import {
 
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
+import ToolbarContainer from 'components/ToolbarContainer';
+import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import messages from '../messages';
@@ -22,6 +24,7 @@ import { getDataList, updateEntityModal, updateSearchCondition } from '../action
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+const { Option } = Select;
 @injectIntl
 @withConnect(
   state => ({
@@ -79,10 +82,10 @@ class Toolbar extends React.Component {
     const { searchCondition, intl } = this.props;
 
     return (
-      <div className="toolbar-container">
-        <div className="function-buttons-container">
+      <ToolbarContainer>
+        <FunctionButtonsContainer>
           <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.userManage.createUser)}</Button>
-        </div>
+        </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
@@ -110,12 +113,12 @@ class Toolbar extends React.Component {
                     initialValue: searchCondition.status,
                   })(
                     <Select>
-                      <Select.Option value="">{intl.formatMessage(commonMessages.all)}</Select.Option>
+                      <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
                       {
                         Object.keys(messages.userManage.accountStatusMap).map(key => (
-                          <Select.Option value={key} key={key}>
+                          <Option value={key} key={key}>
                             {intl.formatMessage(messages.userManage.accountStatusMap[key])}
-                          </Select.Option>
+                          </Option>
                         ))
                       }
                     </Select>,
@@ -127,7 +130,7 @@ class Toolbar extends React.Component {
             <Col span={24} style={{ textAlign: 'right' }}><Button type="primary" onClick={this.handleSearch}>{intl.formatMessage(commonMessages.search)}</Button></Col>
           </Row>
         </Form>
-      </div>);
+      </ToolbarContainer>);
   }
 }
 

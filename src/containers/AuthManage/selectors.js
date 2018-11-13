@@ -18,11 +18,6 @@ export const selectEntityModal = createSelector(
   subState => subState.get('entityModal').toJS(),
 );
 
-export const selectResetPasswordModal = createSelector(
-  selectNamespace,
-  subState => subState.get('resetPasswordModal').toJS(),
-);
-
 export const selectEntityModalType = createSelector(
   selectNamespace,
   subState => subState.get('entityModal').toJS().type,
@@ -31,14 +26,6 @@ export const selectEntityModalType = createSelector(
 export const selectTableData = createSelector(
   selectNamespace,
   subState => subState.get('tableData').toJS(),
-);
-
-export const selectOperationAuth = createSelector(
-  selectNamespace,
-  subState => subState.get('operationAuth').toJS().map(item => ({
-    key: item.privilege_id,
-    title: item.name,
-  })),
 );
 
 export default {};

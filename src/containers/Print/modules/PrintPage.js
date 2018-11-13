@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import BarCode from '../../../components/BarCode';
 import {
   Button, Checkbox,
 } from 'antd';
@@ -183,6 +183,7 @@ class PrintPage extends React.Component {
             <span>&nbsp;</span>
           </div>
         </PrintArea>
+        <BarCode barCode="Hello" displayValue />
       </div>);
   }
 }

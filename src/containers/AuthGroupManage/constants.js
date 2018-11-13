@@ -1,6 +1,6 @@
 import { FATCH_ACTION_PREFIX } from 'utils/constants';
 
-export const NAMESPACE = 'UserManage';
+export const NAMESPACE = 'AuthGroupManage';
 
 export default {
   NAMESPACE,
@@ -17,5 +17,3 @@ export const POST_CREATE_ENTITY = `${FATCH_ACTION_PREFIX}POST_CREATE_ENTITY_${NA
 export const POST_EDIT_ENTITY = `${FATCH_ACTION_PREFIX}POST_EDIT_ENTITY_${NAMESPACE}`;
 
 export const UPDATE_ENTITY_MODAL = `UPDATE_ENTITY_MODAL_${NAMESPACE}`;
-
-export const UPDATE_RESET_PASSWORD_MODAL = `UPDATE_RESET_PASSWORD_MODAL_${NAMESPACE}`;

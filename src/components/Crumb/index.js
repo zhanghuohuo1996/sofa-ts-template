@@ -10,7 +10,6 @@ export default class Crumb extends React.Component {
     history: PropTypes.any.isRequired,
     mainMap: PropTypes.object.isRequired,
     lang: PropTypes.string.isRequired,
-    subMap: PropTypes.object,
   }
 
   getCrumbItem = (path) => {

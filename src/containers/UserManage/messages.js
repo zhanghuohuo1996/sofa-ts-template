@@ -53,5 +53,33 @@ export default defineMessages({
       id: 'sofa.containers.UserManage.createUser',
       defaultMessage: '创建用户',
     },
+    editUser: {
+      id: 'sofa.containers.UserManage.editUser',
+      defaultMessage: '修改用户',
+    },
+    dataAuth: {
+      id: 'sofa.containers.UserManage.dataAuth',
+      defaultMessage: '数据权限',
+    },
+    operationAuth: {
+      id: 'sofa.containers.UserManage.operationAuth',
+      defaultMessage: '操作权限',
+    },
+    modifyInfo: {
+      id: 'sofa.containers.UserManage.modifyInfo',
+      defaultMessage: '修改信息',
+    },
+    resetPassword: {
+      id: 'sofa.containers.UserManage.resetPassword',
+      defaultMessage: '重置密码',
+    },
+    newPassword: {
+      id: 'sofa.containers.UserManage.newPassword',
+      defaultMessage: '新密码',
+    },
+    confirmNewPassword: {
+      id: 'sofa.containers.UserManage.confirmNewPassword',
+      defaultMessage: '确认新密码',
+    },
   },
 });
