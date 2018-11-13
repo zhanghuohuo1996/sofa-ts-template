@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node scripts/start.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "create": "./node_modules/.bin/sososo --create",
+    "new-page": "./node_modules/.bin/sososo --page",
+    "new-component": "./node_modules/.bin/sososo --component",
     "deploy": "node scripts/deploy.js"
   },
   "author": "lichun",
@@ -18,6 +19,7 @@
     "babel-preset-sofa-react": "^0.1.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "eden-remote-deploy": "0.0.5",
     "eslint-config-sofa-react": "^0.1.0",
     "eslint-import-resolver-webpack": "^0.10.1",
     "eventsource-polyfill": "^0.9.6",
@@ -41,7 +43,6 @@
   "dependencies": {
     "antd": "^3.10.1",
     "babel-polyfill": "^6.26.0",
-    "eden-remote-deploy": "^0.0.5",
     "history": "^4.7.2",
     "hoist-non-react-statics": "^3.1.0",
     "html-webpack-plugin": "^3.2.0",

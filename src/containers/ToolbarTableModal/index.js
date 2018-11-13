@@ -18,7 +18,7 @@ const withSaga = injectSaga({ key: NAMESPACE, saga });
 @withRouter
 @withSaga
 @withReducer
-class ToolbarTableModal extends React.Component {
+class AuthManage extends React.Component {
   render() {
     return (
       <div>
@@ -29,4 +29,4 @@ class ToolbarTableModal extends React.Component {
   }
 }
 
-export default ToolbarTableModal;
+export default AuthManage;

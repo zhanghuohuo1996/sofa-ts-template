@@ -60,7 +60,7 @@
   "sofa.containers.Common.weekMap.6": "周六",
   "sofa.containers.Common.weekMap.7": "周日",
   "sofa.containers.Common.refresh": "刷新",
-  "sofa.containers.Common.name": "姓名",
+  "sofa.containers.Common.name": "名称",
   "sofa.containers.Common.age": "年龄",
   "sofa.containers.Common.email": "E-mail",
   "sofa.containers.Common.phone": "电话",
@@ -136,6 +136,8 @@
   "sofa.containers.UserManage.districtName": "地区名称",
   "sofa.containers.UserManage.cityName": "城市名称",
   "sofa.containers.UserManage.emptyRegionTips": "请选择国家",
+
+  "sofa.containers.UserManage.modifyInfo": "修改信息",
   "sofa.containers.UserManage.modifyAuth": "修改权限",
   "sofa.containers.UserManage.statusMap.1": "在职",
   "sofa.containers.UserManage.statusMap.2": "离职",

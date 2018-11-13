@@ -143,11 +143,11 @@ export default defineMessages({
     defaultMessage: '下线',
   },
   activeStatusMap: {
-    1: {
+    0: {
       id: 'sofa.containers.Common.activeStatusMap.1',
       defaultMessage: '有效',
     },
-    2: {
+    1: {
       id: 'sofa.containers.Common.activeStatusMap.2',
       defaultMessage: '失效',
     },
@@ -226,7 +226,7 @@ export default defineMessages({
   },
   name: {
     id: 'sofa.containers.Common.name',
-    defaultMessage: '姓名',
+    defaultMessage: '名称',
   },
   age: {
     id: 'sofa.containers.Common.age',

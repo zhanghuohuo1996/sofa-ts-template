@@ -21,6 +21,7 @@ import { getMenuData, getMenuMap } from 'utils/menuHelper';
 import Utils from 'utils/utils';
 
 import { gotoPass } from 'config/pass.conf';
+import commonConf from 'config/main.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
@@ -129,10 +130,14 @@ class Main extends React.Component {
                   {currentUserInfo.chinesename}
                 </span>
               </Dropdown>
-              <LanguageBar
-                value={lang}
-                onToggle={this.handleToggleLanguage}
-              ></LanguageBar>
+              { commonConf.i18n
+                && (
+                  <LanguageBar
+                    value={lang}
+                    onToggle={this.handleToggleLanguage}
+                  ></LanguageBar>
+                )
+              }
             </Header>
             <Content style={{ margin: '0 16px' }}>
               <Crumb

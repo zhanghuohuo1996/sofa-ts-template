@@ -21,8 +21,6 @@ module.exports = merge(config, {
   mode: 'development',
   entry: getDevEntry(config.entry),
   output: {
-    // path: path.join(process.cwd(), 'build'),
-    // publicPath: '/',
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
   },

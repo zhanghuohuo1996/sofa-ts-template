@@ -8,6 +8,7 @@ import {
   Col,
   Input,
   Button,
+  Select,
 } from 'antd';
 
 import connectFactory from 'utils/connectFactory';
@@ -16,13 +17,13 @@ import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
+const { Option } = Select;
 
 @injectIntl
 @withConnect(
@@ -83,7 +84,7 @@ class Toolbar extends React.Component {
     return (
       <ToolbarContainer>
         <FunctionButtonsContainer>
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.toolbarTableModal.createEntity)}</Button>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(commonMessages.create)}</Button>
         </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
@@ -97,12 +98,22 @@ class Toolbar extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(commonMessages.age)}>
-                {getFieldDecorator('age', {
-                  initialValue: searchCondition.age || '',
-                })(
-                  <Input />,
-                )}
+              <Form.Item label={intl.formatMessage(commonMessages.status)}>
+                {
+                  getFieldDecorator('is_delete', {
+                    initialValue: searchCondition.is_delete,
+                  })(
+                    <Select>
+                      <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
+                      {
+                        Object.keys(commonMessages.activeStatusMap).map(key => (
+                          <Option value={key} key={key}>
+                            {intl.formatMessage(commonMessages.activeStatusMap[key])}
+                          </Option>
+                        ))
+                      }
+                    </Select>,
+                  )}
               </Form.Item>
             </Col>
           </Row>
