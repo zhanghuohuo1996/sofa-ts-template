@@ -27,7 +27,7 @@ import {
 
 import { gotoPass } from 'config/pass.conf';
 
-import { showDownloadListModal, updatePlatformAuth, updateFix } from '../../state/actions';
+import { showDownloadListModal, updatePlatformAuth } from '../../state/actions';
 // import { makeSelectPlatformAuth } from './selectors';
 
 export const getSagaFetchActionType = actionType => actionType && actionType.split('_')[1];
@@ -88,12 +88,12 @@ function* fetchSaga(action) {
       } else { // 【失败】
         if (result.errno === USER_NOT_LOGIN_ERRNO) { // 未登录，跳转登录
           gotoPass('login');
-          yield put(updateFix()); // 这个事情就有点难解释了，不更新个store，路由跳转不刷新，先凑合着，回头再细看；
+          // yield put(updateFix()); // 这个事情就有点难解释了，不更新个store，路由跳转不刷新，先凑合着，回头再细看；
           return;
         }
         if (result.errno === USER_NOT_EXIST_ERRNO) { // pass存在，平台不存在账号
           yield put(updatePlatformAuth(false));
-          yield put(updateFix());
+          // yield put(updateFix());
           gotoPass('login');
           return;
         }

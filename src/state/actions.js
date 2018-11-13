@@ -50,8 +50,4 @@ export function updatePlatformAuth(payload) {
   };
 }
 
-export function updateFix() {
-
-}
-
 export default {};
