@@ -103,7 +103,7 @@ class DataAuthSelect extends React.PureComponent {
         {...formItemLayout}
         label={intl.formatMessage(messages.userManage.dataAuth)}
       >
-        { getFieldDecorator('data_auth', {
+        { getFieldDecorator('auth', {
           initialValue: data.auth || '',
         })(
           <TreeSelect {...tProps} />,
