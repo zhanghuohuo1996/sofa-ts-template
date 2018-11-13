@@ -27,7 +27,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 
 function isModify(type) {
-  return type === 'modify';
+  return type === 'edit';
 }
 @injectIntl
 @withConnect(
@@ -106,8 +106,8 @@ class CreateAndEditModal extends React.PureComponent {
         <Modal
           width={700}
           title={isModify(type)
-            ? intl.formatMessage(messages.authGroupManage.createUser)
-            : intl.formatMessage(messages.authGroupManage.editUser)}
+            ? intl.formatMessage(messages.authGroupManage.edit)
+            : intl.formatMessage(messages.authGroupManage.create)}
           visible={entityModal.show}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -123,7 +123,7 @@ class CreateAndEditModal extends React.PureComponent {
                 ? (
                   <FormItem
                     {...formItemLayout}
-                    label={intl.formatMessage(messages.authManage.account)}
+                    label={intl.formatMessage(messages.authGroupManage.authGroupId)}
                   >
                     {
                       getFieldDecorator('role_id', {
@@ -145,28 +145,19 @@ class CreateAndEditModal extends React.PureComponent {
                 <Input />,
               )}
             </FormItem>
+            <OperationAuthSelect />
             <FormItem
               {...formItemLayout}
-              label={intl.formatMessage(messages.authGroupManage.status)}
+              label={intl.formatMessage(commonMessages.remark)}
             >
               {
-                getFieldDecorator('is_delete', {
-                  initialValue: (data.is_delete || data.is_delete === 0)
-                    ? String(data.is_delete) : data.is_delete,
-                  rules: [{ required: true, message: 'Please input your status!' }],
+                getFieldDecorator('content', {
+                  initialValue: data.content || '',
                 })(
-                  <Select>
-                    {
-                      Object.keys(messages.authGroupManage.statusMap).map(key => (
-                        <Option value={key} key={key}>
-                          {intl.formatMessage(messages.authGroupManage.statusMap[key])}
-                        </Option>
-                      ))
-                    }
-                  </Select>,
-                )}
+                  <Input.TextArea rows={4} />,
+                )
+              }
             </FormItem>
-            <OperationAuthSelect />
           </Form>
         </Modal>
       </div>);

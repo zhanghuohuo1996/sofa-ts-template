@@ -85,6 +85,13 @@
   "sofa.containers.AuthGroupManage.createAuthGroup": "新建权限组",
   "sofa.containers.AuthGroupManage.authGroupName": "权限组名称",
   "sofa.containers.AuthGroupManage.authGroupCode": "权限组代码",
+  "sofa.containers.AuthGroupManage.create": "创建",
+  "sofa.containers.AuthGroupManage.edit": "修改",
+  "sofa.containers.AuthGroupManage.modifyInfo": "修改信息",
+  "sofa.containers.AuthGroupManage.status": "权限状态",
+  "sofa.containers.AuthGroupManage.statusMap.0": "有效",
+  "sofa.containers.AuthGroupManage.statusMap.1": "无效",
+  "sofa.containers.AuthGroupManage.operationAuth": "操作权限",
 
   "sofa.containers.AuthManage.title": "权限管理",
   "sofa.containers.AuthManage.authId": "权限ID",

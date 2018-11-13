@@ -70,7 +70,6 @@ class DataAuthSelect extends React.PureComponent {
   };
 
   onChange = (value) => {
-    console.log('onChange ', value);
     this.setState({ value });
   }
 
@@ -105,7 +104,7 @@ class DataAuthSelect extends React.PureComponent {
         label={intl.formatMessage(messages.userManage.dataAuth)}
       >
         { getFieldDecorator('data_auth', {
-          initialValue: data.auth,
+          initialValue: data.auth || '',
         })(
           <TreeSelect {...tProps} />,
         )}
