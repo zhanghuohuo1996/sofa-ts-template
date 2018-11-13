@@ -25,7 +25,7 @@ import {
   // GET_LOGIN_USER_INFO,
 } from 'utils/constants';
 
-import commonConf from 'config/main.conf';
+import { gotoPass } from 'config/pass.conf';
 
 import { showDownloadListModal, updatePlatformAuth, updateFix } from '../../state/actions';
 // import { makeSelectPlatformAuth } from './selectors';
@@ -87,14 +87,14 @@ function* fetchSaga(action) {
         }
       } else { // 【失败】
         if (result.errno === USER_NOT_LOGIN_ERRNO) { // 未登录，跳转登录
-          window.location.href = commonConf.loginUri;
+          gotoPass('login');
           yield put(updateFix()); // 这个事情就有点难解释了，不更新个store，路由跳转不刷新，先凑合着，回头再细看；
           return;
         }
         if (result.errno === USER_NOT_EXIST_ERRNO) { // pass存在，平台不存在账号
           yield put(updatePlatformAuth(false));
           yield put(updateFix());
-          window.location.href = commonConf.loginUri;
+          gotoPass('login');
           return;
         }
         notification.error({ // 不同于请求成功，所有的请求都会暴露失败消息

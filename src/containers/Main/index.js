@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-  Layout, Button, Dropdown, Icon, Menu as AntMenu,
+  Layout, Dropdown, Icon, Menu as AntMenu,
 } from 'antd';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
+import { createStructuredSelector } from 'reselect';
 
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
@@ -19,7 +20,7 @@ import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
 import Utils from 'utils/utils';
 
-import { createStructuredSelector } from 'reselect/lib/index';
+import { gotoPass } from 'config/pass.conf';
 
 import saga from './saga';
 import CoreRoute from './CoreRoute';
@@ -79,26 +80,13 @@ class Main extends React.Component {
     history.push(pathname);
   }
 
-
-  handleDropdown = ({ key }) => {
-    if (key === 'logout') {
-      window.location.href = '/static/pass.html#/logout';
-    }
-    if (key === 'editpwd') {
-      window.location.href = '/static/pass.html#/editpwd';
-    }
-    if (key === 'bindphone') {
-      window.location.href = '/static/pass.html#/bindphone';
-    }
-  }
-
   handleToggleLanguage = (language) => {
     this.props.toggleLang(language);
     Utils.setCookie('sofa-lang', language);
   }
 
   menu = (
-    <AntMenu onClick={this.handleDropdown}>
+    <AntMenu onClick={gotoPass}>
       <AntMenu.Item key="logout"><FormattedMessage {...messages.logout} /></AntMenu.Item>
       <AntMenu.Item key="editpwd"><FormattedMessage {...messages.editPwd} /></AntMenu.Item>
       <AntMenu.Item key="bindphone"><FormattedMessage {...messages.bindPhone} /></AntMenu.Item>

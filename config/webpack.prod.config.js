@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+// eslint-disable-next-line
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = require('./webpack.base.config');

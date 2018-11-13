@@ -15,6 +15,7 @@ const initialState = fromJS({
   currentUser: {},
   platformAuth: true,
 });
+
 function reducer(state = initialState, action) {
   switch (action.type) {
     case SHOW_LOADING:
