@@ -103,7 +103,6 @@ class DataTable extends React.PureComponent {
 
   render() {
     const { tableData, pagination, loading } = this.props;
-    console.log(tableData);
     return (
       <TableContainer>
         <Table

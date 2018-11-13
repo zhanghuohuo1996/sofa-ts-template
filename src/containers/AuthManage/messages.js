@@ -8,37 +8,37 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   authManage: {
     createAuth: {
-      id: 'sofa.containers.authManage.createAuth',
+      id: 'sofa.containers.AuthManage.createAuth',
       defaultMessage: '新建权限',
     },
     editAuth: {
-      id: 'sofa.containers.authManage.editAuth',
+      id: 'sofa.containers.AuthManage.editAuth',
       defaultMessage: '修改权限',
     },
     authName: {
-      id: 'sofa.containers.authManage.authName',
+      id: 'sofa.containers.AuthManage.authName',
       defaultMessage: '权限名称',
     },
     authId: {
-      id: 'sofa.containers.authManage.authId',
+      id: 'sofa.containers.AuthManage.authId',
       defaultMessage: '权限Id',
     },
     status: {
-      id: 'sofa.containers.authManage.status',
+      id: 'sofa.containers.AuthManage.status',
       defaultMessage: '权限状态',
     },
     statusMap: {
       0: {
-        id: 'sofa.containers.authManage.statusMap.0',
+        id: 'sofa.containers.AuthManage.statusMap.0',
         defaultMessage: '有效',
       },
       1: {
-        id: 'sofa.containers.authManage.statusMap.1',
+        id: 'sofa.containers.AuthManage.statusMap.1',
         defaultMessage: '无效',
       },
     },
     modifyInfo: {
-      id: 'sofa.containers.authManage.modifyInfo',
+      id: 'sofa.containers.AuthManage.modifyInfo',
       defaultMessage: '修改信息',
     },
   },
