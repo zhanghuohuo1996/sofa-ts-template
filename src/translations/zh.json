@@ -101,7 +101,12 @@
   "sofa.containers.AuthManage.authStatus": "权限状态",
   "sofa.containers.AuthManage.authStatusMap.1": "有效",
   "sofa.containers.AuthManage.authStatusMap.2": "无效",
-  "sofa.containers.AuthManage.createAuth": "新建",
+  "sofa.containers.AuthManage.createAuth": "新建权限",
+  "sofa.containers.AuthManage.editAuth": "修改权限",
+  "sofa.containers.AuthManage.status": "权限状态",
+  "sofa.containers.AuthManage.status.0": "有效",
+  "sofa.containers.AuthManage.status.1": "无效",
+  "sofa.containers.AuthManage.modifyInfo": "修改信息",
 
   "sofa.containers.UserManage.createEntity": "创建实体",
   "sofa.containers.UserManage.habitualResidence": "常住地址",
