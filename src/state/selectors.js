@@ -7,4 +7,12 @@ export const selectLoading = createSelector(
   subState => subState.get('loading'),
 );
 
-export default {};
+export const selectLang = createSelector(
+  selectGlobal,
+  subState => subState.get('lang'),
+);
+
+export const selectCurrentUserInfo = createSelector(
+  selectGlobal,
+  subState => subState.get('currentUser').toJS(),
+);

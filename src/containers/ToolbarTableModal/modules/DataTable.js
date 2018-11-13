@@ -10,7 +10,7 @@ import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
 import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import { EDIT, DEFAULT_LOCALE } from 'utils/constants';
+import { EDIT } from 'utils/constants';
 
 import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal } from '../actions';
@@ -19,6 +19,7 @@ import { selectLoading } from '../../../state/selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 
+@injectIntl
 @withConnect(
   // 可以使用者两种方式mapstatetoprops 但是推荐使用select的方式，经测会减少渲染次数，性能较好；
   // (globalState, state) => ({
@@ -38,7 +39,7 @@ const withConnect = connectFactory(NAMESPACE);
     updateEntityModal,
   },
 )
-class DataTable extends React.Component {
+class DataTable extends React.PureComponent {
   // 静态变量，propTypes一定是静态变量，是挂载在类上的；
   static propTypes = {
     tableData: PropTypes.array.isRequired,
@@ -47,15 +48,10 @@ class DataTable extends React.Component {
     updateEntityModal: PropTypes.func.isRequired,
     searchCondition: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
+    intl: intlShape.isRequired,
   };
 
-  // 静态方法，类的不使用this的函数，一般声明为静态方法；
-  static showTotal(total) {
-    if (DEFAULT_LOCALE === 'zh') {
-      return `总共 ${total} 条`;
-    }
-    return `${total} in total`;
-  }
+  showTotal = total => (this.props.intl.formatMessage(commonMessages.total, { total }));
 
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
@@ -80,7 +76,9 @@ class DataTable extends React.Component {
     key: 'id',
     render: (value, row) => (
       <div>
-        <Button onClick={() => this.handleClickEdit(row)}>{this.props.intl.formatMessage(commonMessages.edit)}</Button>
+        <Button onClick={() => this.handleClickEdit(row)}>
+          {this.props.intl.formatMessage(commonMessages.edit)}
+        </Button>
       </div>
     ),
   }];
@@ -106,7 +104,6 @@ class DataTable extends React.Component {
 
   render() {
     const { tableData, pagination, loading } = this.props;
-
     return (
       <TableContainer>
         <Table
@@ -119,7 +116,7 @@ class DataTable extends React.Component {
             current: pagination.page,
             total: pagination.total,
             pageSize: pagination.pageSize,
-            showTotal: DataTable.showTotal,
+            showTotal: this.showTotal,
             onChange: this.handlePageChange,
           }}
         />
@@ -128,8 +125,4 @@ class DataTable extends React.Component {
   }
 }
 
-DataTable.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-export default injectIntl(DataTable);
+export default DataTable;

@@ -16,8 +16,9 @@ const webpackConfig = require('../config/webpack.dev.config');
 
 const app = express();
 
+const mingyuan = 'http://10.188.40.14:9930';
 app.use('/test', proxy({ target: 'http://gz-loc-development00.gz.sftcwl.com:7300/mock/5be14fcfa9b82994f6c1ec9c/sofa', changeOrigin: true }));
-
+app.use('/management', proxy({ target: mingyuan, changeOrigin: true }));
 const compiler = webpack(webpackConfig);
 
 const devServerOptions = Object.assign({}, webpackConfig.devServer, {
@@ -43,6 +44,9 @@ app.get('*', (req, res) => {
   });
 });
 
-app.listen(8081, '127.0.0.1', () => {
-  console.log('Starting server on http://localhost:8081');
+const customHost = process.env.HOST;
+const host = customHost || null; // Let http.Server use its default IPv6/4 host
+
+app.listen(8080, host, () => {
+  console.log('Starting server on http://localhost:8080');
 });

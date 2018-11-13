@@ -3,7 +3,9 @@
  */
 
 import { notification } from 'antd';
-import _ from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isEmpty from 'lodash/isEmpty';
+
 import {
   take,
   fork,
@@ -23,9 +25,9 @@ import {
   // GET_LOGIN_USER_INFO,
 } from 'utils/constants';
 
-import commonConf from 'config/main.conf';
+import { gotoPass } from 'config/pass.conf';
 
-import { showDownloadListModal, updatePlatformAuth, updateFix } from '../../state/actions';
+import { showDownloadListModal, updatePlatformAuth } from '../../state/actions';
 // import { makeSelectPlatformAuth } from './selectors';
 
 export const getSagaFetchActionType = actionType => actionType && actionType.split('_')[1];
@@ -79,20 +81,20 @@ function* fetchSaga(action) {
               payload: action.success.params,
             });
           }
-          if (_.isFunction(action.success)) {
+          if (isFunction(action.success)) {
             yield put(action.success());
           }
         }
       } else { // 【失败】
         if (result.errno === USER_NOT_LOGIN_ERRNO) { // 未登录，跳转登录
-          window.location.href = commonConf.loginUri;
-          yield put(updateFix()); // 这个事情就有点难解释了，不更新个store，路由跳转不刷新，先凑合着，回头再细看；
+          gotoPass('login');
+          // yield put(updateFix()); // 这个事情就有点难解释了，不更新个store，路由跳转不刷新，先凑合着，回头再细看；
           return;
         }
         if (result.errno === USER_NOT_EXIST_ERRNO) { // pass存在，平台不存在账号
           yield put(updatePlatformAuth(false));
-          yield put(updateFix());
-          window.location.href = commonConf.loginUri;
+          // yield put(updateFix());
+          gotoPass('login');
           return;
         }
         notification.error({ // 不同于请求成功，所有的请求都会暴露失败消息
@@ -120,7 +122,7 @@ function* watchFetchRequests() {
   // eslint-disable-next-line
   while(true) {
     const action = yield take(
-      data => !_.isEmpty(data.type.match(FATCH_ACTION_PREFIX)),
+      data => !isEmpty(data.type.match(FATCH_ACTION_PREFIX)),
     );
     const { type } = action;
     if (!type || !action.service) {

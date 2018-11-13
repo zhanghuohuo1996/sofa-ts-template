@@ -3,12 +3,10 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { IntlProvider } from 'react-intl';
 
 import Main from 'containers/Main';
-import { DEFAULT_LOCALE } from 'utils/constants';
-import { translationMessages } from './i18n';
-
+import LanguageProvider from 'containers/LanguageProvider';
+import { translationMessages } from 'utils/i18n';
 import storeFactory from './state/storeFactory';
 
 import './global-styles';
@@ -21,19 +19,16 @@ const store = storeFactory(initialState);
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <IntlProvider
-        locale={DEFAULT_LOCALE}
-        messages={translationMessages[DEFAULT_LOCALE]}
-      >
+      <LanguageProvider messages={translationMessages}>
         <Main />
-      </IntlProvider>
+      </LanguageProvider>
     </Provider>,
     rootElement,
   );
 };
 
 if (module.hot) {
-  module.hot.accept(['./i18n', 'containers/Main'], () => {
+  module.hot.accept(['utils/i18n', 'containers/Main'], () => {
     ReactDOM.unmountComponentAtNode(rootElement);
     render();
   });
