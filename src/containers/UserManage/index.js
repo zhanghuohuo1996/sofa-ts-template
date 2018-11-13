@@ -12,6 +12,7 @@ import Toolbar from './modules/FunctionsAndSearchToolbar';
 import Table from './modules/DataTable';
 import Modal from './modules/CreateAndEditModal';
 import ResetPasswordModal from './modules/ResetPasswordModal';
+import OperationAuthSelectModal from './modules/OperationAuthSelectModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 const withSaga = injectSaga({ key: NAMESPACE, saga });
@@ -27,6 +28,7 @@ class UserManage extends React.Component {
         <Table />
         <Modal />
         <ResetPasswordModal />
+        <OperationAuthSelectModal />
       </div>);
   }
 }
