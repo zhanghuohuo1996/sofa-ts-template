@@ -5,13 +5,13 @@
  *
  */
 import { addLocaleData } from 'react-intl';
-import enLocaleData from 'react-intl/locale-data/en';
-import zhLocaleData from 'react-intl/locale-data/zh';
-import { DEFAULT_LOCALE } from 'utils/constants';
-import Utils from 'utils/utils';
+import * as enLocaleData from 'react-intl/locale-data/en';
+import * as zhLocaleData from 'react-intl/locale-data/zh';
+import { DEFAULT_LOCALE } from './constants';
+import * as Utils from './utils';
 
-import zhTranslationMessages from '../translations/zh.json';
-import enTranslationMessages from '../translations/en.json';
+const zhTranslationMessages = require('../translations/zh.json');
+const enTranslationMessages = require('../translations/en.json');
 
 addLocaleData(enLocaleData);
 addLocaleData(zhLocaleData);
@@ -23,24 +23,38 @@ export const appLocales = [
   'en',
 ];
 
-export const formatTranslationMessages = (locale, messages) => {
-  const defaultFormattedMessages = locale !== DEFAULT_LOCALE
+interface Messages {
+  [key: string]: string;
+}
+
+interface MessagesMap {
+  en: Messages;
+  zh: Messages;
+  [key: string]: any;
+}
+
+export function formatTranslationMessages(locale: string, messages: Messages):Messages {
+  const defaultFormattedMessages: Messages = locale !== DEFAULT_LOCALE
     ? formatTranslationMessages(DEFAULT_LOCALE, enTranslationMessages)
     : {};
+
   return Object.keys(messages).reduce((formattedMessages, key) => {
     const formattedMessage = !messages[key] && locale !== DEFAULT_LOCALE
       ? defaultFormattedMessages[key]
-      : messages[key];
-    return Object.assign(formattedMessages, { [key]: formattedMessage });
+      : {};
+    return {
+      ...formattedMessages,
+      [key]: formattedMessage,
+    }
   }, {});
 };
 
-export const translationMessages = {
+export const translationMessages: MessagesMap = {
   en: formatTranslationMessages('en', enTranslationMessages),
   zh: formatTranslationMessages('zh', zhTranslationMessages),
 };
 
-export const getFormattedMessages = (locale = DEFAULT_LOCALE, key) => {
+export const getFormattedMessages = (locale = DEFAULT_LOCALE, key: string) => {
   const messages = translationMessages[locale];
   if (messages) {
     return messages[key] || key;

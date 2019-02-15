@@ -9,20 +9,18 @@
  * 此文件中的函数需注明作者
  */
 
-const Utils = {};
-
 /**
  * [设置cookie]
  * @param {[string]} cookie key
  * @param {[string]} cookie value
  * @author lichun
  */
-Utils.setCookie = (name, value) => {
+export function setCookie(name: string, value: string):void {
   const now = new Date();
   now.setDate(now.getDate() + (1000 * 60 * 60 * 24 * 30));
-  const str = `${name}=${value};expires=${now.toGMTString()};path=/;`;
+  const str = `${name}=${value};expires=${now.toUTCString()};path=/;`;
   document.cookie = str;
-};
+}
 
 /**
  * [得到cookie]
@@ -30,7 +28,7 @@ Utils.setCookie = (name, value) => {
  * @returns {[string]} value
  * @author lichun
  */
-Utils.getCookie = (name) => {
+export function getCookie(name: string) {
   let start;
   let end;
 
@@ -48,5 +46,3 @@ Utils.getCookie = (name) => {
   }
   return '';
 };
-
-export default Utils;

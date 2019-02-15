@@ -10,7 +10,7 @@ module.exports = {
     passCheck: path.join(process.cwd(), 'src/passCheck/index.js'),
     // http://gitlab.sftcwl.com/fe/passport
     // pass: path.join(process.cwd(), 'pass/app.js'),
-    page: path.join(process.cwd(), 'src/index.js'),
+    page: path.join(process.cwd(), 'src/index.tsx'),
   },
   output: {
     filename: 'bundle.js',
@@ -26,9 +26,13 @@ module.exports = {
       moment$: 'moment/moment.js',
     },
     modules: ['node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js'],
+    extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx', '.json'],
     mainFields: ['browser', 'jsnext:main', 'main'],
   },
+  // externals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  // },
   target: 'web', // Make web variables accessible to webpack, e.g. window
   plugins: [
     // 使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
@@ -72,6 +76,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        use: [
+          {
+            loader: 'awesome-typescript-loader',
+          },
+        ],
       },
       {
         test: /\.less$/,

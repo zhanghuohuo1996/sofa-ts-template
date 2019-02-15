@@ -5,9 +5,10 @@ import {
   GET_LOGIN_USER_INFO,
   FATCH_ACTION_SUCCESS_PREFIX,
   UPDATE_PLATFORM_AUTH,
-} from 'utils/constants';
+} from '../../utils/constants';
 
-import { getLanguage } from 'utils/i18n';
+import { Action } from 'redux';
+import { getLanguage } from '../../utils/i18n';
 
 const initialState = fromJS({
   loading: false,
@@ -16,7 +17,9 @@ const initialState = fromJS({
   platformAuth: true,
 });
 
-function reducer(state = initialState, action) {
+type SofaAction = Action & { payload: any };
+
+function reducer(state = initialState, action: SofaAction) {
   switch (action.type) {
     case SHOW_LOADING:
       return state.set('loading', action.payload);
