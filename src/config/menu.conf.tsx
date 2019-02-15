@@ -1,4 +1,6 @@
-const menu = [
+import { MenuItem } from '../types';
+
+const menu: MenuItem[] = [
   {
     key: 'homePage',
     icon: 'home',

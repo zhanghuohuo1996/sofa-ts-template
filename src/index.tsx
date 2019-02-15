@@ -27,4 +27,12 @@ const render = () => {
   );
 };
 
+// 开发模式下热加载
+if ((module as any).hot) {
+  (module as any).hot.accept(['utils/i18n', 'containers/Main'], () => {
+    ReactDOM.unmountComponentAtNode(rootElement);
+    render();
+  });
+}
+
 render();

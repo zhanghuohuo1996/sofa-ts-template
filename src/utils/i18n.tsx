@@ -41,7 +41,7 @@ export function formatTranslationMessages(locale: string, messages: Messages):Me
   return Object.keys(messages).reduce((formattedMessages, key) => {
     const formattedMessage = !messages[key] && locale !== DEFAULT_LOCALE
       ? defaultFormattedMessages[key]
-      : {};
+      : '';
     return {
       ...formattedMessages,
       [key]: formattedMessage,

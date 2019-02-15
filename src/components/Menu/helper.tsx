@@ -1,20 +1,11 @@
 import * as React from 'react';
 import { Menu, Icon } from 'antd';
 
-import { checkAuth } from '../../containers/AuthControl';
+import { checkAuth } from 'containers/AuthControl';
 
 const { Item, SubMenu } = Menu;
 
-type Visibility = 'hidden' | 'show';
-
-interface MenuItem {
-  key: string;
-  icon?: string;
-  children?: any;
-  text?: string;
-  visibilityChild?: Visibility;
-  auth?: number | string;
-}
+import { MenuItem } from '../../types';
 
 function menuNesting(menuConfig: MenuItem[], authList: number[] | string[]) {
   const items = menuConfig.map((item) => {

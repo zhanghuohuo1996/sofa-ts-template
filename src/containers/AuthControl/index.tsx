@@ -17,8 +17,8 @@ export function checkAuth(authCode: number | string, authList: number[] | string
     if ((authList as number[]).indexOf(authCodeNumber) > -1 || (authList as string[]).indexOf(authCodeString) > -1) {
       return component;
     }
-    return '';
+    return null;
   };
 }
 
-export default {};
+export default checkAuth;
