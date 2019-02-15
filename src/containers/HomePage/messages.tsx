@@ -7,9 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   homePage: {
-    homePage: {
-      id: 'sofa.containers.HomePage.homePage',
-      defaultMessage: '首页',
-    },
+    id: 'sofa.containers.HomePage.homePage',
+    defaultMessage: '首页',
   },
 });

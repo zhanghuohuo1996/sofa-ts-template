@@ -1,4 +1,17 @@
-const conf = {
+interface PassUri {
+  login: string;
+  logout: string;
+  editpwd: string;
+  bindphone: string;
+  [key: string]: any;
+};
+
+interface PassConf {
+  enable: boolean;
+  uri: PassUri;
+};
+
+const conf: PassConf = {
   enable: false,
   uri: {
     login: '/static/pass.html#/login',
@@ -8,7 +21,7 @@ const conf = {
   },
 };
 
-export const gotoPass = (type) => {
+export const gotoPass = (type: string) => {
   if (conf.enable && conf.uri[type]) {
     window.location.href = conf.uri[type];
   }

@@ -20,7 +20,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={translationMessages}>
-        <Main compiler="lichun" framework="haha" />
+        <Main/>
       </LanguageProvider>
     </Provider>,
     rootElement,

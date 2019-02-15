@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import * as React from 'react';
+import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import Loadable from 'react-loadable';
+import * as Loadable from 'react-loadable';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 /**
@@ -13,8 +12,8 @@ import LoadingIndicator from 'components/LoadingIndicator';
  * @param {} arr 待遍历数据
  * @param {*} keyPath 关键路径
  */
-function traversMenu(arr, keyPath = []) {
-  let leafsArray = [];
+function traversMenu(arr: any[], keyPath: any[] = []) {
+  let leafsArray: any[] = [];
 
   arr.forEach((item) => {
     const newKeyPath = keyPath.concat([item.key]);
@@ -31,14 +30,12 @@ function traversMenu(arr, keyPath = []) {
   return leafsArray;
 }
 
-@withRouter
-// eslint-disable-next-line
-class CoreRoute extends React.PureComponent {
-  static propTypes = {
-    menuConf: PropTypes.array.isRequired,
-  };
+export interface Props extends RouteComponentProps {
+  menuConf: any[];
+}
 
-  static makePathToComponent = menu => traversMenu(menu);
+class CoreRoute extends React.PureComponent<Props, object> {
+  static makePathToComponent = (menu: any[]) => traversMenu(menu);
 
   render() {
     const { menuConf } = this.props;
@@ -64,4 +61,4 @@ class CoreRoute extends React.PureComponent {
   }
 }
 
-export default CoreRoute;
+export default withRouter(CoreRoute);

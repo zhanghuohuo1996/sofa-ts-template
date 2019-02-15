@@ -10,21 +10,21 @@ import {
   getLoginUserInfoService,
 } from './services';
 
-export function loadingDataError(payload) {
+export function loadingDataError(payload: any) {
   return {
     type: LOADING_DATA_ERROR,
     payload,
   };
 }
 
-export function showLoading(payload) {
+export function showLoading(payload: any) {
   return {
     type: SHOW_LOADING,
     payload,
   };
 }
 
-export function toggleLang(payload) {
+export function toggleLang(payload: any) {
   return {
     type: TOOGLE_LANG,
     payload,
@@ -43,7 +43,7 @@ export function showDownloadListModal() {
 
 }
 
-export function updatePlatformAuth(payload) {
+export function updatePlatformAuth(payload: any) {
   return {
     type: UPDATE_PLATFORM_AUTH,
     payload,

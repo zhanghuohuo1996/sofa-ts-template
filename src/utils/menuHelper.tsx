@@ -1,7 +1,11 @@
 import { getFormattedMessages } from 'utils/i18n';
-import menu from 'config/menu.conf';
+import menu from '../config/menu.conf';
 
-function getText(lang, key) {
+interface Obj{
+  [key: string]: any;
+}
+
+function getText(lang: string, key: string) {
   return getFormattedMessages(lang, `sofa.config.${key}`);
 }
 
@@ -10,7 +14,7 @@ function getText(lang, key) {
  * @param {*} menuData
  * @param {*} lang
  */
-function buildIntlMenu(menuData, lang) {
+function buildIntlMenu(menuData: any[], lang: string) {
   menuData.forEach((element) => {
     const text = getText(lang, element.key);
     // eslint-disable-next-line
@@ -22,19 +26,22 @@ function buildIntlMenu(menuData, lang) {
   return menuData;
 }
 
-export function getMenuData(lang) {
+export function getMenuData(lang: string) {
   return buildIntlMenu(menu, lang);
 }
 
-export function getMenuMap(lang, menuData) {
+export function getMenuMap(lang: string, menuData?: any[]) {
   // eslint-disable-next-line
   menuData = menuData || getMenuData(lang);
-  let obj = {};
+  let obj: Obj = {};
   menuData.forEach((element) => {
     obj[element.key] = element.key;
     if (element.children) {
       const subMap = getMenuMap(lang, element.children);
-      obj = Object.assign({}, obj, subMap);
+      obj = {
+        ...obj,
+        ...subMap,
+      }
     }
   });
   return obj;

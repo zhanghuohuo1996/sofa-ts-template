@@ -1,14 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Radio } from 'antd';
 
-class LanguageBar extends React.PureComponent {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    onToggle: PropTypes.func.isRequired,
-  }
+interface HandleToggle {
+  (value: string): any;
+}
 
-  handleChangeSelect = (e) => {
+export interface Props {
+  value: string;
+  onToggle: HandleToggle;
+}
+
+class LanguageBar extends React.PureComponent<Props, object> {
+  handleChangeSelect = (e: any) => {
     const { onToggle } = this.props;
     const { value } = e.target;
 

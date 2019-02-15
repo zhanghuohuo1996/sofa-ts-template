@@ -1,11 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 import { Menu } from 'antd';
 import menuNesting from './helper';
 
-export default class SofaMenu extends React.Component {
-  constructor(props) {
+interface HandleChangeLocation {
+  (pathname: string): any;
+};
+
+export interface Props {
+  selectedKeys?: string[],
+  openKeys?: string[],
+  authList: any[],
+  data: any[],
+  changeLocation: HandleChangeLocation;
+}
+
+interface State {
+  openKeys: string[],
+  selectedKeys: string[],
+}
+
+export default class SofaMenu extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       openKeys: props.openKeys,
@@ -13,15 +29,7 @@ export default class SofaMenu extends React.Component {
     };
   }
 
-  static propTypes = {
-    selectedKeys: PropTypes.array,
-    openKeys: PropTypes.array,
-    authList: PropTypes.array.isRequired,
-    data: PropTypes.array.isRequired,
-    changeLocation: PropTypes.func.isRequired,
-  }
-
-  handleClick = ({ keyPath }) => {
+  handleClick = ({ keyPath = [''] }) => {
     const { changeLocation } = this.props;
     const path = [...keyPath];
     path.reverse();
@@ -35,7 +43,7 @@ export default class SofaMenu extends React.Component {
     });
   }
 
-  static pathKeys = (pathname) => {
+  static pathKeys = (pathname: string) => {
     if (pathname) {
       const pathArray = pathname.split('/').filter(Boolean);
       if (pathname === '/' || pathArray.length < 2) {

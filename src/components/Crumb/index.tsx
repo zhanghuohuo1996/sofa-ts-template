@@ -1,20 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 import { getFormattedMessages } from 'utils/i18n';
 
-// eslint-disable-next-line
-export default class Crumb extends React.Component {
-  static propTypes = {
-    history: PropTypes.any.isRequired,
-    mainMap: PropTypes.object.isRequired,
-    lang: PropTypes.string.isRequired,
-  }
+interface MainMap {
+  [key: string]: any;
+}
 
-  getCrumbItem = (path) => {
-    // TODO: 这里subMap被卓娜干掉了，然而我懒得看逻辑了，等到用的时候再完善吧
-    const { lang, mainMap, subMap } = this.props;
+export interface Props {
+  history: any,
+  mainMap: MainMap,
+  lang: string,
+  path: string,
+}
+
+// eslint-disable-next-line
+export default class Crumb extends React.Component<Props, object> {
+  path = ''
+
+  getCrumbItem = (path: string) => {
+    const { lang, mainMap } = this.props;
 
     const pathArray = path.split('/').filter(item => Boolean(item));
     return pathArray.map((item, index) => {

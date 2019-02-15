@@ -7,11 +7,15 @@ import 'whatwg-fetch';
  *
  * @return {object}          The parsed JSON from the request
  */
-function parseJSON(response) {
+function parseJSON(response: Response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
   return response.json();
+}
+
+interface ResponseError extends Error {
+  response?: Response;
 }
 
 /**
@@ -21,12 +25,12 @@ function parseJSON(response) {
  *
  * @return {object|undefined} Returns either the response, or throws an error
  */
-function checkStatus(response) {
+function checkStatus(response: Response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
 
-  const error = new Error(response.statusText);
+  const error: ResponseError = new Error(response.statusText);
   error.response = response;
   throw error;
 }
@@ -39,7 +43,7 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+export default function request(url: string, options: { [key: string]: any }) {
   return fetch(url, options).then(checkStatus).then(parseJSON);
 }
 
@@ -50,7 +54,7 @@ export default function request(url, options) {
  *
  * @returns {stirng}
  */
-export const parseParams = params => (
+export const parseParams = (params: { [key: string]: any }) => (
   Object.keys(params).map(key => (`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)).join('&')
 );
 
@@ -61,7 +65,7 @@ export const parseParams = params => (
  *
  * @returns {stirng}
  */
-export const parseFilteredParams = params => (
+export const parseFilteredParams = (params: { [key: string]: any }) => (
   Object.keys(params).filter(key => params[key] !== undefined).map(key => (`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)).join('&')
 );
 
@@ -73,7 +77,7 @@ export const parseFilteredParams = params => (
  *
  * @returns {Promise}
  */
-export function getRequest(url, params) {
+export function getRequest(url: string, params?: { [key: string]: any }) {
   if (params) {
     return request(`${url}?${parseFilteredParams(params)}`, {
       credentials: 'include',
@@ -92,7 +96,7 @@ export function getRequest(url, params) {
  *
  * @returns {Promise}
  */
-export function postRequest(url, params) {
+export function postRequest(url: string, params: { [key: string]: any }) {
   return request(url, {
     method: 'POST',
     body: params ? parseParams(params) : '',
