@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import commonConf from 'config/main.conf';
 
 import {
@@ -11,11 +10,13 @@ import {
   Select,
 } from 'antd';
 
+import { FormComponentProps } from 'antd/lib/form';
+
 import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import messages from '../messages';
 
@@ -25,28 +26,20 @@ import { selectSearchCondition } from '../selectors';
 
 const withConnect = connectFactory(NAMESPACE);
 const { Option } = Select;
-@injectIntl
-@withConnect(
-  state => ({
-    searchCondition: selectSearchCondition(state),
-  }),
-  {
-    getDataList,
-    updateEntityModal,
-    updateSearchCondition,
-  },
-)
-@Form.create()
-class Toolbar extends React.Component {
-  static propTypes = {
-    searchCondition: PropTypes.object.isRequired,
-    getDataList: PropTypes.func.isRequired,
-    updateEntityModal: PropTypes.func.isRequired,
-    updateSearchCondition: PropTypes.func.isRequired,
-    form: PropTypes.any.isRequired,
-    intl: intlShape.isRequired,
-  };
 
+interface Props extends FormComponentProps {
+  searchCondition: {
+    account?: string;
+    name?: string;
+    status?: string | number;
+  };
+  getDataList: (params: object) => any;
+  updateEntityModal: (params: object) => any;
+  updateSearchCondition: (params: object) => any;
+  intl: InjectedIntl;
+}
+
+class Toolbar extends React.Component<Props, object> {
   componentDidMount() {
     const { searchCondition } = this.props;
     this.props.getDataList({
@@ -84,12 +77,12 @@ class Toolbar extends React.Component {
     return (
       <ToolbarContainer>
         <FunctionButtonsContainer>
-          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.userManage.createUser)}</Button>
+          <Button type="primary" onClick={this.handleClickCreate}>{intl.formatMessage(messages.createUser)}</Button>
         </FunctionButtonsContainer>
         <Form>
           <Row gutter={24}>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(messages.userManage.account)}>
+              <Form.Item label={intl.formatMessage(messages.account)}>
                 {getFieldDecorator('account', {
                   initialValue: searchCondition.account || '',
                 })(
@@ -107,7 +100,7 @@ class Toolbar extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item label={intl.formatMessage(messages.userManage.accountStatus)}>
+              <Form.Item label={intl.formatMessage(messages.accountStatus)}>
                 {
                   getFieldDecorator('status', {
                     initialValue: searchCondition.status,
@@ -115,9 +108,9 @@ class Toolbar extends React.Component {
                     <Select>
                       <Option value="">{intl.formatMessage(commonMessages.all)}</Option>
                       {
-                        Object.keys(messages.userManage.accountStatusMap).map(key => (
+                        Object.keys(messages.accountStatusMap).map(key => (
                           <Option value={key} key={key}>
-                            {intl.formatMessage(messages.userManage.accountStatusMap[key])}
+                            {intl.formatMessage((messages.accountStatusMap as any)[key])}
                           </Option>
                         ))
                       }
@@ -134,4 +127,14 @@ class Toolbar extends React.Component {
   }
 }
 
-export default Toolbar;
+export default injectIntl(
+  withConnect(
+  state => ({
+    searchCondition: selectSearchCondition(state),
+  }),
+  {
+    getDataList,
+    updateEntityModal,
+    updateSearchCondition,
+  },
+)(Form.create()(Toolbar)));

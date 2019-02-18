@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import hoistNonReactStatics from 'hoist-non-react-statics';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import hoistNonReactStatics = require('hoist-non-react-statics');
 
 import getInjectors from './sagaInjectors';
 
-export default ({ key, saga, mode }) => (WrappedComponent) => {
+export default ({ key = "", saga = () => {}, mode = "" }) => (WrappedComponent: React.ComponentClass) => {
   class InjectSaga extends React.Component {
     static WrappedComponent = WrappedComponent;
 

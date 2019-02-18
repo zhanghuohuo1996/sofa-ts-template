@@ -272,4 +272,4 @@ export default defineMessages({
     id: 'sofa.config.toolbarTableModal',
     defaultMessage: '工具箱-表-弹窗',
   },
-});
+} as any);

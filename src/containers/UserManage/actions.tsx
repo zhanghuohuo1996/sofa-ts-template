@@ -24,35 +24,35 @@ import {
 
 import { showLoading } from '../../state/actions';
 
-export function updateSearchCondition(payload) {
+export function updateSearchCondition(payload: any) {
   return {
     type: UPDATE_SEARCH_CONDITION,
     payload,
   };
 }
 
-export function updateEntityModal(payload) {
+export function updateEntityModal(payload: any) {
   return {
     type: UPDATE_ENTITY_MODAL,
     payload,
   };
 }
 
-export function updateAuthModal(payload) {
+export function updateAuthModal(payload: any) {
   return {
     type: UPDATE_AUTH_MODAL,
     payload,
   };
 }
 
-export function updateResetPasswordModal(payload) {
+export function updateResetPasswordModal(payload: any) {
   return {
     type: UPDATE_RESET_PASSWORD_MODAL,
     payload,
   };
 }
 
-export function getDataList(params) {
+export function getDataList(params: object) {
   return {
     type: GET_DATA_LIST,
     service: getDataListService,
@@ -61,7 +61,7 @@ export function getDataList(params) {
   };
 }
 
-export function getPrivilegeList(params) {
+export function getPrivilegeList(params: object) {
   return {
     type: GET_PRIVILEGE_LIST,
     service: getPrivilegeListService,
@@ -84,7 +84,7 @@ export function getLoginUserInfo() {
   };
 }
 
-export function getUserInfo(params) {
+export function getUserInfo(params: object) {
   return {
     type: GET_USER_INFO,
     service: getUserInfoService,
@@ -92,7 +92,7 @@ export function getUserInfo(params) {
   };
 }
 
-export function postCreateEntity(params) {
+export function postCreateEntity(params: object) {
   return {
     type: POST_CREATE_ENTITY,
     service: postCreateEntityService,
@@ -100,7 +100,7 @@ export function postCreateEntity(params) {
   };
 }
 
-export function postEditEntity(params) {
+export function postEditEntity(params: object) {
   return {
     type: POST_EDIT_ENTITY,
     service: postEditEntityService,

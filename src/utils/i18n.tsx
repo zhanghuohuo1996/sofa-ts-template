@@ -33,7 +33,7 @@ interface MessagesMap {
   [key: string]: any;
 }
 
-export function formatTranslationMessages(locale: string, messages: Messages):Messages {
+export function formatTranslationMessages(locale: string, messages: Messages): Messages {
   const defaultFormattedMessages: Messages = locale !== DEFAULT_LOCALE
     ? formatTranslationMessages(DEFAULT_LOCALE, enTranslationMessages)
     : {};

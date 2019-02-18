@@ -1,6 +1,8 @@
 import { fromJS } from 'immutable';
 import commonConf from 'config/main.conf';
 import { CREATE, FATCH_ACTION_SUCCESS_PREFIX } from 'utils/constants';
+import { SofaAction } from '../../types';
+
 import {
   UPDATE_ENTITY_MODAL,
   UPDATE_RESET_PASSWORD_MODAL,
@@ -45,7 +47,7 @@ const initialState = fromJS({
   },
 });
 
-function reducer(state = initialState, action) {
+function reducer(state = initialState, action: SofaAction) {
   switch (action.type) {
     case UPDATE_ENTITY_MODAL:
       return state

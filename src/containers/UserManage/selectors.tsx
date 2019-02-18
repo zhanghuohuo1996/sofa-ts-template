@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { NAMESPACE } from './constants';
+import { Map } from 'immutable';
 
-const selectNamespace = state => state.get(NAMESPACE);
+const selectNamespace = (state: Map<string, any>) => state.get(NAMESPACE);
 
 export const selectSearchCondition = createSelector(
   selectNamespace,
@@ -60,19 +61,23 @@ export const selectLoginUserIdentity = createSelector(
   subState => subState.get('loginUserInfo').is_super,
 );
 
-export const selectFullAuthMap = (state) => {
-  const authList = selectFullAuthList(state).filter(item => item.is_system === 1);
-  const authMap = {};
-  authList.forEach((item) => {
+export const selectFullAuthMap = (state: Map<string, any>) => {
+  const authList = selectFullAuthList(state).filter((item: any) => item.is_system === 1);
+  const authMap: {
+    [key: string]: any;
+  } = {};
+  authList.forEach((item: any) => {
     authMap[item.role_id] = item.name;
   });
   return authMap;
 };
 
-export const selectFullAuthGroupMap = (state) => {
-  const authList = selectFullAuthList(state).filter(item => item.is_system === 0);
-  const authMap = {};
-  authList.forEach((item) => {
+export const selectFullAuthGroupMap = (state: Map<string, any>) => {
+  const authList = selectFullAuthList(state).filter((item: any) => item.is_system === 0);
+  const authMap: {
+    [key: string]: any;
+  } = {};
+  authList.forEach((item: any) => {
     authMap[item.role_id] = item.name;
   });
   return authMap;
@@ -150,7 +155,7 @@ export const selectUserAuthGroupList = createSelector(
 
 export const selectOperationAuth = createSelector(
   selectNamespace,
-  subState => subState.get('operationAuth').toJS().map(item => ({
+  subState => subState.get('operationAuth').toJS().map((item: any) => ({
     key: item.privilege_id,
     title: item.name,
   })),

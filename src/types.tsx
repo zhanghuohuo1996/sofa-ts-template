@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+
 type Visibility = 'hidden' | 'show';
 
 export interface MenuItem {
@@ -8,3 +10,5 @@ export interface MenuItem {
   visibilityChild?: Visibility;
   auth?: number | string;
 }
+
+export type SofaAction = Action & { payload: any };

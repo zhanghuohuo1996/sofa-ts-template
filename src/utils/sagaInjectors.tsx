@@ -1,8 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import isFunction from 'lodash/isFunction';
-import isString from 'lodash/isString';
-import invariant from 'invariant';
-import conformsTo from 'lodash/conformsTo';
+import { isEmpty, isFunction, isString, conformsTo} from 'lodash';
+import * as invariant from 'invariant';
 
 import checkStore from './checkStore';
 
@@ -14,15 +11,15 @@ import {
 
 const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 
-const checkKey = key => invariant(
+const checkKey = (key: string) => invariant(
   isString(key) && !isEmpty(key),
   'injectSaga: Expected `key` to be a non empty string',
 );
 
-const checkDescriptor = (descriptor) => {
+const checkDescriptor = (descriptor: any) => {
   const shape = {
     saga: isFunction,
-    mode: mode => isString(mode) && allowedModes.includes(mode),
+    mode: (mode: any) => isString(mode) && allowedModes.indexOf(mode) > -1,
   };
 
   invariant(
@@ -31,8 +28,13 @@ const checkDescriptor = (descriptor) => {
   );
 };
 
-export function injectSagaFactory(store, isValid) {
-  return function injectSaga(key, descriptor = {}, args) {
+interface Descriptor {
+  mode?: string;
+  saga?: any;
+};
+
+export function injectSagaFactory(store: any, isValid: boolean) {
+  return function injectSaga(key: string, descriptor: Descriptor, args: any) {
     if (!isValid) checkStore(store);
 
     const newDescriptor = { ...descriptor, mode: descriptor.mode || RESTART_ON_REMOUNT };
@@ -58,8 +60,8 @@ export function injectSagaFactory(store, isValid) {
   };
 }
 
-export function ejectSagaFactory(store, isValid) {
-  return function ejectSaga(key) {
+export function ejectSagaFactory(store: any, isValid: boolean) {
+  return function ejectSaga(key: string) {
     if (!isValid) checkStore(store);
 
     checkKey(key);
@@ -79,7 +81,7 @@ export function ejectSagaFactory(store, isValid) {
   };
 }
 
-export default function getInjectors(store) {
+export default function getInjectors(store: any) {
   checkStore(store);
 
   return {

@@ -1,13 +1,11 @@
-import invariant from 'invariant';
-import isEmpty from 'lodash/isEmpty';
-import isFunction from 'lodash/isFunction';
-import isString from 'lodash/isString';
+import * as invariant from 'invariant';
+import { isEmpty, isFunction, isString } from 'lodash';
 
 import checkStore from './checkStore';
 import createReducer from '../state/reducers';
 
-export function injectReducerFactory(store, isVaild) {
-  return function injectReducer(key, reducer) {
+export function injectReducerFactory(store: any, isVaild: boolean) {
+  return function injectReducer(key: string, reducer: () => any) {
     if (!isVaild) checkStore(store);
 
     invariant(
@@ -23,7 +21,7 @@ export function injectReducerFactory(store, isVaild) {
   };
 }
 
-export default function getInjectors(store) {
+export default function getInjectors(store: any) {
   checkStore(store);
 
   return {

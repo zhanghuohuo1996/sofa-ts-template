@@ -7,7 +7,7 @@ import {
   UPDATE_PLATFORM_AUTH,
 } from '../../utils/constants';
 
-import { Action } from 'redux';
+import { SofaAction } from '../../types';
 import { getLanguage } from '../../utils/i18n';
 
 const initialState = fromJS({
@@ -16,8 +16,6 @@ const initialState = fromJS({
   currentUser: {},
   platformAuth: true,
 });
-
-type SofaAction = Action & { payload: any };
 
 function reducer(state = initialState, action: SofaAction) {
   switch (action.type) {

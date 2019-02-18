@@ -10,6 +10,7 @@ import {
   all,
 } from 'redux-saga/effects';
 
+import { Pattern } from 'redux-saga';
 // eslint-disable-next-line no-unused-vars
 import { FATCH_ACTION_SUCCESS_PREFIX, FATCH_ACTION_ERROR_PREFIX, CREATE } from 'utils/constants';
 import { loadingDataError } from '../../state/actions';
@@ -60,7 +61,7 @@ export function* createEditSuccess() {
   }
 }
 
-export function* watcher(type, process) {
+export function* watcher(type: Pattern, process: any) {
   yield takeLatest(type, process);
 }
 /**

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 import {
   Form,
@@ -8,7 +7,8 @@ import {
 
 import { createStructuredSelector } from 'reselect';
 import connectFactory from 'utils/connectFactory';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, InjectedIntl } from 'react-intl';
+import { FormComponentProps } from 'antd/lib/form';
 
 import messages from '../messages';
 import { NAMESPACE } from '../constants';
@@ -37,39 +37,29 @@ const treeData = [{
   key: '4',
 }];
 
-@injectIntl
-@withConnect(
-  createStructuredSelector({ // 实用reselect性能有明显的提升；
-    entityModal: selectEntityModal,
-  }),
-  { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
-    // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
-    updateEntityModal,
-    postCreateEntity,
-    postEditEntity,
-  },
-)
-@Form.create({
-  mapPropsToFields: props => ({
-    // 这里埋个坑，没空细看到底发生了什么……
-    // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
-  }),
-})
-// eslint-disable-next-line
-class DataAuthSelect extends React.PureComponent {
-  static propTypes = {
-    entityModal: PropTypes.object.isRequired,
-    updateEntityModal: PropTypes.func.isRequired,
-    postCreateEntity: PropTypes.func.isRequired,
-    postEditEntity: PropTypes.func.isRequired,
-    intl: intlShape.isRequired,
+export interface Props extends FormComponentProps {
+  entityModal: {
+    data: {
+      auth: any;
+    };
   };
+  updateEntityModal: (params: object) => any;
+  postCreateEntity: (params: object) => any;
+  postEditEntity: (params: object) => any;
+  intl: InjectedIntl;
+}
 
+interface State {
+  value: string[];
+}
+
+// eslint-disable-next-line
+class DataAuthSelect extends React.PureComponent<Props, State> {
   state = {
     value: ['0-0-0'],
   };
 
-  onChange = (value) => {
+  onChange = (value: string[]) => {
     this.setState({ value });
   }
 
@@ -101,7 +91,7 @@ class DataAuthSelect extends React.PureComponent {
     return (
       <FormItem
         {...formItemLayout}
-        label={intl.formatMessage(messages.userManage.dataAuth)}
+        label={intl.formatMessage(messages.dataAuth)}
       >
         { getFieldDecorator('auth', {
           initialValue: data.auth || '',
@@ -113,4 +103,24 @@ class DataAuthSelect extends React.PureComponent {
   }
 }
 
-export default DataAuthSelect;
+export default injectIntl(
+  withConnect(
+    createStructuredSelector({ // 实用reselect性能有明显的提升；
+      entityModal: selectEntityModal,
+    }),
+    { // 其实这里可以处理掉，当前每引入一个action,需要更新props绑定，更新PropsType，
+      // 实际可以直接将action全量引入，但是出于对性能及规范开发的要求，这里仍然使用单独引入的方式；
+      updateEntityModal,
+      postCreateEntity,
+      postEditEntity,
+    },
+  )(
+    Form.create({
+      mapPropsToFields: props => ({
+        // 这里埋个坑，没空细看到底发生了什么……
+        // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
+      }),
+    })(DataAuthSelect)
+  )
+)
+
