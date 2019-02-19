@@ -15,7 +15,7 @@ import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
 import LanguageBar from 'components/LanguageBar';
 
-// import injectSaga from 'utils/injectSaga';
+import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
 import * as Utils from 'utils/utils';
 
@@ -23,6 +23,7 @@ import { gotoPass } from 'config/pass.conf';
 import commonConf from 'config/main.conf';
 
 import CoreRoute from './CoreRoute';
+import saga from './saga';
 
 import { selectLang, selectCurrentUserInfo } from '../../state/selectors';
 import { toggleLang, getLoginUserInfo } from '../../state/actions';
@@ -30,7 +31,7 @@ import { toggleLang, getLoginUserInfo } from '../../state/actions';
 import messages from './messages';
 
 const history = createHistory();
-// const withSaga = injectSaga({ key: 'main', saga });
+const withSaga = injectSaga({ key: 'main', saga });
 
 const {
   Header,
@@ -155,12 +156,14 @@ class Main extends React.Component<Props, State> {
   }
 }
 
-export default connect(
-  createStructuredSelector({
-    lang: selectLang,
-    currentUserInfo: selectCurrentUserInfo,
-  }), {
-    toggleLang,
-    getLoginUserInfo,
-  }
-)(injectIntl(Main));
+export default withSaga(
+  connect(
+    createStructuredSelector({
+      lang: selectLang,
+      currentUserInfo: selectCurrentUserInfo,
+    }), {
+      toggleLang,
+      getLoginUserInfo,
+    }
+  )(injectIntl(Main))
+);

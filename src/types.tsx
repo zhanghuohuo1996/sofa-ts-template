@@ -9,6 +9,14 @@ export interface MenuItem {
   text?: string;
   visibilityChild?: Visibility;
   auth?: number | string;
-}
+};
 
-export type SofaAction = Action & { payload: any };
+type SofaActionCreator = (params?: any) => SofaAction;
+
+export type SofaAction = Action & { 
+  payload?: any;
+  loadingAction?: (loading: boolean) => SofaAction;
+  service?: (params?: object) => void;
+  params?: object;
+  success?: (SofaAction | SofaActionCreator);
+};

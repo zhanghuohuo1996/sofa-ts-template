@@ -41,11 +41,13 @@ interface Props extends FormComponentProps {
 class Toolbar extends React.Component<Props, object> {
   componentDidMount() {
     const { searchCondition } = this.props;
-    this.props.getDataList({
-      ...searchCondition,
-      page: 1,
-      perpage: commonConf.table.defaultPageSize,
-    });
+    setTimeout(() => {
+      this.props.getDataList({
+        ...searchCondition,
+        page: 1,
+        perpage: commonConf.table.defaultPageSize,
+      });
+    }, 200);
   }
 
   handleSearch = () => {

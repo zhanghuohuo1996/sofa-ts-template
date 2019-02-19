@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import injectReducer from 'utils/injectReducer';
@@ -16,14 +16,9 @@ import ResetPasswordModal from './modules/ResetPasswordModal';
 import OperationAuthSelectModal from './modules/OperationAuthSelectModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
-const withSaga = injectSaga({ key: NAMESPACE, saga });
+// const withSaga = injectSaga({ key: NAMESPACE, saga });
 
-export interface Props extends RouteComponentProps {
-
-};
-
-
-class UserManage extends React.Component<Props, object> {
+class UserManage extends React.Component{
   render() {
     return (
       <div>
@@ -38,6 +33,6 @@ class UserManage extends React.Component<Props, object> {
 
 export default compose(
   withRouter,
-  withSaga,
+  // withSaga,
   withReducer,
 )(UserManage);

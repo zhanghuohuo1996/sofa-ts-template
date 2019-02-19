@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose, Store } from 'redux';
 import { fromJS } from 'immutable';
 import createSagaMiddleware from 'redux-saga';
-import reduxSofaSaga from 'redux-sofa-saga';
+import SofaSaga from 'redux-sofa-saga';
 import { notification } from 'antd';
 
 import createReducer from './reducers';
@@ -15,10 +15,7 @@ type SofaStore = Store & {
 const sagaMiddleware = createSagaMiddleware();
 
 export default function storeFactory(initialState = {}) {
-  const middlewares = [sagaMiddleware, reduxSofaSaga({
-    notification,
-  })];
-
+  const middlewares = [sagaMiddleware];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // 在开发模式启用redux devtool
@@ -35,6 +32,9 @@ export default function storeFactory(initialState = {}) {
     fromJS(initialState),
     composeEnhancers(...enhancers),
   );
+
+  // SofaSaga.setConfig({ notification });
+  // SofaSaga.runSaga(sagaMiddleware);
 
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
