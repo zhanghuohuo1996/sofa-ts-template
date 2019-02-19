@@ -6,16 +6,14 @@ import {
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import { FormComponentProps } from 'antd/lib/form';
 
 import messages from '../messages';
-import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal } from '../selectors';
+import { connect } from 'react-redux';
 
-const withConnect = connectFactory(NAMESPACE);
 const FormItem = Form.Item;
 const { SHOW_PARENT } = TreeSelect;
 
@@ -37,15 +35,15 @@ const treeData = [{
   key: '4',
 }];
 
-export interface Props extends FormComponentProps {
+interface Props extends FormComponentProps {
   entityModal: {
     data: {
       auth: any;
     };
   };
-  updateEntityModal: (params: object) => any;
-  postCreateEntity: (params: object) => any;
-  postEditEntity: (params: object) => any;
+  updateEntityModal?: (params: object) => any;
+  postCreateEntity?: (params: object) => any;
+  postEditEntity?: (params: object) => any;
   intl: InjectedIntl;
 }
 
@@ -53,7 +51,6 @@ interface State {
   value: string[];
 }
 
-// eslint-disable-next-line
 class DataAuthSelect extends React.PureComponent<Props, State> {
   state = {
     value: ['0-0-0'],
@@ -104,7 +101,7 @@ class DataAuthSelect extends React.PureComponent<Props, State> {
 }
 
 export default injectIntl(
-  withConnect(
+  connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
     }),

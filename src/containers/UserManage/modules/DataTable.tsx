@@ -4,7 +4,6 @@ import {
 } from 'antd';
 
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
 import TableContainer from 'components/TableContainer';
 import TableButton from 'components/TableButton';
 import { injectIntl, InjectedIntl } from 'react-intl';
@@ -12,12 +11,10 @@ import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
 import messages from '../messages';
-import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateResetPasswordModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 import { selectLoading, selectLang } from '../../../state/selectors';
-
-const withConnect = connectFactory(NAMESPACE);
+import { connect } from 'react-redux';
 
 interface Pagination {
   page?: number;
@@ -124,7 +121,7 @@ class DataTable extends React.PureComponent<Props, object> {
 }
 
 export default injectIntl(
-  withConnect(
+  connect(
     createStructuredSelector({
       tableData: selectTableData,
       pagination: selectPagination,

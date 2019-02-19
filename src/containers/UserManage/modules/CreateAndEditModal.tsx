@@ -9,7 +9,6 @@ import {
 import { FormComponentProps } from 'antd/lib/form';
 
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
@@ -20,8 +19,8 @@ import messages from '../messages';
 import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal, selectEntityModalType } from '../selectors';
+import { connect } from 'react-redux';
 
-const withConnect = connectFactory(NAMESPACE);
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -158,7 +157,7 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
 }
 
 export default injectIntl(
-  withConnect(
+  connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
       type: selectEntityModalType,

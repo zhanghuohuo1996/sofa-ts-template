@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import commonConf from 'config/main.conf';
 
 import {
@@ -11,8 +12,8 @@ import {
 } from 'antd';
 
 import { FormComponentProps } from 'antd/lib/form';
+import { createStructuredSelector } from 'reselect';
 
-import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
@@ -20,11 +21,9 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import messages from '../messages';
 
-import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
-const withConnect = connectFactory(NAMESPACE);
 const { Option } = Select;
 
 interface Props extends FormComponentProps {
@@ -128,13 +127,13 @@ class Toolbar extends React.Component<Props, object> {
 }
 
 export default injectIntl(
-  withConnect(
-  state => ({
-    searchCondition: selectSearchCondition(state),
-  }),
-  {
-    getDataList,
-    updateEntityModal,
-    updateSearchCondition,
-  },
+  connect(
+    createStructuredSelector({ // 实用reselect性能有明显的提升；
+      searchCondition: selectSearchCondition,
+    }),
+    {
+      getDataList,
+      updateEntityModal,
+      updateSearchCondition,
+    },
 )(Form.create()(Toolbar)));

@@ -3,9 +3,10 @@ import { isEmpty, isFunction, isString } from 'lodash';
 
 import checkStore from './checkStore';
 import createReducer from '../state/reducers';
+import { SofaAction } from '../types';
 
 export function injectReducerFactory(store: any, isVaild: boolean) {
-  return function injectReducer(key: string, reducer: () => any) {
+  return function injectReducer(key: string, reducer: (state: any, action: SofaAction) => any) {
     if (!isVaild) checkStore(store);
 
     invariant(
