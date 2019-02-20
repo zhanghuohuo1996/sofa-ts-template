@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { Map } from 'immutable';
 
 type Visibility = 'hidden' | 'show';
 
@@ -11,6 +12,14 @@ export interface MenuItem {
   auth?: number | string;
 };
 
+export interface Pagination {
+  page?: number;
+  total?: number;
+  pageSize?: number;
+  showTotal?: boolean;
+  onChange?: () => any;
+}
+
 type SofaActionCreator = (params?: any) => SofaAction;
 
 export type SofaAction = Action & { 
@@ -20,3 +29,5 @@ export type SofaAction = Action & {
   params?: object;
   success?: (SofaAction | SofaActionCreator);
 };
+
+export type SofaState = Map<string, any>;

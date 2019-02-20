@@ -10,10 +10,7 @@ const menu: MenuItem[] = [
     icon: 'setting',
     children: [
       { key: 'userManage' },
-      // {
-      //   key: 'authGroupManage',
-      //   text: '权限组管理',
-      // },
+      { key: 'authGroupManage' },
       // {
       //   key: 'authManage',
       //   text: '权限管理',

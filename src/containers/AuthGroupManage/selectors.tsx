@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { NAMESPACE } from './constants';
+import { SofaState } from '../../types';
 
-const selectNamespace = state => state.get(NAMESPACE);
+const selectNamespace = (state: SofaState) => state.get(NAMESPACE);
 
 export const selectSearchCondition = createSelector(
   selectNamespace,
@@ -20,7 +21,7 @@ export const selectEntityModal = createSelector(
 
 export const selectOperationAuth = createSelector(
   selectNamespace,
-  subState => subState.get('operationAuth').toJS().map(item => ({
+  subState => subState.get('operationAuth').toJS().map((item: {[key: string]: any}) => ({
     key: item.privilege_id,
     title: item.name,
   })),

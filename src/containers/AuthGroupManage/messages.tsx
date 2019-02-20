@@ -6,7 +6,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  authGroupManage: {
     createAuthGroup: {
       id: 'sofa.containers.AuthGroupManage.createAuthGroup',
       defaultMessage: '新建权限组',
@@ -61,5 +60,4 @@ export default defineMessages({
       id: 'sofa.containers.AuthGroupManage.modifyInfo',
       defaultMessage: '修改信息',
     },
-  },
-});
+} as any);
