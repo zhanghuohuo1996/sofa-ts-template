@@ -8,7 +8,6 @@ import injectSaga from 'utils/injectSaga';
 import { NAMESPACE } from './constants';
 import reducer from './reducer';
 import saga from './saga';
-
 import Toolbar from './modules/FunctionsAndSearchToolbar';
 import Table from './modules/DataTable';
 import Modal from './modules/CreateAndEditModal';
@@ -16,7 +15,7 @@ import ResetPasswordModal from './modules/ResetPasswordModal';
 import OperationAuthSelectModal from './modules/OperationAuthSelectModal';
 
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
-// const withSaga = injectSaga({ key: NAMESPACE, saga });
+const withSaga = injectSaga({ key: NAMESPACE, saga });
 
 class UserManage extends React.Component{
   render() {
@@ -33,6 +32,6 @@ class UserManage extends React.Component{
 
 export default compose(
   withRouter,
-  // withSaga,
+  withSaga,
   withReducer,
 )(UserManage);

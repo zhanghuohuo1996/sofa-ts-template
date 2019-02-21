@@ -14,13 +14,13 @@ import { DEFAULT_LOCALE } from '../../utils/constants';
 
 import { selectLang } from '../../state/selectors';
 
-export interface Props {
+interface Props {
   locale?: string;
   messages?: Messages;
   children: any;
 }
 
-export interface Messages {
+interface Messages {
   [key: string]: string,
 }
 

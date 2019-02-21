@@ -1,12 +1,10 @@
 import * as React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-
 import {
   Layout, Dropdown, Icon, Menu as AntMenu,
 } from 'antd';
-
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl';
-
 import { Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { createStructuredSelector } from 'reselect';
@@ -14,20 +12,17 @@ import { createStructuredSelector } from 'reselect';
 import Menu from 'components/Menu';
 import Crumb from 'components/Crumb';
 import LanguageBar from 'components/LanguageBar';
-
 import injectSaga from 'utils/injectSaga';
 import { getMenuData, getMenuMap } from 'utils/menuHelper';
 import * as Utils from 'utils/utils';
-
 import { gotoPass } from 'config/pass.conf';
 import commonConf from 'config/main.conf';
-
-import CoreRoute from './CoreRoute';
-import saga from './saga';
 
 import { selectLang, selectCurrentUserInfo } from '../../state/selectors';
 import { toggleLang, getLoginUserInfo } from '../../state/actions';
 
+import CoreRoute from './CoreRoute';
+import saga from './saga';
 import messages from './messages';
 
 const history = createHistory();
@@ -156,7 +151,8 @@ class Main extends React.Component<Props, State> {
   }
 }
 
-export default withSaga(
+export default compose(
+  withSaga,
   connect(
     createStructuredSelector({
       lang: selectLang,
@@ -165,5 +161,6 @@ export default withSaga(
       toggleLang,
       getLoginUserInfo,
     }
-  )(injectIntl(Main))
-);
+  ),
+  injectIntl,
+)(Main);

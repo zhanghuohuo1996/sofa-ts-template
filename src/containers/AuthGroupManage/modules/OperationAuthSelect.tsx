@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 import {
   Form,
@@ -11,19 +12,16 @@ import { TransferItem } from 'antd/lib/transfer';
 import { createStructuredSelector } from 'reselect';
 import { injectIntl, InjectedIntl } from 'react-intl';
 
-import connectFactory from 'utils/connectFactory';
 import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
 import messages from '../messages';
-import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity, getPrivilegeList } from '../actions';
 import { selectEntityModal, selectEntityModalType, selectOperationAuth } from '../selectors';
 
-const withConnect = connectFactory(NAMESPACE);
 const FormItem = Form.Item;
 
-export interface Props extends FormComponentProps {
+interface Props extends FormComponentProps {
   entityModal: {
     show?: boolean;
     type?: string;
@@ -142,7 +140,7 @@ class OperationAuthSelect extends React.PureComponent<Props, State> {
 
 export default compose(
   injectIntl,
-  withConnect(
+  connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
       type: selectEntityModalType,

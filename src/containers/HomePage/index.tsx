@@ -3,7 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import messages from './messages';
 
-export interface Props extends RouteComponentProps {
+interface Props extends RouteComponentProps {
   intl: InjectedIntl;
 }
 

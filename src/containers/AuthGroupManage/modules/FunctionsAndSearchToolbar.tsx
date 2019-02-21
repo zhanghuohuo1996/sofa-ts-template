@@ -1,7 +1,6 @@
 import * as React from 'react';
-import commonConf from 'config/main.conf';
 import { compose } from 'redux';
-
+import { connect } from 'react-redux';
 import {
   Form,
   Row,
@@ -9,22 +8,21 @@ import {
   Input,
   Button,
 } from 'antd';
+import { FormComponentProps } from 'antd/lib/form';
+import { injectIntl, InjectedIntl } from 'react-intl';
+import { createStructuredSelector} from 'reselect';
 
-import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
-import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
+import commonConf from 'config/main.conf';
 
-import { NAMESPACE } from '../constants';
+import messages from '../messages';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
-const withConnect = connectFactory(NAMESPACE);
-
-export interface Props {
+interface Props extends FormComponentProps {
   searchCondition: {
     authGroupCode?: string | number;
     authGroupName?: string;
@@ -32,7 +30,6 @@ export interface Props {
   getDataList: (params: object) => any;
   updateEntityModal: (params: object) => any;
   updateSearchCondition: (params: object) => any;
-  form: any;
   intl: InjectedIntl;
 }
 
@@ -107,9 +104,9 @@ class Toolbar extends React.Component<Props, object> {
 
 export default compose(
   injectIntl,
-  withConnect(
-    state => ({
-      searchCondition: selectSearchCondition(state),
+  connect(
+    createStructuredSelector({ // 实用reselect性能有明显的提升；
+      searchCondition: selectSearchCondition,
     }),
     {
       getDataList,

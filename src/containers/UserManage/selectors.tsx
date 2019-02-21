@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { NAMESPACE } from './constants';
-import { Map } from 'immutable';
+import { SofaState } from '../../types'
 
-const selectNamespace = (state: Map<string, any>) => state.get(NAMESPACE);
+const selectNamespace = (state: SofaState) => state.get(NAMESPACE);
 
 export const selectSearchCondition = createSelector(
   selectNamespace,
@@ -61,7 +61,7 @@ export const selectLoginUserIdentity = createSelector(
   subState => subState.get('loginUserInfo').is_super,
 );
 
-export const selectFullAuthMap = (state: Map<string, any>) => {
+export const selectFullAuthMap = (state: SofaState) => {
   const authList = selectFullAuthList(state).filter((item: any) => item.is_system === 1);
   const authMap: {
     [key: string]: any;
@@ -72,7 +72,7 @@ export const selectFullAuthMap = (state: Map<string, any>) => {
   return authMap;
 };
 
-export const selectFullAuthGroupMap = (state: Map<string, any>) => {
+export const selectFullAuthGroupMap = (state: SofaState) => {
   const authList = selectFullAuthList(state).filter((item: any) => item.is_system === 0);
   const authMap: {
     [key: string]: any;

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { compose } from 'redux';
-
-import commonConf from 'config/main.conf';
-
+import { connect } from 'react-redux';
 import {
   Form,
   Row,
@@ -12,22 +10,22 @@ import {
   Select,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import connectFactory from 'utils/connectFactory';
+import { injectIntl, InjectedIntl } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+
+import commonConf from 'config/main.conf';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
-import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 
 import messages from '../messages';
-import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
-const withConnect = connectFactory(NAMESPACE);
 const { Option } = Select;
 
-export interface Props extends FormComponentProps {
+interface Props extends FormComponentProps {
   searchCondition: {
     name?: string;
     is_delete?: boolean;
@@ -119,9 +117,9 @@ class Toolbar extends React.Component<Props, object> {
 
 export default compose(
   injectIntl,
-  withConnect(
-    state => ({
-      searchCondition: selectSearchCondition(state),
+  connect(
+    createStructuredSelector({
+      searchCondition: selectSearchCondition,
     }),
     {
       getDataList,

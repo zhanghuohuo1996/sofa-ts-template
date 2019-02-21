@@ -1,29 +1,23 @@
 import * as React from 'react';
-import {
-  Table,
-} from 'antd';
-
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { Table } from 'antd';
 import { createStructuredSelector } from 'reselect';
+import { injectIntl, InjectedIntl } from 'react-intl';
+
 import TableContainer from 'components/TableContainer';
 import TableButton from 'components/TableButton';
-import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
+
+import { selectLoading, selectLang } from '../../../state/selectors';
+import { Pagination } from '../../../types';
 
 import messages from '../messages';
 import { getDataList, updateEntityModal, updateResetPasswordModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
-import { selectLoading, selectLang } from '../../../state/selectors';
-import { connect } from 'react-redux';
 
-interface Pagination {
-  page?: number;
-  total?: number;
-  pageSize?: number;
-  showTotal?: boolean;
-  onChange?: () => any;
-}
-export interface Props {
+interface Props {
   tableData: any[],
   pagination: Pagination;
   getDataList: (params: object) => any,
@@ -33,6 +27,7 @@ export interface Props {
   loading: boolean;
   intl: InjectedIntl;
 }
+
 class DataTable extends React.PureComponent<Props, object> {
   // 静态方法，类的不使用this的函数，一般声明为静态方法；
   showTotal = (total: number) => (this.props.intl.formatMessage(commonMessages.total, { total }));
@@ -120,7 +115,8 @@ class DataTable extends React.PureComponent<Props, object> {
   }
 }
 
-export default injectIntl(
+export default compose(
+  injectIntl,
   connect(
     createStructuredSelector({
       tableData: selectTableData,
@@ -134,5 +130,5 @@ export default injectIntl(
       updateEntityModal,
       updateResetPasswordModal,
     },
-  )(DataTable)
-)
+  ),
+)(DataTable);

@@ -1,44 +1,33 @@
 import * as React from 'react';
 import { compose } from 'redux';
-
+import { connect } from 'react-redux';
 import {
   Modal,
   Form,
   Input,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
-import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, InjectedIntl } from 'react-intl';
+
+import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
+
+import { ModalData } from '../../../types';
 
 import OperationAuthSelect from './OperationAuthSelect';
 import messages from '../messages';
-
-import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal, selectEntityModalType } from '../selectors';
-
-const withConnect = connectFactory(NAMESPACE);
 
 const FormItem = Form.Item;
 
 function isModify(type: string) {
-  return type === 'edit';
+  return type === EDIT;
 }
 
-export interface Props extends FormComponentProps {
-  entityModal: {
-    type?: string;
-    data?: {
-      role_id?: string | number;
-      name?: string;
-      content?: string;
-    };
-    show?: boolean;
-  };
+interface Props extends FormComponentProps {
+  entityModal: ModalData;
   updateEntityModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
@@ -72,7 +61,6 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
   render() {
     const { entityModal, intl, type } = this.props;
     const { data } = entityModal;
-
     const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
@@ -148,7 +136,7 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
 
 export default compose(
   injectIntl,
-  withConnect(
+  connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
       type: selectEntityModalType,

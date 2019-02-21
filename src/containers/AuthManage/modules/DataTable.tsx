@@ -1,35 +1,28 @@
 import * as React from 'react';
 import { compose } from 'redux';
-
-import {
-  Table,
-} from 'antd';
-
+import { connect } from 'react-redux';
+import { Table } from 'antd';
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
+import { FormattedMessage, injectIntl, InjectedIntl } from 'react-intl';
+
 import TableContainer from 'components/TableContainer';
 import TableButton from 'components/TableButton';
-import { FormattedMessage, injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
-import messages from '../messages';
-import { NAMESPACE } from '../constants';
-import { getDataList, updateEntityModal } from '../actions';
-import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 import { selectLoading, selectLang } from '../../../state/selectors';
 import { Pagination } from '../../../types';
 
-const withConnect = connectFactory(NAMESPACE);
+import messages from '../messages';
+import { getDataList, updateEntityModal } from '../actions';
+import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 
-export interface Props {
+interface Props {
   tableData: any[];
   pagination: Pagination;
   getDataList: (params: object) => any;
   updateEntityModal: (params: object) => any;
-  searchCondition: {
-
-  };
+  searchCondition: object;
   loading: boolean;
   intl: InjectedIntl;
 }
@@ -109,7 +102,7 @@ class DataTable extends React.PureComponent<Props, object> {
 
 export default compose(
   injectIntl,
-  withConnect(
+  connect(
     createStructuredSelector({
       tableData: selectTableData,
       pagination: selectPagination,

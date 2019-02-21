@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
+import { History } from 'history';
 import { getFormattedMessages } from 'utils/i18n';
 
-interface MainMap {
-  [key: string]: any;
-}
-
 export interface Props {
-  history: any,
-  mainMap: MainMap,
+  history: History;
+  mainMap: {
+    [key: string]: any;
+  };
   lang: string,
   path: string,
 }
@@ -30,7 +29,7 @@ export default class Crumb extends React.Component<Props, object> {
         };
       }
       return null;
-    });
+    }).filter(item => Boolean(item));
   }
 
   render() {

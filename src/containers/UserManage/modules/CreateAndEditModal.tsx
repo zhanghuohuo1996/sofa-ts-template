@@ -1,5 +1,6 @@
 import * as React from 'react';
-
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Modal,
   Form,
@@ -7,38 +8,28 @@ import {
   Select,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-
 import { createStructuredSelector } from 'reselect';
-import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, InjectedIntl } from 'react-intl';
+
+import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
+
+import { ModalData } from '../../../types';
+
 import DataAuthSelect from './DataAuthSelect';
-
 import messages from '../messages';
-
-import { NAMESPACE } from '../constants';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal, selectEntityModalType } from '../selectors';
-import { connect } from 'react-redux';
-
 
 const FormItem = Form.Item;
 const { Option } = Select;
 
 function isModify(type: string) {
-  return type === 'modify';
+  return type === EDIT;
 }
 
-export interface Props extends FormComponentProps {
-  entityModal: {
-    type?: string;
-    data?: {
-      name?: string;
-      id?: string | number;
-      accountStatus?: string | number;
-    };
-    show?: boolean;
-  };
+interface Props extends FormComponentProps {
+  entityModal: ModalData;
   updateEntityModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
@@ -156,7 +147,8 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
   }
 }
 
-export default injectIntl(
+export default compose(
+  injectIntl,
   connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
@@ -168,12 +160,11 @@ export default injectIntl(
       postCreateEntity,
       postEditEntity,
     },
-  )(
-    Form.create({
-      mapPropsToFields: props => ({
-        // 这里埋个坑，没空细看到底发生了什么……
-        // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
-      }),
-    })(CreateAndEditModal)
-  )
-)
+  ),
+  Form.create({
+    mapPropsToFields: props => ({
+      // 这里埋个坑，没空细看到底发生了什么……
+      // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
+    }),
+  }),
+)(CreateAndEditModal);

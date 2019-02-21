@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { injectIntl, InjectedIntl } from 'react-intl';
 
-export interface Props extends RouteComponentProps {
+interface Props extends RouteComponentProps {
   intl: InjectedIntl;
 }
 

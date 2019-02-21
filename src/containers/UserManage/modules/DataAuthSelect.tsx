@@ -1,18 +1,17 @@
 import * as React from 'react';
-
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Form,
   TreeSelect,
 } from 'antd';
-
+import { FormComponentProps } from 'antd/lib/form';
 import { createStructuredSelector } from 'reselect';
 import { injectIntl, InjectedIntl } from 'react-intl';
-import { FormComponentProps } from 'antd/lib/form';
 
 import messages from '../messages';
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal } from '../selectors';
-import { connect } from 'react-redux';
 
 const FormItem = Form.Item;
 const { SHOW_PARENT } = TreeSelect;
@@ -100,7 +99,8 @@ class DataAuthSelect extends React.PureComponent<Props, State> {
   }
 }
 
-export default injectIntl(
+export default compose(
+  injectIntl,
   connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
@@ -111,13 +111,11 @@ export default injectIntl(
       postCreateEntity,
       postEditEntity,
     },
-  )(
-    Form.create({
-      mapPropsToFields: props => ({
-        // 这里埋个坑，没空细看到底发生了什么……
-        // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
-      }),
-    })(DataAuthSelect)
-  )
-)
-
+  ),
+  Form.create({
+    mapPropsToFields: props => ({
+      // 这里埋个坑，没空细看到底发生了什么……
+      // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
+    }),
+  })
+)(DataAuthSelect)

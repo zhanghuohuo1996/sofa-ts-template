@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { compose } from 'redux';
-
+import { connect } from 'react-redux';
 import {
   Modal,
   Form,
@@ -8,30 +8,26 @@ import {
   Select,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-
 import { createStructuredSelector } from 'reselect';
-import connectFactory from 'utils/connectFactory';
-import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, InjectedIntl } from 'react-intl';
+
+import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
-import messages from '../messages';
-
-import { NAMESPACE } from '../constants';
-import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
-import { selectEntityModal, selectEntityModalType } from '../selectors';
 import { ModalData } from '../../../types';
 
-const withConnect = connectFactory(NAMESPACE);
+import messages from '../messages';
+import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
+import { selectEntityModal, selectEntityModalType } from '../selectors';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 
 function isModify(type: string) {
-  return type === 'edit';
+  return type === EDIT;
 }
 
-export interface Props extends FormComponentProps {
+interface Props extends FormComponentProps {
   entityModal: ModalData;
   updateEntityModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
@@ -162,7 +158,7 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
 
 export default compose(
   injectIntl,
-  withConnect(
+  connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectEntityModal,
       type: selectEntityModalType,

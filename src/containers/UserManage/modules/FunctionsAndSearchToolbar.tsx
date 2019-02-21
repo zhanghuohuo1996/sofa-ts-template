@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-import commonConf from 'config/main.conf';
-
 import {
   Form,
   Row,
@@ -10,17 +9,17 @@ import {
   Button,
   Select,
 } from 'antd';
-
 import { FormComponentProps } from 'antd/lib/form';
 import { createStructuredSelector } from 'reselect';
+import { injectIntl, InjectedIntl } from 'react-intl';
 
+import commonConf from 'config/main.conf';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
-import { injectIntl, InjectedIntl } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
-import messages from '../messages';
 
+import messages from '../messages';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
@@ -128,7 +127,8 @@ class Toolbar extends React.Component<Props, object> {
   }
 }
 
-export default injectIntl(
+export default compose(
+  injectIntl,
   connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       searchCondition: selectSearchCondition,
@@ -138,4 +138,6 @@ export default injectIntl(
       updateEntityModal,
       updateSearchCondition,
     },
-)(Form.create()(Toolbar)));
+  ),
+  Form.create()
+)(Toolbar);

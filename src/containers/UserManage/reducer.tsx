@@ -1,6 +1,8 @@
 import { fromJS } from 'immutable';
+
 import commonConf from 'config/main.conf';
 import { CREATE, FATCH_ACTION_SUCCESS_PREFIX } from 'utils/constants';
+
 import { SofaAction } from '../../types';
 
 import {

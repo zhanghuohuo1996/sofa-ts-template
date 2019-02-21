@@ -1,10 +1,9 @@
 import * as React from 'react';
+import * as Loadable from 'react-loadable';
 import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-
-import * as Loadable from 'react-loadable';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 /**

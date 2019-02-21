@@ -1,37 +1,33 @@
 import * as React from 'react';
-
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Modal,
   Form,
   Input,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-
 import { createStructuredSelector } from 'reselect';
-import { CREATE, EDIT } from 'utils/constants';
 import { injectIntl, InjectedIntl } from 'react-intl';
+
+import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
-import messages from '../messages';
+import { ModalData } from '../../../types';
 
+import messages from '../messages';
 import { updateResetPasswordModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectResetPasswordModal } from '../selectors';
-import { connect } from 'react-redux';
 
 const FormItem = Form.Item;
 
-export interface Props extends FormComponentProps {
-  entityModal: {
-    type?: string;
-    data?: object;
-    show?: boolean;
-  };
+interface Props extends FormComponentProps {
+  entityModal: ModalData;
   updateResetPasswordModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
   intl: InjectedIntl;
 }
-
 
 class ResetPasswordModal extends React.PureComponent<Props, object> {
   handleOk = (e: any) => {
@@ -57,8 +53,6 @@ class ResetPasswordModal extends React.PureComponent<Props, object> {
 
   render() {
     const { entityModal, intl } = this.props;
-    const { data } = entityModal;
-
     const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
@@ -114,7 +108,8 @@ class ResetPasswordModal extends React.PureComponent<Props, object> {
   }
 }
 
-export default injectIntl(
+export default compose(
+  injectIntl,
   connect(
     createStructuredSelector({ // 实用reselect性能有明显的提升；
       entityModal: selectResetPasswordModal,
@@ -125,13 +120,11 @@ export default injectIntl(
       postCreateEntity,
       postEditEntity,
     },
-  )(
-    Form.create({
-      mapPropsToFields: props => ({
-        // 这里埋个坑，没空细看到底发生了什么……
-        // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
-      }),
-    })(ResetPasswordModal)
-  )
-)
-
+  ),
+  Form.create({
+    mapPropsToFields: props => ({
+      // 这里埋个坑，没空细看到底发生了什么……
+      // email: Form.createFormField({ value: props.entityModal.data.email || '' }),
+    }),
+  }),
+)(ResetPasswordModal);

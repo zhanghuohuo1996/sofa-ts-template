@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-
 import {
   Modal,
   Form,
@@ -9,20 +8,20 @@ import {
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { TransferItem } from 'antd/lib/transfer';
-
 import { createStructuredSelector } from 'reselect';
 import { injectIntl, InjectedIntl } from 'react-intl';
+
 import commonMessages from 'utils/commonMessages';
 
-import messages from '../messages';
+import { ModalData } from '../../../types';
 
+import messages from '../messages';
 import {
   updateAuthModal,
   getPrivilegeList,
   getFullAuthAndAuthGroup,
   getLoginUserInfo,
 } from '../actions';
-
 import {
   selectOperationAuth,
   selectUserAuthList,
@@ -34,12 +33,8 @@ import {
 
 const FormItem = Form.Item;
 
-export interface Props extends FormComponentProps {
-  authModal: {
-    pass_uid?: string;
-    data?: any[];
-    show?: boolean;
-  };
+interface Props extends FormComponentProps {
+  authModal: ModalData;
   operationAuth: string[] | number[];
   intl: InjectedIntl;
   type: string;
