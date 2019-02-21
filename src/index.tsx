@@ -9,7 +9,6 @@ import LanguageProvider from './containers/LanguageProvider';
 import { translationMessages } from './utils/i18n';
 import storeFactory from './state/storeFactory';
 
-import './global-styles';
 import './theme/style.less';
 
 const rootElement = document.getElementById('root');
