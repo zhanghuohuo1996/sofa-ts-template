@@ -14,7 +14,6 @@ export interface Props {
   path: string,
 }
 
-// eslint-disable-next-line
 export default class Crumb extends React.Component<Props, object> {
   path = ''
 
