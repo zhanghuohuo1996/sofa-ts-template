@@ -50,6 +50,10 @@ class OperationAuthSelect extends React.PureComponent<Props, State> {
     this.props.getPrivilegeList();
   }
 
+  state: State = {
+    selectedKeysValue: [],
+  };
+
   componentWillReceiveProps(nextProps: Props) {
     const show = this.props.entityModal.show;
     const newShow = nextProps.entityModal.show;
@@ -66,10 +70,6 @@ class OperationAuthSelect extends React.PureComponent<Props, State> {
       }
     }
   }
-
-  // state = {
-  //   selectedKeysValue: [],
-  // };
 
   handleOk = (e: any) => {
     e.preventDefault();
@@ -128,8 +128,8 @@ class OperationAuthSelect extends React.PureComponent<Props, State> {
             <Transfer
               dataSource={operationAuth} // 登陆用户有的所有权限
               showSearch
-              targetKeys={this.state.selectedKeysValue} // 当前用户已有的权限
-              onChange={this.onSelectChangeHandle}
+              // targetKeys={this.state.selectedKeysValue} // 当前用户已有的权限
+              onSelectChange={this.onSelectChangeHandle}
               render={item => item.title}
               searchPlaceholder={intl.formatMessage(commonMessages.inputPlaceholder)}
               notFoundContent={intl.formatMessage(commonMessages.dataNotFound)}
