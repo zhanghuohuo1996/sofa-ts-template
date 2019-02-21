@@ -22,6 +22,8 @@ export const DELETE = 'delete';
 export const CHECK = 'check';
 export const DRAFT = 'draft';
 
+export type CREATE = typeof CREATE;
+
 // errno
 export const USER_NOT_LOGIN_ERRNO = 110003; // 用户未登陆
 export const USER_NOT_EXIST_ERRNO = 110018; // 用户不存在

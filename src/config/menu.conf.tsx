@@ -11,10 +11,7 @@ const menu: MenuItem[] = [
     children: [
       { key: 'userManage' },
       { key: 'authGroupManage' },
-      // {
-      //   key: 'authManage',
-      //   text: '权限管理',
-      // },
+      { key: 'authManage' },
     ],
   },
   // {

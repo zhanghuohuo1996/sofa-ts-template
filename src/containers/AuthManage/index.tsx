@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -15,9 +16,7 @@ import Modal from './modules/CreateAndEditModal';
 const withReducer = injectReducer({ key: NAMESPACE, reducer });
 const withSaga = injectSaga({ key: NAMESPACE, saga });
 
-@withRouter
-@withSaga
-@withReducer
+
 class AuthManage extends React.Component {
   render() {
     return (
@@ -29,4 +28,10 @@ class AuthManage extends React.Component {
   }
 }
 
-export default AuthManage;
+export default compose(
+  withRouter,
+  withSaga,
+  withReducer,
+)(
+  AuthManage
+);

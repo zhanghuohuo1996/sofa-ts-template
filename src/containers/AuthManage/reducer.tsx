@@ -6,6 +6,7 @@ import {
   UPDATE_SEARCH_CONDITION,
   GET_DATA_LIST,
 } from './constants';
+import { SofaAction } from '../../types';
 
 const initialState = fromJS({
   searchCondition: {
@@ -26,7 +27,7 @@ const initialState = fromJS({
   },
 });
 
-function reducer(state = initialState, action) {
+function reducer(state = initialState, action: SofaAction) {
   switch (action.type) {
     case UPDATE_ENTITY_MODAL:
       return state

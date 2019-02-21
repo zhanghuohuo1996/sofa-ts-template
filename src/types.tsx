@@ -20,6 +20,17 @@ export interface Pagination {
   onChange?: () => any;
 }
 
+type OperateType = 'create' | 'edit';
+
+export interface ModalData {
+  show?: boolean;
+  type?: OperateType;
+  data?: {
+    [key: string]: any;
+  };
+  [key: string]: any;
+};
+
 type SofaActionCreator = (params?: any) => SofaAction;
 
 export type SofaAction = Action & { 
