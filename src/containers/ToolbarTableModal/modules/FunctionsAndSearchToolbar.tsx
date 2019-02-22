@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import commonConf from 'config/main.conf';
-
+import * as React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import {
   Form,
   Row,
@@ -10,43 +9,33 @@ import {
   Button,
   Select,
 } from 'antd';
+import { FormComponentProps } from 'antd/lib/form';
+import { injectIntl, InjectedIntl } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 
-import connectFactory from 'utils/connectFactory';
 import { CREATE } from 'utils/constants';
 import ToolbarContainer from 'components/ToolbarContainer';
 import FunctionButtonsContainer from 'components/FunctionButtonsContainer';
-import { injectIntl, intlShape } from 'react-intl';
 import commonMessages from 'utils/commonMessages';
+import commonConf from 'config/main.conf';
 
-import { NAMESPACE } from '../constants';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
-const withConnect = connectFactory(NAMESPACE);
 const { Option } = Select;
 
-@injectIntl
-@withConnect(
-  state => ({
-    searchCondition: selectSearchCondition(state),
-  }),
-  {
-    getDataList,
-    updateEntityModal,
-    updateSearchCondition,
-  },
-)
-@Form.create()
-class Toolbar extends React.Component {
-  static propTypes = {
-    searchCondition: PropTypes.object.isRequired,
-    getDataList: PropTypes.func.isRequired,
-    updateEntityModal: PropTypes.func.isRequired,
-    updateSearchCondition: PropTypes.func.isRequired,
-    form: PropTypes.any.isRequired,
-    intl: intlShape.isRequired,
+interface Props extends FormComponentProps {
+  searchCondition: {
+    name?: string;
+    is_delete?: boolean;
   };
+  getDataList: (params: object) => any;
+  updateEntityModal: (params: object) => any;
+  updateSearchCondition: (params: object) => any;
+  intl: InjectedIntl;
+}
 
+class Toolbar extends React.Component<Props, object> {
   componentDidMount() {
     const { searchCondition } = this.props;
     this.props.getDataList({
@@ -108,7 +97,7 @@ class Toolbar extends React.Component {
                       {
                         Object.keys(commonMessages.activeStatusMap).map(key => (
                           <Option value={key} key={key}>
-                            {intl.formatMessage(commonMessages.activeStatusMap[key])}
+                            {intl.formatMessage((commonMessages.activeStatusMap as any)[key])}
                           </Option>
                         ))
                       }
@@ -125,4 +114,17 @@ class Toolbar extends React.Component {
   }
 }
 
-export default Toolbar;
+export default compose(
+  injectIntl,
+  connect(
+    createStructuredSelector({
+      searchCondition: selectSearchCondition,
+    }),
+    {
+      getDataList,
+      updateEntityModal,
+      updateSearchCondition,
+    },
+  ),
+  Form.create(),
+)(Toolbar);

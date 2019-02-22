@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { NAMESPACE } from './constants';
+import { SofaState } from '../../types';
 
-const selectNamespace = state => state.get(NAMESPACE);
+const selectNamespace = (state: SofaState) => state.get(NAMESPACE);
 
 export const selectSearchCondition = createSelector(
   selectNamespace,

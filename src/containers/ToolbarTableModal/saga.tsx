@@ -8,6 +8,7 @@ import {
   select,
   takeLatest,
   all,
+  Pattern,
 } from 'redux-saga/effects';
 
 // eslint-disable-next-line no-unused-vars
@@ -36,7 +37,7 @@ export function* createEditSuccess() {
   }
 }
 
-export function* watcher(type, process) {
+export function* watcher(type: Pattern, process: () => any) {
   yield takeLatest(type, process);
 }
 /**

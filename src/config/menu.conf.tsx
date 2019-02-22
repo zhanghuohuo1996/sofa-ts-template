@@ -14,10 +14,10 @@ const menu: MenuItem[] = [
       { key: 'authManage' },
     ],
   },
-  // {
-  //   key: 'example',
-  //   icon: 'setting',
-  //   children: [{ key: 'toolbarTableModal' }, { key: 'print' }],
-  // },
+  {
+    key: 'example',
+    icon: 'setting',
+    children: [{ key: 'toolbarTableModal' }],
+  },
 ];
 export default menu;
