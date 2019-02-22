@@ -34,7 +34,7 @@ const treeData = [{
   key: '4',
 }];
 
-interface Props extends FormComponentProps {
+interface IProps extends FormComponentProps {
   entityModal: {
     data: {
       auth: any;
@@ -46,11 +46,11 @@ interface Props extends FormComponentProps {
   intl: InjectedIntl;
 }
 
-interface State {
+interface IState {
   value: string[];
 }
 
-class DataAuthSelect extends React.PureComponent<Props, State> {
+class DataAuthSelect extends React.PureComponent<IProps, IState> {
   state = {
     value: ['0-0-0'],
   };

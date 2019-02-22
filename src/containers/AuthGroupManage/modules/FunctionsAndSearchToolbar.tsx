@@ -22,7 +22,7 @@ import messages from '../messages';
 import { getDataList, updateEntityModal, updateSearchCondition } from '../actions';
 import { selectSearchCondition } from '../selectors';
 
-interface Props extends FormComponentProps {
+interface IProps extends FormComponentProps {
   searchCondition: {
     authGroupCode?: string | number;
     authGroupName?: string;
@@ -33,7 +33,7 @@ interface Props extends FormComponentProps {
   intl: InjectedIntl;
 }
 
-class Toolbar extends React.Component<Props, object> {
+class Toolbar extends React.Component<IProps, object> {
   componentDidMount() {
     const { searchCondition } = this.props;
     this.props.getDataList({

@@ -13,7 +13,7 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 
 import commonMessages from 'utils/commonMessages';
 
-import { ModalData } from '../../../types';
+import { IModalData } from '../../../types';
 
 import messages from '../messages';
 import {
@@ -33,8 +33,8 @@ import {
 
 const FormItem = Form.Item;
 
-interface Props extends FormComponentProps {
-  authModal: ModalData;
+interface IProps extends FormComponentProps {
+  authModal: IModalData;
   operationAuth: string[] | number[];
   intl: InjectedIntl;
   type: string;
@@ -49,7 +49,7 @@ interface Props extends FormComponentProps {
   getPrivilegeList: () => any;
 }
 
-class OperationAuthSelectModal extends React.PureComponent<Props, object> {
+class OperationAuthSelectModal extends React.PureComponent<IProps, object> {
   componentDidMount() {
     this.props.getPrivilegeList();
     this.props.getFullAuthAndAuthGroup();
@@ -125,7 +125,7 @@ class OperationAuthSelectModal extends React.PureComponent<Props, object> {
             >
               <Transfer
                 dataSource={loginAuthList}
-                showSearch
+                showSearch={true}
                 targetKeys={userAuthList}
                 onChange={this.handleChangeAuthSelect}
                 render={item => item.title}
@@ -139,7 +139,7 @@ class OperationAuthSelectModal extends React.PureComponent<Props, object> {
             >
               <Transfer
                 dataSource={loginAuthGroupList}
-                showSearch
+                showSearch={true}
                 targetKeys={userAuthGroupList}
                 onChange={this.handleChangeAuthGroupSelect}
                 render={item => item.title}

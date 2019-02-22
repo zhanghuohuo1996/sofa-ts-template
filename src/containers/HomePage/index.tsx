@@ -3,12 +3,12 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { injectIntl, InjectedIntl } from 'react-intl';
 import messages from './messages';
 
-interface Props extends RouteComponentProps {
+interface IProps extends RouteComponentProps {
   intl: InjectedIntl;
 }
 
-class HomePage extends React.Component<Props, object> {
-  constructor(props: Props) {
+class HomePage extends React.Component<IProps, object> {
+  constructor(props: IProps) {
     super(props);
   }
 

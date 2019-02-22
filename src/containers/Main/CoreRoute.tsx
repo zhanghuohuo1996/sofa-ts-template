@@ -29,11 +29,11 @@ function traversMenu(arr: any[], keyPath: any[] = []) {
   return leafsArray;
 }
 
-export interface Props extends RouteComponentProps {
+interface IProps extends RouteComponentProps {
   menuConf: any[];
 }
 
-class CoreRoute extends React.PureComponent<Props, object> {
+class CoreRoute extends React.PureComponent<IProps, object> {
   static makePathToComponent = (menu: any[]) => traversMenu(menu);
 
   render() {
@@ -43,7 +43,7 @@ class CoreRoute extends React.PureComponent<Props, object> {
 
     return (
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact={true} path="/" component={HomePage} />
         { pathToComponentArr.map(item => (
           <Route
             key={item.componentName}

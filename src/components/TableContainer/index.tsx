@@ -14,15 +14,15 @@ const Container = styled.div`
   }
 `;
 
-export interface Props {
+export interface IProps {
   children?: any;
 };
 
-interface State {
+interface IState {
   height: number;
 };
 
-class TableContainer extends React.Component<Props, State> {
+class TableContainer extends React.Component<IProps, IState> {
 
   refDom: any = null
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { History } from 'history';
 import { getFormattedMessages } from 'utils/i18n';
 
-export interface Props {
+export interface IProps {
   history: History;
   mainMap: {
     [key: string]: any;
@@ -13,7 +13,7 @@ export interface Props {
   path: string,
 }
 
-export default class Crumb extends React.Component<Props, object> {
+export default class Crumb extends React.Component<IProps, object> {
   path = ''
 
   getCrumbItem = (path: string) => {

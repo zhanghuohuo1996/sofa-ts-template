@@ -25,7 +25,7 @@ import { selectSearchCondition } from '../selectors';
 
 const { Option } = Select;
 
-interface Props extends FormComponentProps {
+interface IProps extends FormComponentProps {
   searchCondition: {
     account?: string;
     name?: string;
@@ -37,7 +37,7 @@ interface Props extends FormComponentProps {
   intl: InjectedIntl;
 }
 
-class Toolbar extends React.Component<Props, object> {
+class Toolbar extends React.Component<IProps, object> {
   componentDidMount() {
     const { searchCondition } = this.props;
     setTimeout(() => {

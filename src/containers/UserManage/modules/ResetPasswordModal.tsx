@@ -13,7 +13,7 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
-import { ModalData } from '../../../types';
+import { IModalData } from '../../../types';
 
 import messages from '../messages';
 import { updateResetPasswordModal, postCreateEntity, postEditEntity } from '../actions';
@@ -21,15 +21,15 @@ import { selectResetPasswordModal } from '../selectors';
 
 const FormItem = Form.Item;
 
-interface Props extends FormComponentProps {
-  entityModal: ModalData;
+interface IProps extends FormComponentProps {
+  entityModal: IModalData;
   updateResetPasswordModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
   intl: InjectedIntl;
 }
 
-class ResetPasswordModal extends React.PureComponent<Props, object> {
+class ResetPasswordModal extends React.PureComponent<IProps, object> {
   handleOk = (e: any) => {
     e.preventDefault();
     const { type } = this.props.entityModal;

@@ -10,17 +10,17 @@ export type OperateType = 'create' | 'edit';
 export type AuthCode = string | number;
 
 // 菜单项；
-export interface MenuItem {
+export interface IMenuItem {
   key: string;
   icon?: string;
-  children?: MenuItem[];
+  children?: IMenuItem[];
   text?: string;
   visibilityChild?: Visibility;
   auth?: number | string;
 };
 
 // 表格等分页配置；
-export interface Pagination {
+export interface IPagination {
   page?: number;
   total?: number;
   pageSize?: number;
@@ -29,7 +29,7 @@ export interface Pagination {
 }
 
 // 弹窗数据格式；
-export interface ModalData {
+export interface IModalData {
   show?: boolean;
   type?: OperateType;
   data?: {

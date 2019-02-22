@@ -21,7 +21,7 @@ import { selectEntityModal, selectEntityModalType, selectOperationAuth } from '.
 
 const FormItem = Form.Item;
 
-interface Props extends FormComponentProps {
+interface IProps extends FormComponentProps {
   entityModal: {
     show?: boolean;
     type?: string;
@@ -39,20 +39,20 @@ interface Props extends FormComponentProps {
   type: string;
 };
 
-interface State {
+interface IState {
   selectedKeysValue: any[];
 };
 
-class OperationAuthSelect extends React.PureComponent<Props, State> {
+class OperationAuthSelect extends React.PureComponent<IProps, IState> {
+  state: IState = {
+    selectedKeysValue: [],
+  };
+
   componentDidMount() {
     this.props.getPrivilegeList();
   }
 
-  state: State = {
-    selectedKeysValue: [],
-  };
-
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillReceiveProps(nextProps: IProps) {
     const show = this.props.entityModal.show;
     const newShow = nextProps.entityModal.show;
     const roleId = this.props.entityModal.data.role_id;
@@ -125,7 +125,7 @@ class OperationAuthSelect extends React.PureComponent<Props, State> {
           })(
             <Transfer
               dataSource={operationAuth} // 登陆用户有的所有权限
-              showSearch
+              showSearch={true}
               // targetKeys={this.state.selectedKeysValue} // 当前用户已有的权限
               onSelectChange={this.onSelectChangeHandle}
               render={item => item.title}

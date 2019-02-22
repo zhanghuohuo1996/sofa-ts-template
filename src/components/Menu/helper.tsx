@@ -5,9 +5,9 @@ import { checkAuth } from 'containers/AuthControl';
 
 const { Item, SubMenu } = Menu;
 
-import { MenuItem } from '../../types';
+import { IMenuItem } from '../../types';
 
-function menuNesting(menuConfig: MenuItem[], authList: number[] | string[]) {
+function menuNesting(menuConfig: IMenuItem[], authList: number[] | string[]) {
   const items = menuConfig.map((item) => {
     if (item.children && item.visibilityChild !== 'hidden') {
       const childrenNodes = menuNesting(item.children, authList);

@@ -1,6 +1,5 @@
 {
-  "extends": [],
-  "defaultSeverity": "warning",
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -11,7 +10,11 @@
     ]
   },
   "rules": {
-    "no-implicit-dependencies": [true, ["containers"]],
-    "no-submodule-imports":[true,"containers"]
+    "no-implicit-dependencies": [true, ["containers", "utils", "components", "config"]],
+    "no-submodule-imports":[true,"containers", "utils", "antd", "components", "config", "redux-saga", "history"],
+    "ordered-imports":false,
+    "object-literal-sort-keys":false,
+    "member-access":false,
+    "jsx-no-lambda":false
   }
 }

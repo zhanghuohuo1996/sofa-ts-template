@@ -38,11 +38,6 @@ export function getLoginUserInfo() {
   };
 }
 
-
-export function showDownloadListModal() {
-
-}
-
 export function updatePlatformAuth(payload: any) {
   return {
     type: UPDATE_PLATFORM_AUTH,

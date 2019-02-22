@@ -1,6 +1,6 @@
-import { MenuItem } from '../types';
+import { IMenuItem } from '../types';
 
-const menu: MenuItem[] = [
+const menu: IMenuItem[] = [
   {
     key: 'homePage',
     icon: 'home',

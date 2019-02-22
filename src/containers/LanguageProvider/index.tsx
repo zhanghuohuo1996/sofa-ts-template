@@ -14,17 +14,17 @@ import { DEFAULT_LOCALE } from '../../utils/constants';
 
 import { selectLang } from '../../state/selectors';
 
-interface Props {
+interface IProps {
   locale?: string;
-  messages?: Messages;
+  messages?: IMessages;
   children: any;
 }
 
-interface Messages {
+interface IMessages {
   [key: string]: string,
 }
 
-class LanguageProvider extends React.PureComponent<Props, object> {
+class LanguageProvider extends React.PureComponent<IProps, object> {
   render() {
     const { locale, messages = {} } = this.props;
     const msg: string = messages[locale] as string;

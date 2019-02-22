@@ -37,23 +37,31 @@ const {
 
 const reg = new RegExp('(/login|/resetpwd|/editpwd|/bindphone)');
 
-interface UserInfo {
+interface IUserInfo {
   chinesename: string;
 }
 
-interface Props extends InjectedIntlProps {
+interface IProps extends InjectedIntlProps {
   lang?: string;
   toggleLang?: any;
   getLoginUserInfo: any;
-  currentUserInfo: UserInfo;
+  currentUserInfo: IUserInfo;
 }
 
-interface State {
+interface IState {
   collapsed: boolean;
 }
 
-class Main extends React.Component<Props, State> {
-  constructor(props: Props) {
+class Main extends React.Component<IProps, IState> {
+  menu = (
+    <AntMenu onClick={(e) => gotoPass(e.key)}>
+      <AntMenu.Item key="logout"><FormattedMessage {...messages.logout} /></AntMenu.Item>
+      <AntMenu.Item key="editpwd"><FormattedMessage {...messages.editPwd} /></AntMenu.Item>
+      <AntMenu.Item key="bindphone"><FormattedMessage {...messages.bindPhone} /></AntMenu.Item>
+    </AntMenu>
+  )
+
+  constructor(props: IProps) {
     super(props);
     this.state = {
       collapsed: false,
@@ -79,13 +87,7 @@ class Main extends React.Component<Props, State> {
     Utils.setCookie('sofa-lang', language);
   }
 
-  menu = (
-    <AntMenu onClick={(e) => gotoPass(e.key)}>
-      <AntMenu.Item key="logout"><FormattedMessage {...messages.logout} /></AntMenu.Item>
-      <AntMenu.Item key="editpwd"><FormattedMessage {...messages.editPwd} /></AntMenu.Item>
-      <AntMenu.Item key="bindphone"><FormattedMessage {...messages.bindPhone} /></AntMenu.Item>
-    </AntMenu>
-  )
+
 
   render() {
     const { collapsed } = this.state;
@@ -96,7 +98,7 @@ class Main extends React.Component<Props, State> {
       <Router history={history}>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider
-            collapsible
+            collapsible={true}
             collapsed={collapsed}
             onCollapse={this.onCollapse}
           >
@@ -107,7 +109,7 @@ class Main extends React.Component<Props, State> {
               changeLocation={this.handleChangeLocation}
               authList={[]}
               data={getMenuData(lang)}
-            ></Menu>
+            />
           </Sider>
           <Layout>
             <Header style={{ background: 'rgba(159,179,188, 0.7)', padding: '0 20px', textAlign: 'right' }}>
@@ -128,7 +130,7 @@ class Main extends React.Component<Props, State> {
                   <LanguageBar
                     value={lang}
                     onToggle={this.handleToggleLanguage}
-                  ></LanguageBar>
+                  />
                 )
               }
             </Header>
@@ -138,12 +140,10 @@ class Main extends React.Component<Props, State> {
                 path={history.location.pathname}
                 mainMap={getMenuMap(lang)}
                 lang={lang}
-              >
-              </Crumb>
+              />
               <CoreRoute menuConf={getMenuData(lang)} />
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-            </Footer>
+            <Footer style={{ textAlign: 'center' }} />
           </Layout>
         </Layout>
       </Router>

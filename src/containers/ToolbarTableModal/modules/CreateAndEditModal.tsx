@@ -14,7 +14,7 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
-import { ModalData } from '../../../types';
+import { IModalData } from '../../../types';
 
 import { updateEntityModal, postCreateEntity, postEditEntity } from '../actions';
 import { selectEntityModal, selectEntityModalType } from '../selectors';
@@ -26,8 +26,8 @@ function isModify(type: string) {
   return type === EDIT;
 }
 
-interface Props extends FormComponentProps {
-  entityModal: ModalData;
+interface IProps extends FormComponentProps {
+  entityModal: IModalData;
   updateEntityModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
@@ -35,7 +35,7 @@ interface Props extends FormComponentProps {
   type: string;
 }
 
-class CreateAndEditModal extends React.PureComponent<Props, object> {
+class CreateAndEditModal extends React.PureComponent<IProps, object> {
   handleOk = (e: any) => {
     e.preventDefault();
     const { type } = this.props.entityModal;
@@ -100,7 +100,7 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
                       getFieldDecorator('privilege_id', {
                         initialValue: data.privilege_id,
                       })(
-                        <Input disabled />,
+                        <Input disabled={true} />,
                       )
                     }
                   </FormItem>) : ''

@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { Radio } from 'antd';
 
-interface HandleToggle {
-  (value: string): any;
-}
-
-export interface Props {
+export interface IProps {
   value: string;
-  onToggle: HandleToggle;
+  onToggle: (value: string) => any;
 }
 
-class LanguageBar extends React.PureComponent<Props, object> {
+class LanguageBar extends React.PureComponent<IProps, object> {
   handleChangeSelect = (e: any) => {
     const { onToggle } = this.props;
     const { value } = e.target;

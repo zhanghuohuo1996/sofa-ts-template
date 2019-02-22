@@ -3,25 +3,41 @@ import * as React from 'react';
 import { Menu } from 'antd';
 import menuNesting from './helper';
 
-interface HandleChangeLocation {
-  (pathname: string): any;
-};
-
-export interface Props {
+export interface IProps {
   selectedKeys?: string[],
   openKeys?: string[],
   authList: any[],
   data: any[],
-  changeLocation: HandleChangeLocation;
+  changeLocation: (pathname: string) => any;
 }
 
-interface State {
+interface IState {
   openKeys: string[],
   selectedKeys: string[],
 }
 
-export default class SofaMenu extends React.Component<Props, State> {
-  constructor(props: Props) {
+export default class SofaMenu extends React.Component<IProps, IState> {
+  static pathKeys = (pathname: string) => {
+    if (pathname) {
+      const pathArray = pathname.split('/').filter(Boolean);
+      if (pathname === '/' || pathArray.length < 2) {
+        return {
+          openKeys: [],
+          selectedKeys: pathArray.length ? pathArray : ['homePage'],
+        };
+      }
+      return {
+        openKeys: pathArray.slice(0, pathArray.length - 1),
+        selectedKeys: pathArray.slice(-1),
+      };
+    }
+    return {
+      openKeys: [],
+      selectedKeys: ['homePage'],
+    };
+  }
+
+  constructor(props: IProps) {
     super(props);
     this.state = {
       openKeys: props.openKeys,
@@ -41,26 +57,6 @@ export default class SofaMenu extends React.Component<Props, State> {
       openKeys,
       selectedKeys,
     });
-  }
-
-  static pathKeys = (pathname: string) => {
-    if (pathname) {
-      const pathArray = pathname.split('/').filter(Boolean);
-      if (pathname === '/' || pathArray.length < 2) {
-        return {
-          openKeys: [],
-          selectedKeys: pathArray.length ? pathArray : ['homePage'],
-        };
-      }
-      return {
-        openKeys: pathArray.slice(0, pathArray.length - 1),
-        selectedKeys: pathArray.slice(-1),
-      };
-    }
-    return {
-      openKeys: [],
-      selectedKeys: ['homePage'],
-    };
   }
 
   render() {

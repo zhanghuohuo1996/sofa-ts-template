@@ -12,14 +12,14 @@ import A from './A';
 import StyledButton from './StyledButton';
 import Wrapper from './Wrapper';
 
-export interface Props {
+export interface IProps {
   handleRoute?: () => any;
   href?: string;
   onClick?: () => any;
   children: any;
 };
 
-function Button(props: Props) {
+function Button(props: IProps) {
   // Render an anchor tag
   let button = (
     <A href={props.href} onClick={props.onClick}>

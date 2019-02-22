@@ -11,15 +11,15 @@ import commonMessages from 'utils/commonMessages';
 import { EDIT } from 'utils/constants';
 
 import { selectLoading, selectLang } from '../../../state/selectors';
-import { Pagination } from '../../../types';
+import { IPagination } from '../../../types';
 
 import messages from '../messages';
 import { getDataList, updateEntityModal } from '../actions';
 import { selectPagination, selectSearchCondition, selectTableData } from '../selectors';
 
-interface Props {
+interface IProps {
   tableData: any[];
-  pagination: Pagination;
+  pagination: IPagination;
   getDataList: (params: object) => any;
   updateEntityModal: (params: object) => any;
   searchCondition: object;
@@ -27,10 +27,7 @@ interface Props {
   intl: InjectedIntl;
 }
 
-class DataTable extends React.PureComponent<Props, object> {
-  // 静态方法，类的不使用this的函数，一般声明为静态方法；
-  showTotal = (total: number) => (this.props.intl.formatMessage(commonMessages.total, { total }));
-
+class DataTable extends React.PureComponent<IProps, object> {
   // 实例变量，挂载在实例上，如若在此变量中未使用this，也可声明为静态变量
   columns = [{
     title: this.props.intl.formatMessage(messages.authId),
@@ -58,6 +55,9 @@ class DataTable extends React.PureComponent<Props, object> {
     ),
   }];
 
+  // 静态方法，类的不使用this的函数，一般声明为静态方法；
+  showTotal = (total: number) => (this.props.intl.formatMessage(commonMessages.total, { total }));
+
   handleClickEdit(data: object) {
     this.props.updateEntityModal({
       type: EDIT,
@@ -82,7 +82,7 @@ class DataTable extends React.PureComponent<Props, object> {
     return (
       <TableContainer>
         <Table
-          bordered
+          bordered={true}
           loading={loading}
           columns={this.columns}
           dataSource={tableData}

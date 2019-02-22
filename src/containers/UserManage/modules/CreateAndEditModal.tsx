@@ -14,7 +14,7 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
 
-import { ModalData } from '../../../types';
+import { IModalData } from '../../../types';
 
 import DataAuthSelect from './DataAuthSelect';
 import messages from '../messages';
@@ -28,8 +28,8 @@ function isModify(type: string) {
   return type === EDIT;
 }
 
-interface Props extends FormComponentProps {
-  entityModal: ModalData;
+interface IProps extends FormComponentProps {
+  entityModal: IModalData;
   updateEntityModal: (params: object) => any;
   postCreateEntity: (params: object) => any;
   postEditEntity: (params: object) => any;
@@ -37,7 +37,7 @@ interface Props extends FormComponentProps {
   type: string;
 }
 
-class CreateAndEditModal extends React.PureComponent<Props, object> {
+class CreateAndEditModal extends React.PureComponent<IProps, object> {
   handleOk = (e: any) => {
     e.preventDefault();
     const { type } = this.props.entityModal;
@@ -59,8 +59,6 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
       data: {},
     });
   }
-
-  handleSubmit = () => {}
 
   render() {
     const { entityModal, intl, type } = this.props;
@@ -93,10 +91,7 @@ class CreateAndEditModal extends React.PureComponent<Props, object> {
             ? intl.formatMessage(commonMessages.ok) : intl.formatMessage(commonMessages.nextStep)}
           cancelText={intl.formatMessage(commonMessages.cancel)}
         >
-          <Form
-            className="sofa-modal-form"
-            onSubmit={this.handleSubmit}
-          >
+          <Form className="sofa-modal-form">
             <FormItem
               {...formItemLayout}
               label={intl.formatMessage(messages.account)}

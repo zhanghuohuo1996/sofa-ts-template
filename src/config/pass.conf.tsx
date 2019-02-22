@@ -1,4 +1,4 @@
-interface PassUri {
+interface IPassUri {
   login: string;
   logout: string;
   editpwd: string;
@@ -6,12 +6,12 @@ interface PassUri {
   [key: string]: any;
 };
 
-interface PassConf {
+interface IPassConf {
   enable: boolean;
-  uri: PassUri;
+  uri: IPassUri;
 };
 
-const conf: PassConf = {
+const conf: IPassConf = {
   enable: false,
   uri: {
     login: '/static/pass.html#/login',
