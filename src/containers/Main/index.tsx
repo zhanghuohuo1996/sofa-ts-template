@@ -22,11 +22,11 @@ import { selectLang, selectCurrentUserInfo } from '../../state/selectors';
 import { toggleLang, getLoginUserInfo } from '../../state/actions';
 
 import CoreRoute from './CoreRoute';
-import saga from './saga';
+// import saga from './saga';
 import messages from './messages';
 
 const history = createHistory();
-const withSaga = injectSaga({ key: 'main', saga });
+// const withSaga = injectSaga({ key: 'main', saga });
 
 const {
   Header,
@@ -152,7 +152,7 @@ class Main extends React.Component<IProps, IState> {
 }
 
 export default compose(
-  withSaga,
+  // withSaga,
   connect(
     createStructuredSelector({
       lang: selectLang,

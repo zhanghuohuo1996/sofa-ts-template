@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose, Store } from 'redux';
 import { fromJS } from 'immutable';
-import createSagaMiddleware from 'redux-saga';
-import SofaSaga from 'redux-sofa-saga';
+// import createSagaMiddleware from 'redux-saga';
+import SFSagaMiddleWare from 'redux-sofa-saga';
 import { notification } from 'antd';
 
 import createReducer from './reducers';
@@ -12,10 +12,23 @@ type SofaStore = Store & {
   injectedSagas: object,
 };
 
-const sagaMiddleware = createSagaMiddleware();
-
+// const sagaMiddleware = createSagaMiddleware();
+const sagaConfig = {
+  notification: {
+    success: (options: any):void => {
+      notification.success({
+        message: '操作成功',
+      });
+    },
+    error: (options: any):void => {
+      notification.error({
+        message: options.errmsg ? options.errmsg : '操作失败，请稍候再试',
+      });
+    },
+  },
+};
 export default function storeFactory(initialState = {}) {
-  const middlewares = [sagaMiddleware];
+  const middlewares = [SFSagaMiddleWare.middleWare];
   const enhancers = [applyMiddleware(...middlewares)];
 
   // 在开发模式启用redux devtool
@@ -36,7 +49,7 @@ export default function storeFactory(initialState = {}) {
   // SofaSaga.setConfig({ notification });
   // SofaSaga.runSaga(sagaMiddleware);
 
-  store.runSaga = sagaMiddleware.run;
+  store.runSaga = SFSagaMiddleWare.runSaga(sagaConfig);
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
 
