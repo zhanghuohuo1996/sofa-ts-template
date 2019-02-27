@@ -13,6 +13,7 @@ import { injectIntl, InjectedIntl } from 'react-intl';
 
 import { CREATE, EDIT } from 'utils/constants';
 import commonMessages from 'utils/commonMessages';
+import BarCode from 'components/BarCode/index.js';
 
 import { IModalData } from '../../../types';
 
@@ -137,6 +138,7 @@ class CreateAndEditModal extends React.PureComponent<IProps, object> {
             </FormItem>
             <DataAuthSelect />
           </Form>
+          <BarCode barCode={data.id ? data.id.toString(): ''} text={data.id ? data.id.toString(): ''} displayValue={true} height={70} width={1.5} textPosition={'bottom'}/>
         </Modal>
       </div>);
   }

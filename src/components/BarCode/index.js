@@ -1,46 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import JsBarcode from 'jsbarcode';
 
-
-export default class BarCode extends React.Component {
-  constructor(props) {
-    super(props);
-    this.drawBarCode = this.drawBarCode.bind(this);
-  }
-
-  static propTypes = {
-    barCode: PropTypes.string.isRequired,
-    displayValue: PropTypes.bool,
-    background: PropTypes.string,
-    lineColor: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    margin: PropTypes.number,
-    text: PropTypes.string,
-    fontSize: PropTypes.number,
-    textPosition: PropTypes.string,
-    textMargin: PropTypes.number,
-  }
-
-  componentDidMount() {
-    this.drawBarCode();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.barCode !== this.props.barCode) {
-      this.drawBarCode();
-    }
-  }
-
-  drawBarCode = () => {
-    const {
-      barCode, displayValue, background, lineColor, width, height,
-      margin, text, fontSize, textPosition, textMargin,
-    } = this.props;
-
+const BarCode = (props) => {
+  const [barCodeRef, setBarCodeRef] = useState(null);
+  const {
+    barCode, displayValue, background, lineColor, width, height,
+    margin, text, fontSize, textPosition, textMargin,
+  } = props;
+  const drawBarCode = () => {
     JsBarcode(
-      this.barcodeSVG, barCode,
+      barCodeRef, barCode,
       {
         displayValue: displayValue || false, // 是否显示原始值
         background: background || '#fff', // 背景色
@@ -54,11 +24,28 @@ export default class BarCode extends React.Component {
         textMargin: displayValue ? (textMargin || 4) : 0,
       },
     );
-  }
+  };
+  useEffect(() => {
+    // eslint-disable-next-line
+    barCode && drawBarCode();
+  }, [barCode]);
+  return (
+    <svg ref={ref => setBarCodeRef(ref)} />
+  );
+};
 
-  render() {
-    return (
-      <svg ref={(ref) => { this.barcodeSVG = ref; }}></svg>
-    );
-  }
-}
+BarCode.propTypes = {
+  barCode: PropTypes.string,
+  displayValue: PropTypes.bool,
+  background: PropTypes.string,
+  lineColor: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  margin: PropTypes.number,
+  text: PropTypes.string,
+  fontSize: PropTypes.number,
+  textPosition: PropTypes.string,
+  textMargin: PropTypes.number,
+};
+
+export default BarCode;
